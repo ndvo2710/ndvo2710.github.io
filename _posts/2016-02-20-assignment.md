@@ -1,7 +1,31 @@
-#STAT 141 
+---
+layout: post
+title: Testing Report Page
+excerpt: "Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more."
+modified: 2016-02-20
+tags: [R, cleaning data, tutorial]
+comments: true
+image:
+  feature: sample-cleaning.jpg
+  credit: 2bm.co.uk
+  creditlink: http://www.2bm.co.uk/wp-content/uploads/2014/10/2bm-cleaning-banner-image-new.jpg
+---
 
-##Assignment 1
-###PART I
+<section id="table-of-contents" class="toc">
+  <header>
+    <h3>Overview</h3>
+  </header>
+<div id="drawer" markdown="1">
+*  Auto generated table of contents
+{:toc}
+</div>
+</section><!-- /#table-of-contents -->
+
+# STAT 141 
+
+## Assignment 1
+
+### PART I
 
 * Loading data into R
 * Use **ls()** to list files. Data is named as **vposts**
@@ -10,9 +34,10 @@
 > load("~/Dropbox/Fall 2015/STAT 141/Assignment1/vehicles.rda")
 > ls()
 [1] "vposts"
-~~~  
-  
-**<u>Question 1: How many observations are there in the data set?</u>**
+~~~
+
+#### Question 1
+**<u>: How many observations are there in the data set?</u>**
 
 ~~~r
 > dim(vposts)
@@ -21,7 +46,8 @@
 I use  **dim** to check  the <u>*dimension*</u> of the data set.
 ***_Answer:_*** The number of observation is **34677** ( there are 26 variables in **vposts** data frame)
 
-**<u>Question 2: What are the names of the variables? and what is the class of each variable?</u>**  
+#### Question 2
+**<u>: What are the names of the variables? and what is the class of each variable?</u>**  
 ***_Answer:_*** 
 
 * These are the names of variables: **id, title, body, lat, long, posted, updated, drive, odometer, type header, condition cylinders, fuel, size, transmission, byOwner, city, time, description, location, url, price, year, maker, makerMethod.**
@@ -78,7 +104,8 @@ year| integer |
 maker| character |
 makerMethod| numeric |
 
-**<u>Question 3: What is the average price of all the vehicles? the median price? and the deciles? Displays these on a plot of the distribution of vehicle prices.</u>**
+#### Question 3
+**<u> What is the average price of all the vehicles? the median price? and the deciles? Displays these on a plot of the distribution of vehicle prices.</u>**
 
 * The average price of all vehicles is **$49449.9**
 * The median price of all vehicles is **$6700**
@@ -119,7 +146,8 @@ Decile | 0% | 10% | 20% | 30% | 40% | 50% | 60% | 70% | 80% | 90% | 100% |
 > hist(p_removed_outliers,main = "Historgram of Vehicle Price Distribution", xlab = "Price",col ="lightgreen")
 ~~~
 
-**<u>Question 4: What are the different categories of vehicles, i.e. the type variable/column? What is the proportion for each category ?</u>**
+#### Question 4
+**<u> What are the different categories of vehicles, i.e. the type variable/column? What is the proportion for each category ?</u>**
 
 _**Vehicle types:**_ "bus" ,"convertible", "coupe",       "hatchback",   "mini-van",    "offroad",     "other"       ,"pickup"      ,"sedan"      , "SUV"         ,"truck"       ,"van"        , "wagon" 
 
@@ -140,7 +168,8 @@ _**Vehicle types:**_ "bus" ,"convertible", "coupe",       "hatchback",   "mini-v
   2.9704552 
 ~~~
 
-**<u>Question 5: Display the relationship between fuel type and vehicle type. Does this depend on transmission type?</u>**
+#### Question 5
+**<u> Display the relationship between fuel type and vehicle type. Does this depend on transmission type?</u>**
 
 ~~~r
 > fv = with(vposts, table(fuel, type))
@@ -175,7 +204,8 @@ fuel        SUV truck  van wagon
 ~~~
 ![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/Asgn1q5b.png)
 
-**<u>Question 6: How many different cities are represented in the dataset?</u>**
+#### Question 6
+**<u> How many different cities are represented in the dataset?</u>**
 
  There are 7 different cities: boston ,  chicago  ,denver  , lasvegas ,nyc    ,  sac  ,    sfbay 
  
@@ -187,7 +217,7 @@ fuel        SUV truck  van wagon
 [1] 7
 ~~~
 
-**<u>Question 7: Visually display how the number/proportion of "for sale by owner" and "for sale by dealer" varies across city?</u>**
+**<u>#### Question 7: Visually display how the number/proportion of "for sale by owner" and "for sale by dealer" varies across city?</u>**
 
 ~~~r
 > table(vposts$byOwner, vposts$city)
@@ -197,7 +227,7 @@ fuel        SUV truck  van wagon
   TRUE    2467    2395   2487     2474 2488 2483  2467
 ~~~
 
-**<u>Question 8: What is the largest price for a vehicle in this data set? Examine this and fix the value. Now examine the new highest value for price.</u>**
+**<u>#### Question 8: What is the largest price for a vehicle in this data set? Examine this and fix the value. Now examine the new highest value for price.</u>**
 
 ~~~r
 > p = vposts$price
@@ -224,7 +254,7 @@ fuel        SUV truck  van wagon
 [1] 30002500
 ~~~
 
-**<u>Question 9: What are the three most common makes of cars in each city for "sale by owner" and for "sale by dealer"? Are they similar or quite different?</u>**
+**<u>#### Question 9: What are the three most common makes of cars in each city for "sale by owner" and for "sale by dealer"? Are they similar or quite different?</u>**
 
 * By owner
 
@@ -287,7 +317,7 @@ toyota   ford    bmw
    269    245    227
 ~~~
 
-**<u>Question 10: Visually compare the distribution of the age of cars for different cities and for "sale by owner" and "sale by dealer". Provide an interpretation of the plots, i.e., what are the key conclusions and insights?</u>**
+**<u>#### Question 10: Visually compare the distribution of the age of cars for different cities and for "sale by owner" and "sale by dealer". Provide an interpretation of the plots, i.e., what are the key conclusions and insights?</u>**
 
 **_By Owner:_**
 
@@ -312,7 +342,7 @@ main= "Histograms of Distribution of the age of cars for different cities")
 
 ![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%206.png)
 
-**<u>Question 11: Plot the locations of the posts on a map? What do you notice?</u>**
+**<u>#### Question 11: Plot the locations of the posts on a map? What do you notice?</u>**
 
 ~~~r
 library(maps)
@@ -322,7 +352,7 @@ points(vposts$long, vposts$lat, col = "red", pch = ".")
 
 ![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2011.png)
 
-**<u>Question 12: Summarize the distribution of fuel type, drive, transmission, and vehicle type. Find a good way to display this information.</u>**
+**<u>#### Question 12: Summarize the distribution of fuel type, drive, transmission, and vehicle type. Find a good way to display this information.</u>**
 
 Using the scatterplot of drive vs. vehicle type for each combination of fuel and transmission
 
@@ -336,7 +366,7 @@ qplot(drive, type, data = vposts, shape = transmission, color= transmission, fac
 
 
 
-**<u>Question 13: Plot odometer reading and age of car? Is there a relationship? Similarly, plot odometer reading and price? Interpret the result(s). Are odometer reading and age of car related?</u>**
+**<u>#### Question 13: Plot odometer reading and age of car? Is there a relationship? Similarly, plot odometer reading and price? Interpret the result(s). Are odometer reading and age of car related?</u>**
 
 ~~~r
 > vposts$age = 2015-vposts$year
@@ -367,7 +397,7 @@ qplot(drive, type, data = vposts, shape = transmission, color= transmission, fac
 
 ![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2013.png)
 
-**<u>Question 14: Identify the "old" cars. What manufacturers made these? What is the price distribution for these?</u>**
+**<u>#### Question 14: Identify the "old" cars. What manufacturers made these? What is the price distribution for these?</u>**
 
 ~~~r
 > vposts$maker = factor(vposts$maker)
@@ -411,11 +441,11 @@ Distribution for Old Cars", xlab="Price", col ="red")
 ![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2014.png)
 
 
-**<u>Question 15: I have omitted one important variable in this data set. What do you think it is? Can we derive this from the other variables? If so, sketch possible ideas as to how we would compute this variable.</u>**
+**<u>#### Question 15: I have omitted one important variable in this data set. What do you think it is? Can we derive this from the other variables? If so, sketch possible ideas as to how we would compute this variable.</u>**
 
 I find that we need a phone variable in this data set. We can extract the phone number from vposts$body. However, I haven't found the answer yet. I need more time to learn more about grep, sub, str_extract
 
-**<u>Question 16: Display how condition and odometer are related. Also how condition and price are related. And condition and age of the car. Provide a brief interpretation of what you find.</u>**
+**<u>#### Question 16: Display how condition and odometer are related. Also how condition and price are related. And condition and age of the car. Provide a brief interpretation of what you find.</u>**
 
 ~~~r
 > vposts$newcondition = NA
@@ -461,16 +491,16 @@ library(ggplot2)
 
 #####In some questions, I have cleaned the data of some variables, so I used that result to do the next question.
 
-#####Question 1
+######### Question 1
 dim(vposts)
 
-#####Question 2
+######### Question 2
 names(vposts)
 sapply(vposts,class)
 ~~~
 
 ~~~
-#####Question 3
+######### Question 3
 mean(vposts$price, na.rm = TRUE)
 median(vposts$price, na.rm= TRUE)
 quantile(vposts$price, prob = seq(0,1 , length =11), na.rm = TRUE)
@@ -483,14 +513,14 @@ ub <- qt[[4]] +1.5*iqr
 ~~~
 
 ~~~
-#####Question 4
+######### Question 4
 unique(vposts$type)
 prop_type = 100* table(vposts$type) /sum(table(vposts$type))
 prop_type
 ~~~
 
 ~~~
-#####Question 5
+######### Question 5
 fv = with(vposts, table(fuel, type))
 fv
 with(vposts,plot(fuel,type,pch =".", main= "Relationship between Fuel and Vehicle Type", xlab = "Fuel", ylab = "Vehicle Type"))
@@ -499,13 +529,13 @@ pairs(ftt)
 ~~~
 
 ~~~
-#####Question 6 unique(vposts$city)
+######### Question 6 unique(vposts$city)
 length(unique(vposts$city))
 
-#####Question 7
+######### Question 7
 table(vposts$byOwner, vposts$city)
 
-#####Question 8
+######### Question 8
 p = vposts$price
 p[p == max(p,na.rm=TRUE) & !is.na(p)]
 p[p == max(p,na.rm=TRUE) & !is.na(p)] = NA
@@ -516,7 +546,7 @@ p[p == max(p,na.rm=TRUE) & !is.na(p)]
 ~~~
 
 ~~~
-#####Question 9
+######### Question 9
 owner = vposts[vposts$byOwner == TRUE,]
 tapply(owner$maker, owner$city, function(x) sort(table(x),decreasing = TRUE)[1:3])
 
@@ -526,7 +556,7 @@ tapply(dealer$maker, dealer$city, function(x) sort(table(x),decreasing = TRUE)[1
 ~~~
 
 ~~~
-#####Question 10
+######### Question 10
 which(owner$year <1900) #=3435
 owner = owner[-3435,]
 library(lattice)
@@ -540,18 +570,18 @@ main= "Histograms of Distribution of the age of cars for different cities")
 ~~~
 
 ~~~
-#####Question 11
+######### Question 11
 library(maps)
 map('usa')
 points(vposts$long, vposts$lat, col = "red", pch = ".")
 
-#####Question 12
+######### Question 12
 library(ggplot2)
 qplot(drive, type, data = vposts, shape = transmission, color= transmission, facets = fuel~transmission, na.rm= TRUE)
 ~~~
 
 ~~~
-#####Question 13
+######### Question 13
 vposts$age = 2015-vposts$year
 vposts[which(vposts$age < 0 | vposts$age > 100 ),"age"] = NA
 summary(vposts$odometer)
@@ -566,17 +596,17 @@ smoothScatter(vposts$price,vposts$age)
 ~~~
 
 ~~~
-#####Question 14
+######### Question 14
 vposts$maker = factor(vposts$maker)
 levels(vposts$maker)
 summary(vposts[which(vposts$odometer > 200000 | vposts$age > 20),"maker"])
 hist(vposts[which(vposts$odometer > 200000 | vposts$age > 20),"price"])
 
-#####Question 15
+######### Question 15
 ~~~
 
 ~~~
-#####Question 16
+######### Question 16
 vposts$newcondition = NA
 new_index = which(vposts$condition == "excellent" | vposts$condition == "like new" | vposts$condition == "superb original" | vposts$condition == "new" | vposts$condition == "mint" )
 good_index = which(vposts$condition == "nice" | vposts$condition== "nice teuck" | vposts$condition == "fair" | vposts$condition == "good")
