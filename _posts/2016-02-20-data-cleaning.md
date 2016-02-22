@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Testing Report Page
+title: Data Exploration And Cleaning
 excerpt: "Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more."
 modified: 2016-02-20
 tags: [R, cleaning data, tutorial]
@@ -21,9 +21,40 @@ image:
 </div>
 </section><!-- /#table-of-contents -->
 
-# STAT 141 
+Unless the data is small, _the presence of incorrect and inconsitent data is pervasive_. As a result, we should spend a lot of time cleaning data. This time is also, typically underestimated. 
 
-## Assignment 1
+By way of showing how data is messy in real life, I used for sale vehicle data which is harvested from Craiglist. Craiglist car for sale is where the the owners and dealers create a post for a vehicle providing information about model, year of the vehicle, fuel type, how many miles there are on the odometer. Here are the description of the variables in the data:
+
+<sup> 
+**id**  the (unique) identifier for the post
+**title** a short text description for the post
+**body**  the full free-form text for the post
+**lat**, **long** the **longitude** and **latitude** associated with the post, i.e., that of the poster or of the location of the car, or both.
+posted  the date the post was originally posted
+updated the date of the most recent modification to the post
+drive what type of drive the vehicle has, e.g., front-wheel drive.
+odometer  the number of miles on the car's odometer
+type  what type of vehicle is the post about, e.g., car, van, truck.
+header  a shot description for the post, different from the body, and potentially different form the title.
+condition a description of what condition the vehicle is in, e.g., excellent
+cylinders the number of cylinders in the vehicle's engine.
+fuel  the type of fuel the vehicle uses, e.g., gas
+size  a categorical description of the size of the vehicle, e.g., compact, mid-size.
+transmission  the transmission type of the vehicle, e.g., automatic, manual.
+byOwner a logical value with TRUE indicating the vehicle is being sold by its owner, not a dealer
+city  the city on whose bulletin board the post was submitted
+time  the date and time when the post was posted
+description a short description for the post
+location  the user-supplied city/town for the post
+url part of the URL for the post
+price the price being sought for the vehicle
+year  the year the car was manufactured
+maker the name of the car manufacturer, e.g., ford, chevrolet. These are extracted from the header or title of the post.
+makerMethod a number that identifies which method was used to identify the manufacturer
+</sup>
+
+
+
 
 ### PART I
 
