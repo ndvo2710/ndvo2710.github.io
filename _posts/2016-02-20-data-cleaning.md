@@ -21,119 +21,130 @@ image:
 </div>
 </section><!-- /#table-of-contents -->
 
+
+# INTRODUCTION
+
 Unless the data is small, _the presence of incorrect and inconsitent data is pervasive_. As a result, we should spend a lot of time cleaning data. This time is also, typically underestimated. 
 
 By way of showing how data is messy in real life, I used for sale vehicle data which is harvested from Craiglist. Craiglist car for sale is where the the owners and dealers create a post for a vehicle providing information about model, year of the vehicle, fuel type, how many miles there are on the odometer. Here are the description of the variables in the data:
 
-<sup> 
-**id**  the (unique) identifier for the post
-**title** a short text description for the post
-**body**  the full free-form text for the post
-**lat**, **long** the **longitude** and **latitude** associated with the post, i.e., that of the poster or of the location of the car, or both.
-posted  the date the post was originally posted
-updated the date of the most recent modification to the post
-drive what type of drive the vehicle has, e.g., front-wheel drive.
-odometer  the number of miles on the car's odometer
-type  what type of vehicle is the post about, e.g., car, van, truck.
-header  a shot description for the post, different from the body, and potentially different form the title.
-condition a description of what condition the vehicle is in, e.g., excellent
-cylinders the number of cylinders in the vehicle's engine.
-fuel  the type of fuel the vehicle uses, e.g., gas
-size  a categorical description of the size of the vehicle, e.g., compact, mid-size.
-transmission  the transmission type of the vehicle, e.g., automatic, manual.
-byOwner a logical value with TRUE indicating the vehicle is being sold by its owner, not a dealer
-city  the city on whose bulletin board the post was submitted
-time  the date and time when the post was posted
-description a short description for the post
-location  the user-supplied city/town for the post
-url part of the URL for the post
-price the price being sought for the vehicle
-year  the year the car was manufactured
-maker the name of the car manufacturer, e.g., ford, chevrolet. These are extracted from the header or title of the post.
-makerMethod a number that identifies which method was used to identify the manufacturer
-</sup>
+<br>
+
+<sup> **id**  the (unique) identifier for the post </sup>
+
+<sup> **title** a short text description for the post </sup>
+
+<sup> **body**  the full free-form text for the post </sup>
+
+<sup> **lat**, **long** the **longitude** and **latitude** associated with the post, i.e., that of the poster or of the location of the car, or both. </sup>
+
+<sup> **posted**  the date the post was originally posted </sup>
+
+<sup> **updated** the date of the most recent modification to the post </sup>
+
+<sup> **drive** what type of drive the vehicle has, e.g., front-wheel drive. </sup>
+
+<sup> **odometer**  the number of miles on the car's odometer </sup>
+
+<sup> **type**  what type of vehicle is the post about, e.g., car, van, truck. </sup>
+
+<sup> **header**  a shot description for the post, different from the body, and potentially different form the title. </sup>
+
+<sup> **condition** a description of what condition the vehicle is in, e.g., excellent </sup>
+
+<sup> **cylinders** the number of cylinders in the vehicle's engine. </sup>
+
+<sup> **fuel**  the type of fuel the vehicle uses, e.g., gas </sup>
+
+<sup> **size**  a categorical description of the size of the vehicle, e.g., compact, mid-size. </sup>
+
+<sup> **transmission**  the transmission type of the vehicle, e.g., automatic, manual. </sup>
+
+<sup> **byOwner** a logical value with TRUE indicating the vehicle is being sold by its owner, not a dealer </sup>
+
+<sup> **city**  the city on whose bulletin board the post was submitted </sup>
+
+<sup> **time**  the date and time when the post was posted </sup>
+
+<sup> **description** a short description for the post </sup>
+
+<sup> **location**  the user-supplied city/town for the post </sup>
+
+<sup> **url** part of the URL for the post </sup>
+
+<sup> **price** the price being sought for the vehicle </sup>
+
+<sup> **year**  the year the car was manufactured </sup>
+
+<sup> **maker** the name of the car manufacturer, e.g., ford, chevrolet. These are extracted from the header or title of the post. </sup>
+
+<sup> **makerMethod** a number that identifies which method was used to identify the manufacturer </sup>
 
 
+# SET UP
 
-
-### PART I
 
 * Loading data into R
-* Use **ls()** to list files. Data is named as **vposts**
+* Use **ls()** to list files. Data is named as `vehicle`
 
 ~~~r
-> load("~/Dropbox/Fall 2015/STAT 141/Assignment1/vehicles.rda")
-> ls()
-[1] "vposts"
+load("~/Dropbox/Fall 2015/STAT 141/Assignment1/vehicles.rda")
+ls()
+[1] "vehicle"
 ~~~
 
-#### Question 1
-**<u>: How many observations are there in the data set?</u>**
+* **Libraries** are used:
 
 ~~~r
-> dim(vposts)
+library(lattice)library(maps)
+library(ggplot2)library(gmodels)library(RColorBrewer)
+~~~
+
+
+# DATA EXPLORATION AND CLEANING
+
+First, we need to examine what is the **class** of `vehicle`
+
+~~~r
+> class(vehicle)
+[1] "data.frame"
+~~~
+
+Since `vehicle` is a *data frame*, we need to know its dimension.
+
+~~~r
+> dim(vehicle)
 [1] 34677    26
 ~~~
-I use  **dim** to check  the <u>*dimension*</u> of the data set.
-***_Answer:_*** The number of observation is **34677** ( there are 26 variables in **vposts** data frame)
 
-#### Question 2
-**<u>: What are the names of the variables? and what is the class of each variable?</u>**  
-***_Answer:_*** 
-
-* These are the names of variables: **id, title, body, lat, long, posted, updated, drive, odometer, type header, condition cylinders, fuel, size, transmission, byOwner, city, time, description, location, url, price, year, maker, makerMethod.**
+`vehicle` dataset contains *26 variables* and **34677 observations**.
+Even though we have already known the decription of each variable above, we should carefully confirm the names of these variables and identify its class.
 
 ~~~r
-> names(vposts)
- [1] "id"           "title"        "body"         "lat"          "long"        
- [6] "posted"       "updated"      "drive"        "odometer"     "type"        
-[11] "header"       "condition"    "cylinders"    "fuel"         "size"        
-[16] "transmission" "byOwner"      "city"         "time"         "description" 
-[21] "location"     "url"          "price"        "year"         "maker"       
-[26] "makerMethod" 
-~~~
- 
-* Consider each column as a list and use **sapply** to find the **class** of each variable
+> names(vehicle)
+ [1] "id"           "title"        "body"         "lat"          "long"
+ [6] "posted"       "updated"      "drive"        "odometer"     "type"
+[11] "header"       "condition"    "cylinders"    "fuel"         "size"
+[16] "transmission" "byOwner"      "city"         "time"         "description"
+[21] "location"     "url"          "price"        "year"         "maker"
+[26] "makerMethod"
 
-~~~r
-> sapply(vposts,class)
-$id
-[1] "character"
-$title
-[1] "character"
-$body
-[1] "character"
-...
+> unlist( sapply(X = vehicle, FUN = class) )
+          id        title         body          lat         long      posted1
+ "character"  "character"  "character"    "numeric"    "numeric"    "POSIXct"
+     posted2     updated1     updated2        drive     odometer         type
+    "POSIXt"    "POSIXct"     "POSIXt"     "factor"    "integer"     "factor"
+      header    condition    cylinders         fuel         size transmission
+ "character"     "factor"    "integer"     "factor"     "factor"     "factor"
+     byOwner         city        time1        time2  description     location
+   "logical"     "factor"    "POSIXct"     "POSIXt"  "character"  "character"
+         url        price         year        maker  makerMethod
+ "character"    "integer"    "integer"  "character"    "numeric"
 ~~~
 
-Variables | Class |
-----------|-------|
-id | character |
-title| character |
-body| character |
-lat| numeric |
-long| numeric |
-posted| POSIXct POSIXt  |
-updated| POSIXct POSIXt  |
-drive| factor |
-odometer| integer |
-type| factor |
-header| character |
-condition| factor |
-cylinders| integer |
-fuel| factor |
-size| factor |
-transmission| factor |
-byOwner| logical |
-city| factor |
-time| POSIXct POSIXt  |
-description| character |
-location| character |
-url| character |
-price| integer |
-year| integer |
-maker| character |
-makerMethod| numeric |
+
+
+
 
 #### Question 3
 **<u> What is the average price of all the vehicles? the median price? and the deciles? Displays these on a plot of the distribution of vehicle prices.</u>**
