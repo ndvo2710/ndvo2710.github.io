@@ -4,11 +4,11 @@ title: Data Exploration And Cleaning
 excerpt: "Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more."
 modified: 2016-02-20
 tags: [R, cleaning data, tutorial]
-comments: true
 image:
   feature: sample-cleaning.jpg
   credit: 2bm.co.uk
   creditlink: http://www.2bm.co.uk/wp-content/uploads/2014/10/2bm-cleaning-banner-image-new.jpg
+comments: true
 ---
 
 <section id="table-of-contents" class="toc">
@@ -166,7 +166,8 @@ In this dataset, **price** is the most important variable to me. To get an in-de
 [50] 600030000
 ~~~
 
-=> Obviously, the `price of a car > 9999999` is quite <u><b>unlikely</b></u>. We should look further to the `price of car from $100000 onward`. 
+=> Obviously, the `price of a car > 9999999` is quite <u><b>unlikely</b></u>. We should look further to the `price of car from $100000 onward`.
+
 ~~~r
 > idx = which( vehicle$price >=  100000 & !is.na(vehicle$price))
 > length( idx )
@@ -221,6 +222,7 @@ posted238613                                2015 Porsche GT3    147000
 posted245512                               1961 Maserati 151    100000
 ~~~
 
+ There are some very expensive cars such as Mercedes-Benz G63 AMG, Bentley Mulsanne, Maserati 3500 GT ... which are probably more than $100,000 :relieved: . However, there are also cars in there such as “2015 Hyundai Sonata Call/SMS 650.445.0890 (12) - $138500” which probably has an extra zero at the end and even a “2007 CHEVROLET MONTE CARLO LT - Easy Financing! Any Credit Auto Loans! BHPH! - $569500” which probably has two extra zeros at the end. We will ignore them for now, but acknowledge that these are also problems and that they should be cleaned up.
 
 
 
