@@ -1,0 +1,39 @@
+---
+title: "Exploring"
+layout: default
+---
+
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(fig.path='{{ site.url }}/images/exploring-')
+```
+* Loading data into R
+* Use **ls()** to list files. Data is named as `vehicle`
+
+```{r}
+load("~/Dropbox/Fall 2015/STAT 141/Assignment1/vehicles.rda")
+ls()
+vehicle = vposts
+```
+
+```{r}
+library(lattice)
+library(maps)
+library(ggplot2)
+library(RColorBrewer)
+library(DT)
+```
+
+```{r}
+dim(vehicle)
+names(vehicle)
+unlist( sapply(X = vehicle, FUN = class) )
+```
+
+
+In this dataset, **price** is the most important variable to me. To get an in-depth look at the **price variable**, we should see the <u>distribution</u> of vehicle price. 
+
+```{r, echo= FALSE}
+datatable(iris)
+```
+

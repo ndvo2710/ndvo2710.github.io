@@ -96,8 +96,11 @@ ls()
 * **Libraries** are used:
 
 ~~~r
-library(lattice)library(maps)
-library(ggplot2)library(gmodels)library(RColorBrewer)
+library(lattice)
+library(maps)
+library(ggplot2)
+library(gmodels)
+library(RColorBrewer)
 ~~~
 
 
@@ -142,11 +145,86 @@ Even though we have already known the decription of each variable above, we shou
  "character"    "integer"    "integer"  "character"    "numeric"
 ~~~
 
+In this dataset, **price** is the most important variable to me. To get an in-depth look at the **price variable**, we should see the <u>distribution</u> of vehicle price. 
+
+<figure>
+  <a href="/images/data-cleaning-image/density-plot1.png" title="Distribution of Vehicle Prices"><img src="/images/data-cleaning-image/density-plot1.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Distribution Plot of Vehicle price</u></b></center></figcaption>
+</figure>
+
+=> <b>densityplot</b> indicates that there are a few extreme outliers in the right tail. Let's check them out.
+
+~~~r
+> tail( sort(vehicle$price), 50)
+ [1]     95593     96590     97000     97500     97911     98000     99560
+ [8]     99999    100000    100000    100000    100000    104800    105000
+[15]    105500    107000    112000    116100    116491    120000    122950
+[22]    123981    125000    129950    129990    138500    139000    139950
+[29]    143000    143000    143950    147000    149890    149995    150000
+[36]    152900    159000    169000    177588    202455    240000    286763
+[43]    359000    400000    559500    569500   9999999  30002500 600030000
+[50] 600030000
+~~~
+
+=> Obviously, the `price of a car > 9999999` is quite <u><b>unlikely</b></u>. We should look further to the `price of car from $100000 onward`. 
+~~~r
+> idx = which( vehicle$price >=  100000 & !is.na(vehicle$price))
+> length( idx )
+[1] 42
+~~~
+There are <u>42 cars</u> <b> > $100,000</b> . Let's look at the actual data of these cars: 
+
+~~~r
+> vehicle[ idx, c("header", "price") ]
+                                                      header     price
+posted698                                        2008 BMW X5    177588
+posted1460                          2010 CHEVROLET SILVERADO    359000
+posted12461                                 2000 Mack RD688S    100000
+posted22491                                 1969 Pontiac GTO 600030000
+posted22621                                        2013 Ford    150000
+posted23881                                 1969 Pontiac GTO 600030000
+posted24081                           2003 lincoln navigator    100000
+posted21402                            2009 CHEVROLET IMPALA    559500
+posted21422                       2007 CHEVROLET MONTE CARLO    569500
+posted6903                            2002 Caddy Seville sls  30002500
+posted16934                                   2013 Isuzu NRR    129990
+posted7225                           1967 chevrolet corvette    105500
+posted13245                                 2010 ford fusion    105000
+posted16005                                2001 Honda Accord   9999999
+posted9976                               2004 Toyota Corolla    286763
+posted11066                        2009 Lamborghini Gallardo    129950
+posted18506                          2009 Mercedes-Benz SL65    139950
+posted18546                           2013 Mercedes-Benz G63    122950
+posted214110                           2011 Bentley Mulsanne    143950
+posted6747                                    2004 Lexus 470    169000
+posted20867                          2015 mercedes-benz s550    107000
+posted5038   2012 Mercedes-Benz SLS AMG 2dr Roadster SLS AMG    149890
+posted23788                                     2006 FORD GT    400000
+posted12630                          2014 ferrari 458 italia    240000
+posted37310                      2014 Audi RS 7 4.0T quattro    116491
+posted163710                     2015 Mercedes-Benz  S-Class    143000
+posted212510                               2014 Porsche  911    104800
+posted231114                               2015 Porsche  911    152900
+posted181511                                1965 porsche 911    100000
+posted194311                              2005 TOYOTA AVALON    112000
+posted220311                                2011 toyota rav4    159000
+posted106214                   2014 Land Rover Range 5.0L V8    123981
+posted121313                                2016 porsche 911    202455
+posted129214                2007 Lamborghini Gallardo Spyder    149995
+posted191712                             2015 Hyundai Sonata    138500
+posted222912                          2015 Porsche  Panamera    116100
+posted231215                     2015 Mercedes-Benz  S-Class    143000
+posted95215                1988 porsche 911 Carrera Targa TL    120000
+posted112215                                1976 Porsche 930    139000
+posted212613                                     1941 willys    125000
+posted238613                                2015 Porsche GT3    147000
+posted245512                               1961 Maserati 151    100000
+~~~
 
 
 
 
-#### Question 3
+Question 3
 **<u> What is the average price of all the vehicles? the median price? and the deciles? Displays these on a plot of the distribution of vehicle prices.</u>**
 
 * The average price of all vehicles is **$49449.9**
