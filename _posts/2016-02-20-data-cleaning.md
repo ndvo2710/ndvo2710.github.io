@@ -222,7 +222,11 @@ posted238613                                2015 Porsche GT3    147000
 posted245512                               1961 Maserati 151    100000
 ~~~
 
- There are some very expensive cars such as Mercedes-Benz G63 AMG, Bentley Mulsanne, Maserati 3500 GT ... which are probably more than $100,000 :relieved: . However, there are also cars in there such as “2015 Hyundai Sonata Call/SMS 650.445.0890 (12) - $138500” which probably has an extra zero at the end and even a “2007 CHEVROLET MONTE CARLO LT - Easy Financing! Any Credit Auto Loans! BHPH! - $569500” which probably has two extra zeros at the end. We will ignore them for now, but acknowledge that these are also problems and that they should be cleaned up.
+There are some very expensive cars such as Mercedes-Benz G63 AMG, Bentley Mulsanne, Maserati 3500 GT ... which are probably more than $100,000. However, there are some abnormal cars such as :
+
+* <u><b>“2015 Hyundai Sonata Call/SMS 650.445.0890 (12) - $138500”</b></u> => has an extra zero at the end.
+
+* <u><b>“2007 CHEVROLET MONTE CARLO LT - Easy Financing! Any Credit Auto Loans! BHPH! - $569500”</b></u> => has two extra zeros at the end.
 
 
 
