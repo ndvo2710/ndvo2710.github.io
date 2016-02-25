@@ -147,6 +147,10 @@ Even though we have already known the decription of each variable above, we shou
 
 In this dataset, **price** is the most important variable to me. To get an in-depth look at the **price variable**, we should see the <u>distribution</u> of vehicle price. 
 
+~~~r
+densityplot(vehicle$price, main = "Price", xlab = "Price")
+~~~
+
 <figure>
   <a href="/images/data-cleaning-image/density-plot1.png" title="Distribution of Vehicle Prices"><img src="/images/data-cleaning-image/density-plot1.png"></a>
   <figcaption><center><b><i>Figure.</i> <u>Distribution Plot of Vehicle price</u></b></center></figcaption>
@@ -166,7 +170,53 @@ In this dataset, **price** is the most important variable to me. To get an in-de
 [50] 600030000
 ~~~
 
-=> Obviously, the `price of a car > 9999999` is quite <u><b>unlikely</b></u>. We should look further to the `price of car from $100000 onward`.
+=> Obviously, the `price of a car > 9999999` is quite <u><b>unlikely</b></u>. Let's take a look at them.
+
+~~~r
+> idx = which( vehicle$price >=  9999999 & !is.na(vehicle$price) )
+> vehicle[ idx, c("header", "price", "maker", "year") ]
+                            header     price    maker year
+posted22491       1969 Pontiac GTO 600030000  pontiac 1969
+posted23881       1969 Pontiac GTO 600030000  pontiac 1969
+posted6903  2002 Caddy Seville sls  30002500 cadillac 2002
+posted16005      2001 Honda Accord   9999999    honda 2001
+~~~
+
+It is realized that those are <b>pretty old cars</b> => Their high prices are probably __not legitimate__. Let's check and fix them:
+  
+  * With <b>Pontiac GTO</b> :
+    
+    ~~~r
+    > idx = ( vehicle$maker == "pontiac" & vehicle$year %in% c(1968, 1969) &
++ vehicle$price < 9999999 & vehicle$price > 1 &
++ grepl(pattern = "GTO", x = vehicle$header, ignore.case = TRUE) &
++ !is.na(vehicle$maker) & !is.na(vehicle$price) & !is.na(vehicle$header) )
+> dat = vehicle[ idx, c("header", "price", "maker", "year") ]
+> dat[ order(dat$price), ]
+                       header price   maker year
+posted4991   1968 pontiac gto 15995 pontiac 1968
+posted5371   1968 pontiac gto 15995 pontiac 1968
+posted231214 1968 Pontiac GTO 24500 pontiac 1968
+posted16497  1969 Pontiac GTO 25000 pontiac 1969
+posted201111 1969 Pontiac GTO 25000 pontiac 1969
+posted7355   1968 pontiac gto 30000 pontiac 1968
+posted16701  1968 Pontiac gto 38500 pontiac 1968
+posted40911          1968 GTO 38500 pontiac 1968
+> round( mean(vehicle$price[idx]), digits = -3)
+27000
+    ~~~
+
+    I looked at the price of all <b>Pontiac GTO of the same year</b>. These prices <i>varies from $15,995 to $38,500</i>. => <b><u>Fix: Change the price to the avarage price</u></b> of all Pontiac GTO of the same year.
+
+    ~~~r
+    > vehicle$price[vehicle$price == 600030000 & !is.na(vehicle$price)] = 27000
+    ~~~
+
+  * <u><b>Comment: <i>We can do the same with`2002 Seville sls` or `2001 Honda Accord`. However they are just a few entries above `9999999` => We will spent tons of time doing this.</i></b></u>. <b><u>Is there any other solution for this?</u></b>
+
+=> I will create a R function that could help us solve this problem automatically. 
+
+Before doing that, Let's look at `price of car from $100000 onward`. 
 
 ~~~r
 > idx = which( vehicle$price >=  100000 & !is.na(vehicle$price))
@@ -220,6 +270,8 @@ posted112215                                1976 Porsche 930    139000
 posted212613                                     1941 willys    125000
 posted238613                                2015 Porsche GT3    147000
 posted245512                               1961 Maserati 151    100000
+
+> shortlist = vehicle[ idx, c("header", "price", "maker", "year") ]
 ~~~
 
 There are some very expensive cars such as Mercedes-Benz G63 AMG, Bentley Mulsanne, Maserati 3500 GT ... which are probably more than $100,000. However, there are some abnormal cars such as :
@@ -228,528 +280,746 @@ There are some very expensive cars such as Mercedes-Benz G63 AMG, Bentley Mulsan
 
 * <u><b>“2007 CHEVROLET MONTE CARLO LT - Easy Financing! Any Credit Auto Loans! BHPH! - $569500”</b></u> => has two extra zeros at the end.
 
-
-
-Question 3
-**<u> What is the average price of all the vehicles? the median price? and the deciles? Displays these on a plot of the distribution of vehicle prices.</u>**
-
-* The average price of all vehicles is **$49449.9**
-* The median price of all vehicles is **$6700**
-* The deciles are:
-
-
-Decile | 0% | 10% | 20% | 30% | 40% | 50% | 60% | 70% | 80% | 90% | 100% | 
--------|----|-----|-----|-----|-----|-----|-----|-----|---|-----|-----|
-**Price** | 1 | 1200 | 2499 | 3500 | 4995 | 6700 | 8900 | 11888 | 15490 | 21997 | 600030000 |
+## Clean abnormal price of vehicle by sapply + function()
 
 ~~~r
-> mean(vposts$price, na.rm = TRUE)
-[1] 49449.9
-> median(vposts$price, na.rm= TRUE)
-[1] 6700
-> quantile(vposts$price, prob = seq(0,1 , length =11), na.rm = TRUE)
-       0%       10%       20%       30%       40%       50%       60%       70% 
-        1      1200      2499      3500      4995      6700      8900     11888 
-      80%       90%      100% 
-    15490     21997 600030000 
+filter_high_price = function(maker,year,header,price){
+    idx = (vehicle$maker == maker & vehicle$year %in% c(year, year+1) &
+          vehicle$price < 100000 & vehicle$price > 1 &
+          grepl(pattern = gsub(maker,"",gsub("\\d+\\s","",header), ignore.case=TRUE),x = vehicle$header, ignore.case = TRUE) &
+          !is.na(vehicle$maker) & !is.na(vehicle$price) & !is.na(vehicle$header))
+  if(length(vehicle$price[idx])!= 0){
+    newPrice = round( mean(vehicle$price[idx]), digits = -3)
+    if(price > 1.5*newPrice) vehicle$price[vehicle$price == price & !is.na(vehicle$price)] <<- newPrice #return to global environment
+  }
+}
+
+sapply(1:length(shortlist$maker), function(i) filter_high_price(shortlist$maker[i],shortlist$year[i],shortlist$header[i], shortlist$price[i]))
+[[1]]
+[1] 19000
+
+[[2]]
+[1] 26000
+....
 ~~~
 
-* Use histogram to plot the distribution of vehicle prices:
-    * Remove outliers of vposts$price data
-    * Draw a histogram of the new data.
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/Stat141_Assignment1_question3.png)
+Let's check whether the shortlist get shortened
 
 ~~~r
-> qt <- quantile(p, na.rm = TRUE)
-> qt
-       0%       25%       50%       75%      100% 
-        1      2995      6700     13500 600030000 
-> iqr <- qt[[4]] - qt[[2]]
-> lb <- qt[[2]] -1.5*iqr
-> ub <- qt[[4]] +1.5*iqr
-> p_removed_outliers = p[p>lb & p<ub]
-> hist(p_removed_outliers,main = "Historgram of Vehicle Price Distribution", xlab = "Price",col ="lightgreen")
+> idx = which( vehicle$price >=  100000 & !is.na(vehicle$price) )
+> vehicle[ idx, c("header", "price") ]
+                                                      header  price
+posted16934                                   2013 Isuzu NRR 129990
+posted11066                        2009 Lamborghini Gallardo 129950
+posted18506                          2009 Mercedes-Benz SL65 139950
+posted18546                           2013 Mercedes-Benz G63 122950
+posted214110                           2011 Bentley Mulsanne 143950
+posted20867                          2015 mercedes-benz s550 107000
+posted5038   2012 Mercedes-Benz SLS AMG 2dr Roadster SLS AMG 149890
+posted12630                          2014 ferrari 458 italia 240000
+posted37310                      2014 Audi RS 7 4.0T quattro 116491
+posted163710                     2015 Mercedes-Benz  S-Class 143000
+posted212510                               2014 Porsche  911 104800
+posted231114                               2015 Porsche  911 152900
+posted106214                   2014 Land Rover Range 5.0L V8 123981
+posted129214                2007 Lamborghini Gallardo Spyder 149995
+posted222912                          2015 Porsche  Panamera 116100
+posted231215                     2015 Mercedes-Benz  S-Class 143000
+posted95215                1988 porsche 911 Carrera Targa TL 120000
+posted112215                                1976 Porsche 930 139000
+posted238613                                2015 Porsche GT3 147000
 ~~~
 
-#### Question 4
-**<u> What are the different categories of vehicles, i.e. the type variable/column? What is the proportion for each category ?</u>**
+Yup! 
 
-_**Vehicle types:**_ "bus" ,"convertible", "coupe",       "hatchback",   "mini-van",    "offroad",     "other"       ,"pickup"      ,"sedan"      , "SUV"         ,"truck"       ,"van"        , "wagon" 
+Let's look at the density plot again. 
 
 ~~~r
-> unique(vposts$type)
- [1] coupe       SUV         sedan       hatchback   wagon       van        
- [7] <NA>        convertible pickup      truck       mini-van    other      
-[13] bus         offroad 
-
-> prop_type = 100* table(vposts$type) /sum(table(vposts$type))
-> prop_type
-
-        bus convertible       coupe   hatchback    mini-van     offroad 
-  0.1171147   3.7583178   8.6558424   4.3598616   2.4114985   0.3513442 
-      other      pickup       sedan         SUV       truck         van 
-  3.5453820   4.8389673  37.4767101  22.4168219   6.3987224   2.6989619 
-      wagon 
-  2.9704552 
+> densityplot(vehicle$price, main = "Price", xlab = "Price")
 ~~~
 
-#### Question 5
-**<u> Display the relationship between fuel type and vehicle type. Does this depend on transmission type?</u>**
+<figure>
+  <a href="/images/data-cleaning-image/density-plot2.png" title="Distribution of Vehicle Prices"><img src="/images/data-cleaning-image/density-plot1.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Distribution Plot of Vehicle price</u></b></center></figcaption>
+</figure>
+
+Much better! But we also note several other problems like lots of missing prices in general. These could be corrected one-by- one perhaps.
+There are also lots of cars for sale at the price of $1. This is a common advertising tactic to post for the minimum price since most people sort prices lowest-to-highest and thus these ads get seen at the top more often. Most of these are misleading ads by dealers, some are for car parts, some are offers for car financing. The same holds for almost all ads less than $500. There is just too much data to clean up manually here so we will exclude them. SURELY we are throwing away some good data here and biasing our results.
 
 ~~~r
-> fv = with(vposts, table(fuel, type))
-> fv
-          type
-fuel        bus convertible coupe hatchback mini-van offroad other pickup sedan
-  diesel     10           0     3         7        0       1    24    109    52
-  electric    0           0     2        20        0       0     0      0     9
-  gas        12         657  1518       625      411      65   307    774  6166
-  hybrid      0           0     1        93        1       0     2      0    78
-  other       0           8    33        22        3       0   333     22   145
-          type
-fuel        SUV truck  van wagon
-  diesel     38   325   54     9
-  electric    0     1    0     0
-  gas      3495   710  409   481
-  hybrid     28     0    1     3
-  other     171    23   22    20
+> sum( is.na(vehicle$price) )
+[1] 3328
+> sum( vehicle$price == 1 & !is.na(vehicle$price) )
+[1] 612
 ~~~
 
-~~~r
-> with(vposts,plot(fuel,type,pch =".", main= "Relationship between Fuel and Vehicle Type",
-+  xlab = "Fuel", ylab = "Vehicle Type"))
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/Stat141%20Assignment1_question5.png)
+=======================================================================
 
 
-~~~r
-> ftt <- with(vposts,data.frame(fuel,type,transmission))
-> pairs(ftt)
-~~~
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/Asgn1q5b.png)
+vehicle[ vehicle$price >= 9999999 & !is.na(vehicle$price), c("header", "body")]
 
-#### Question 6
-**<u> How many different cities are represented in the dataset?</u>**
 
- There are 7 different cities: boston ,  chicago  ,denver  , lasvegas ,nyc    ,  sac  ,    sfbay 
+ ## posted22491 \n        We have 1968 & 1969 Pontiac GTO's.\nCurrently we are working
+ on a 1968 end a 1969 Gto project is almost complete.\nOur Intention is the custom to
+ specification by owner.\nCost will be between $6000 & $30,000. This will be depending
+ on the car in the condition and the Owner financial capabilities. \nSerious inquires
+ only inquiries only.. please call Tony at \n show contact info\n\n
+ ## posted23881 \n        We have 1968 & 1969 Pontiac GTO's.\nCurrently we are working
+ on a 1968 end a 1969 Gto project is almost complete.\nOur Intention is the custom to
+ specification by owner.\nCost will be between $6000 & $30,000. This will be depending
+ on the car in the condition and the Owner financial capabilities. \nSerious inquires
+ only inquiries only.. please call Tony at \n show contact info\n\n
+ ## posted6903
+ \n        clean, fully loaded, nice shine, good running engine and trans, willing to
+ trade for old school or truck?????????????????? Mounted on 22 inch rims new tires no
+ bends no cracks\n
+ ## posted16005
+ \n        Selling my car for some lunch money. $20 OBO. Comes with complimentary Oboe
+ .\n
+The two records with price of 600030000 are 1968 and 1969 Pontiac GTO - $600030000, which can see from reading the body of the post that these are offers to customize GTO’s for somewhere between $6,000 and $30,000 and these values seem to be pasted together. We can revisit this in question #8, but for now, let’s exclude these.
+Best guess for the Seville SLS with price 30002500 looks like a typo by the person who posted the ad. Perhaps they were originally thinking that they would sell it for $3,000, but then changed their mind and lowered the price to $2,500 but did not properly clear the field for price before they editing the posting price.
+          header
+1969 Pontiac GTO
+1969 Pontiac GTO
+ We can revisit this in question #8, but for now, let’s exclude this.
+The 2001 Honda Accord with price 9999999 looks like a deliberate misleading price by the person who posted the ad given that they failed to fill in several other fields.
+As a side note, numbers like 99, or 999 or 99999999, etc. are often default entries for missing values, much like NA, #N/A, , Null, NULL, etc. Depending on the data, even numbers like -1 could be defined as missing data. We can revisit this in question #8, but for now, let’s exclude this.
+For Question #3 here, all cars with a price greater than $240,000 seem to have data errors so we will exclude all of them here.
+We also note several other problems like lots of missing prices in general. These could be corrected one-by- one perhaps.
+There are also lots of cars for sale at the price of $1. This is a common advertising tactic to post for the minimum price since most people sort prices lowest-to-highest and thus these ads get seen at the top more often. Most of these are misleading ads by dealers, some are for car parts, some are offers for car financing. The same holds for almost all ads less than $500. There is just too much data to clean up manually here so we will exclude them. SURELY we are throwing away some good data here and biasing our results.
+ # How many prices are NA?
+ sum( is.na(vehicle$price) )
+## [1] 3328
+ # How many cars for sale at $1?
+ sum( vehicle$price == 1 & !is.na(vehicle$price) )
+## [1] 612
+ # Let's take a look 10% randomly selected $1 cars
+ idx = which( vehicle$price == 1 & !is.na(vehicle$price) )
+ idx = sample(x = idx, size = 60, replace = FALSE)
+ # Omitted here for brevity
+ # vehicle[ idx, "body"]
+ # Only include prices between $500 and $240,000
+ idx = (vehicle$price >= 500 & vehicle$price <= 240000 & !is.na(vehicle$price))
+ densityplot(vehicle$price[ idx ], xlab = "Price", main = "Price")
+     
+   # 94% of the data is between about $500 and $50,000
+quantile(x = vehicle$price, probs = c(0.05,0.99), na.rm = TRUE)
+##    5%   99%
+##   499 47000
+# Final plot
+avg = mean( vehicle$price[ idx ] )
+med = median( vehicle$price[ idx ] )
+dec = quantile(x = vehicle$price[ idx ], probs = seq(from = 0.1, to = 0.9, by = 0.1) )
+idx = (vehicle$price >= 500 & vehicle$price <= 50000 & !is.na(vehicle$price))
+plot(density(vehicle$price[ idx ]), xlab = "Price", main = "Price", lwd = 2)
+abline(h = 0)
+points(x = c(avg, med), y = c(0,0), col = c("forestgreen", "darkorange"), pch = 18, c
+ex = 3.0)
+points(x = dec, y = rep(x = 0, times = length(dec)), col = "blue2", pch = 18, cex = 1
+.5)
+legend("topright", legend = c("Mean", "Median", "Deciles"), col = c("forestgreen", "d
+arkorange", "blue2"),
+pch = 18)
+  
+  Question #4 What are the different categories of vehicles,
+i.e. the type variable/column? What is the proportion for each category ?
+ # Different types.  Note the NA's
+names( table(vehicle$type, useNA = "ifany") )
+ ##  [1] "bus"
+##  [6] "offroad"
+## [11] "truck"
+"convertible" "coupe"
+"other"       "pickup"
+"van"         "wagon"
+"hatchback"   "mini-van"
+"sedan"       "SUV"
+NA
+ # Proportions table, sorted
+sort( round( x = prop.table( x = table(vehicle$type, useNA = "ifany") ), digits = 4) )
+ ##
+##         bus
+##      0.0006
+## convertible
+  offroad
+   0.0019
+hatchback
+   0.0236
+     <NA>
+   0.4583
+mini-van
+  0.0131
+  pickup
+  0.0262
+   van
+0.0146
+ truck
+0.0347
+ wagon
+0.0161
+ coupe
+0.0469
+ other
+0.0192
+   SUV
+0.1214
+## ## ##
+0.0204
+ sedan
+0.2030
+  # Let's plot the proportions
+# Base dotchart() will not show the label NA and Lattice dotplot() will not plot the
+NA at all so force it
+t = prop.table( x = table(vehicle$type, useNA = "ifany") )
+names(t)[ is.na(names(t)) ] = "NA"
+# dotchart(x = sort(t), xlim = c(0,1), main = "Proportions of Car Types")
+dotplot(x = sort(t), xlim = c(-0.05, 1.05), cex = 1.5, main = "Proportions of Car Typ
+es")
+  # Let's look at proportions *among* the non-missing
+t = prop.table( x = table(vehicle$type[ !is.na(vehicle$type) ], useNA = "ifany") )
+dotplot(x = sort(t), xlim = c(-0.05, 1.05), cex = 1.5, main = "Proportions of Car Typ
+es Among Non-Missing")
+  Close to half of the data is missing the vehicle type. Among those not missing the vehicle type, about 40% are sedans.
+Question #5 Display the relationship between fuel type and vehicle type. Does this depend on transmission type?
+What we can see from the mosaic plots below overall and by transmission type and ignoring vehicle type other and fuel type other, is that gas vehicles dominate across vehicle types and across transmission types, with the notable exception that trucks have higher percent diesel than other vehicle types, as do buses with automatic transmissions - this is expected.
+It might be easier to see these same relationships in dotplots than mosaicplots.
+  # Overall relationship fuel type and vehicle type
+tbl = table(vehicle$fuel, vehicle$type)
+row.order = order( rowSums( tbl ), decreasing = TRUE )
+col.order = order( colSums( tbl ), decreasing = TRUE )
+tbl = tbl[ row.order, col.order ]
+col.palette = colorRampPalette(brewer.pal(9,"Blues"))(length(col.order))
+mosaicplot(tbl, las = 2, color = col.palette,
+           main =  "Overall Fuel Type by Vehicle Type", cex = 0.7
+)
  
-~~~r
-> unique(vposts$city)
-[1] boston   chicago  denver   lasvegas nyc      sac      sfbay   
-
-> length(unique(vposts$city))
-[1] 7
-~~~
-
-**<u>#### Question 7: Visually display how the number/proportion of "for sale by owner" and "for sale by dealer" varies across city?</u>**
-
-~~~r
-> table(vposts$byOwner, vposts$city)
-       
-        boston chicago denver lasvegas  nyc  sac sfbay
-  FALSE   2491    2491   2492     2489 2495 2483  2475
-  TRUE    2467    2395   2487     2474 2488 2483  2467
-~~~
-
-**<u>#### Question 8: What is the largest price for a vehicle in this data set? Examine this and fix the value. Now examine the new highest value for price.</u>**
-
-~~~r
-> p = vposts$price
-> p[p == max(p,na.rm=TRUE) & !is.na(p)]
-[1] 600030000 600030000
-~~~
-
-~~~r
-> qt <- quantile(p, na.rm = TRUE)
-> qt
-       0%       25%       50%       75%      100% 
-        1      2995      6700     13500 600030000 
-> iqr <- qt[[4]] - qt[[2]]
-> lb <- qt[[2]] -1.5*iqr
-> ub <- qt[[4]] +1.5*iqr
-
-> p[p == max(p,na.rm=TRUE) & !is.na(p)]
-[1] 600030000 600030000
-> p[p == max(p,na.rm=TRUE) & !is.na(p)] = NA
-> p[p == max(p,na.rm=TRUE) & !is.na(p)] = NA
-> p[p == max(p,na.rm=TRUE) & !is.na(p)] = NA
-> p[p == max(p,na.rm=TRUE) & !is.na(p)] = NA
-> p[p == max(p,na.rm=TRUE) & !is.na(p)]
-[1] 30002500
-~~~
-
-**<u>#### Question 9: What are the three most common makes of cars in each city for "sale by owner" and for "sale by dealer"? Are they similar or quite different?</u>**
-
-* By owner
-
-~~~r
-> owner = vposts[vposts$byOwner == TRUE,]
-> tapply(owner$maker, owner$city, function(x) sort(table(x),decreasing = TRUE)[1:3])
-$boston
-     ford     honda chevrolet 
-      353       263       226 
-$chicago
-chevrolet      ford     honda 
-      365       331       180 
-~~~
-~~~r
-$denver
-     ford chevrolet    toyota 
-      378       313       191 
-$lasvegas
-     ford chevrolet    toyota 
-      394       306       193 
-$nyc
-nissan toyota  honda 
-   308    274    260 
-$sac
-   toyota      ford chevrolet 
-      340       305       299 
-$sfbay
-toyota  honda   ford 
-   332    322    257 76 
-~~~
-
-* By dealer:
-
-~~~r
-> dealer = vposts[vposts$byOwner == FALSE,]
-> tapply(dealer$maker, dealer$city, function(x) sort(table(x),decreasing = TRUE)[1:3])
-$boston
-     ford    toyota chevrolet 
-      333       288       215 
-$chicago
-chevrolet      ford    nissan 
-      305       305       208
-$denver
-     ford chevrolet     dodge 
-      313       291       210 
-$lasvegas
-     ford    nissan chevrolet 
-      307       249       238 
-~~~
-~~~r
-$nyc
-nissan toyota  honda 
-   328    238    220 
-$sac
-     ford    toyota chevrolet 
-      337       273       206 
-
-$sfbay
-toyota   ford    bmw 
-   269    245    227
-~~~
-
-**<u>#### Question 10: Visually compare the distribution of the age of cars for different cities and for "sale by owner" and "sale by dealer". Provide an interpretation of the plots, i.e., what are the key conclusions and insights?</u>**
-
-**_By Owner:_**
-
-~~~r
-which(owner$year <1900) #=3435
-owner = owner[-3435,]
-par(mfrow=c(4,2))
-histogram(~(2016-year) |city, owner, xlab = "Age of Cars", 
-main= "Histograms of Distribution of the age of cars for different cities")
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%205.png)
-
-**_By Dealers:_**
-
-~~~r
-> par(mfrow=c(4,2))
-> library(lattice)
-> histogram(~(2016-year) |city, dealer, xlab = "Age of Cars", 
-+ main= "Histograms of Distribution of the age of cars for different cities")
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%206.png)
-
-**<u>#### Question 11: Plot the locations of the posts on a map? What do you notice?</u>**
-
-~~~r
-library(maps)
-map('usa')
-points(vposts$long, vposts$lat, col = "red", pch = ".")
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2011.png)
-
-**<u>#### Question 12: Summarize the distribution of fuel type, drive, transmission, and vehicle type. Find a good way to display this information.</u>**
-
-Using the scatterplot of drive vs. vehicle type for each combination of fuel and transmission
-
-~~~r
-library(ggplot2)
-qplot(drive, type, data = vposts, shape = transmission, color= transmission, facets = fuel~transmission, na.rm= TRUE)
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2010.png)
-
-
-
-
-**<u>#### Question 13: Plot odometer reading and age of car? Is there a relationship? Similarly, plot odometer reading and price? Interpret the result(s). Are odometer reading and age of car related?</u>**
-
-~~~r
-> vposts$age = 2015-vposts$year
-> summary(vposts$odometer)
-     Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
-0.000e+00 4.053e+04 9.051e+04 1.509e+05 1.300e+05 1.235e+09     10421 
-> qt_odometer = quantile(vposts$odometer, na.rm = TRUE)
-> vposts[which(vposts$odometer > (qt_odometer[[4]]+ 1.5*(qt_odometer[[4]]-qt_odometer[[1]]))),"odometer"]= NA
-> smoothScatter(vposts$age, vposts$odometer)
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2012.png)
-
-~~~r
-> summary(vposts$odometer)
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-      0   40250   90000   89460  129700  321000   10550 
-> smoothScatter(vposts$age, vposts$odometer)
-> summary(vposts$price)
-     Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
-        1      2995      6700     49450     13500 600000000      3328 
-> qt_price = quantile(vposts$price, na.rm=TRUE)
-> vposts[which(vposts$price > (qt_price[[4]]+ 1.5*(qt_price[[4]]-qt_price[[1]]))),"price"]= NA
-> summary(vposts$price)
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-      1    2900    6300    8565   12800   33720    4329 
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2013.png)
-
-**<u>#### Question 14: Identify the "old" cars. What manufacturers made these? What is the price distribution for these?</u>**
-
-~~~r
-> vposts$maker = factor(vposts$maker)
-> summary(vposts[which(vposts$odometer > 200000 | vposts$age > 20),"maker"])
-          acura      alfa romeo             amc    aston martin            audi         bentley 
-             51               8               6               0               7               1 
-            bmw        bricklin         bugatti           buick        cadillac       chevrolet 
-             58               1               2              60              89             663 
-       chrysler          daewoo          datsun          desoto           dodge           eagle 
-             32               0              15               2             121               3
-~~~
-~~~r              
-        ferrari            fiat            ford    freightliner             geo             gmc 
-              0              10             624               3              16             100 
-harley davidson           honda          hudson          hummer         hyundai        infiniti 
-              2             203               5               1              11              14
-~~~
-~~~r 
-  international           isuzu          jaguar            jeep             kia     lamborghini 
-             35              10              11              84               4               1 
-     land rover            leaf           lexus         lincoln            mack        maserati 
-              2               0              47              46               3               1 
-          mazda        mercedes         mercury              mg            mini      mitsubishi 
-             50              92              36              18               0              18
-~~~
-~~~r              
-         nissan      oldsmobile       peterbilt         peugeot        plymouth         pontiac 
-             77              46               2               1              38              91 
-        porsche     rolls royce            saab          saturn           scion          shelby 
-             32               9               5               7               0               7 
-          smart      studebaker          subaru          suzuki           tesla          toyota 
-              0               5              25               7               0             286 
-        triumph      volkswagen           volvo          willys         yerfdog             zap 
-              7              96              20              12               0               0 
-           NA's 
-             92
-> hist(vposts[which(vposts$odometer > 200000 | vposts$age > 20),"price"], main= "Price 
-Distribution for Old Cars", xlab="Price", col ="red")
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2014.png)
-
-
-**<u>#### Question 15: I have omitted one important variable in this data set. What do you think it is? Can we derive this from the other variables? If so, sketch possible ideas as to how we would compute this variable.</u>**
-
-I find that we need a phone variable in this data set. We can extract the phone number from vposts$body. However, I haven't found the answer yet. I need more time to learn more about grep, sub, str_extract
-
-**<u>#### Question 16: Display how condition and odometer are related. Also how condition and price are related. And condition and age of the car. Provide a brief interpretation of what you find.</u>**
-
-~~~r
-> vposts$newcondition = NA
-> new_index = which(vposts$condition == "excellent" | vposts$condition == "like new" | vposts$condition == "superb original" | vposts$condition == "new" | vposts$condition == "mint" )
-> good_index = which(vposts$condition == "nice" | vposts$condition== "nice teuck" | vposts$condition == "fair" | vposts$condition == "good")
-> vposts[which(!is.na(vposts$condition)), "newcondition"] = "Used/Salvage"
-> vposts[new_index,"newcondition"] = "New"
-> vposts[good_index,"newcondition"] = "Good"
-> vposts$newcondition = factor(vposts$newcondition)
-> with(vposts, plot(newcondition, odometer, pch = ".", col = c("Red","Green","White"), 
-main = "Relationship between Condition and Odometer", xlab = "Condition", ylab ="Odometer"))
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2015.png)
-
-
-~~~r
-> with(vposts, plot(newcondition, price, pch = ".", col = c("Red","Green","White"),
-main = "Relationship between Condition and Price", xlab = "Condition", ylab ="Price"))
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2016.png)
-
-~~~r
-with(vposts, plot(newcondition, age, pch = ".", col = c("Red","Green","White"), main = "Relationship between Condition and Age", xlab = "Condition", ylab ="Age"))
-~~~
-
-![![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://dl.dropboxusercontent.com/u/27868566/screenshot%2017.png)
-
-
-**_*Comment:*_** I had found that it is pretty strange with these 3 plots since there is an inverse relationship between condition and odometer, between condition and Price, or between condition and age.
-
-
-##Appendix(R Code):
-
-This is my R code in case that the text format of the code below is not right:
-
-
-
-~~~r
-load("~/Dropbox/Fall 2015/STAT 141/Assignment1/vehicles.rda")
-library(ggplot2)
-
-#####In some questions, I have cleaned the data of some variables, so I used that result to do the next question.
-
-######### Question 1
-dim(vposts)
-
-######### Question 2
-names(vposts)
-sapply(vposts,class)
-~~~
-
-~~~
-######### Question 3
-mean(vposts$price, na.rm = TRUE)
-median(vposts$price, na.rm= TRUE)
-quantile(vposts$price, prob = seq(0,1 , length =11), na.rm = TRUE)
-p = vposts$price
-qt <- quantile(p, na.rm = TRUE)
-qt
-iqr <- qt[[4]] - qt[[2]]
-lb <- qt[[2]] -1.5*iqr
-ub <- qt[[4]] +1.5*iqr
-~~~
-
-~~~
-######### Question 4
-unique(vposts$type)
-prop_type = 100* table(vposts$type) /sum(table(vposts$type))
-prop_type
-~~~
-
-~~~
-######### Question 5
-fv = with(vposts, table(fuel, type))
-fv
-with(vposts,plot(fuel,type,pch =".", main= "Relationship between Fuel and Vehicle Type", xlab = "Fuel", ylab = "Vehicle Type"))
-ftt <- with(vposts,data.frame(fuel,type,transmission))
-pairs(ftt)
-~~~
-
-~~~
-######### Question 6 unique(vposts$city)
-length(unique(vposts$city))
-
-######### Question 7
-table(vposts$byOwner, vposts$city)
-
-######### Question 8
-p = vposts$price
-p[p == max(p,na.rm=TRUE) & !is.na(p)]
-p[p == max(p,na.rm=TRUE) & !is.na(p)] = NA
-p[p == max(p,na.rm=TRUE) & !is.na(p)] = NA
-p[p == max(p,na.rm=TRUE) & !is.na(p)] = NA
-p[p == max(p,na.rm=TRUE) & !is.na(p)] = NA
-p[p == max(p,na.rm=TRUE) & !is.na(p)]
-~~~
-
-~~~
-######### Question 9
-owner = vposts[vposts$byOwner == TRUE,]
-tapply(owner$maker, owner$city, function(x) sort(table(x),decreasing = TRUE)[1:3])
-
-
-dealer = vposts[vposts$byOwner == FALSE,]
-tapply(dealer$maker, dealer$city, function(x) sort(table(x),decreasing = TRUE)[1:3])
-~~~
-
-~~~
-######### Question 10
-which(owner$year <1900) #=3435
-owner = owner[-3435,]
-library(lattice)
-histogram(~(2016-year) |city, owner, xlab = "Age of Cars", 
-main= "Histograms of Distribution of the age of cars for different cities")
-
-which(dealer$year <1900) # integer(0) means no wrong data
-library(lattice)
-histogram(~(2016-year) |city, dealer, xlab = "Age of Cars", 
-main= "Histograms of Distribution of the age of cars for different cities")
-~~~
-
-~~~
-######### Question 11
-library(maps)
-map('usa')
-points(vposts$long, vposts$lat, col = "red", pch = ".")
-
-######### Question 12
-library(ggplot2)
-qplot(drive, type, data = vposts, shape = transmission, color= transmission, facets = fuel~transmission, na.rm= TRUE)
-~~~
-
-~~~
-######### Question 13
-vposts$age = 2015-vposts$year
-vposts[which(vposts$age < 0 | vposts$age > 100 ),"age"] = NA
-summary(vposts$odometer)
-qt_odometer = quantile(vposts$odometer, na.rm = TRUE) # Show quantile of odometer
-vposts[which(vposts$odometer > (qt_odometer[[4]]+ 1.5*(qt_odometer[[4]]-qt_odometer[[1]]))),"odometer"]= NA
-smoothScatter(vposts$age, vposts$odometer)
-
-summary(vposts$price)
-qt_price = quantile(vposts$price, na.rm=TRUE)
-vposts[which(vposts$price > (qt_price[[4]]+ 1.5*(qt_price[[4]]-qt_price[[1]]))),"price"]= NA
-smoothScatter(vposts$price,vposts$age)
-~~~
-
-~~~
-######### Question 14
-vposts$maker = factor(vposts$maker)
-levels(vposts$maker)
-summary(vposts[which(vposts$odometer > 200000 | vposts$age > 20),"maker"])
-hist(vposts[which(vposts$odometer > 200000 | vposts$age > 20),"price"])
-
-######### Question 15
-~~~
-
-~~~
-######### Question 16
-vposts$newcondition = NA
-new_index = which(vposts$condition == "excellent" | vposts$condition == "like new" | vposts$condition == "superb original" | vposts$condition == "new" | vposts$condition == "mint" )
-good_index = which(vposts$condition == "nice" | vposts$condition== "nice teuck" | vposts$condition == "fair" | vposts$condition == "good")
-
-vposts[which(!is.na(vposts$condition)), "newcondition"] = "Used/Salvage"
-vposts[new_index,"newcondition"] = "New"
-vposts[good_index,"newcondition"] = "Good"
-vposts$newcondition = factor(vposts$newcondition)
-with(vposts, plot(newcondition, odometer, pch = ".", col = c("Red","Green","White"), main = "Relationship between Condition and Odometer", xlab = "Condition", ylab ="Odometer"))
-~~~
-
-~~~
-with(vposts, plot(newcondition, price, pch = ".", col = c("Red","Green","White"), main = "Relationship between Condition and Price", xlab = "Condition", ylab ="Price"))
-
-with(vposts, plot(newcondition, age, pch = ".", col = c("Red","Green","White"), main = "Relationship between Condition and Age", xlab = "Condition", ylab ="Age"))
-
-~~~
-
-
+  # Split by transmission type
+fuelVehicleBytransmission = split( vehicle[ , c("fuel", "type")], vehicle$transmission)
+invisible(
+  lapply( 1:length(fuelVehicleBytransmission),
+          FUN = function(x){
+            tbl = table(fuelVehicleBytransmission[[x]]$fuel, fuelVehicleBytransmissio
+n[[x]]$type)
+) )
+) }
+row.order = order( rowSums( tbl ), decreasing = TRUE )
+col.order = order( colSums( tbl ), decreasing = TRUE )
+tbl = tbl[ row.order, col.order ]
+# Get color palette and then reverse the order darkest to lightest
+col.palette = colorRampPalette(brewer.pal(9,"Blues"))(length(col.order))
+col.palette = col.palette[ length(col.palette):1 ]
+mosaicplot(tbl, las = 2, color = col.palette,
+           main = paste0("Fuel and Vehicle by Transmission = ",
+                         names(fuelVehicleBytransmission)[x]), cex = 0.7
+ 
+  
+    dotplot(
+  prop.table( table(vehicle$type , vehicle$transmission,  vehicle$fuel, useNA = "ifany")
+,
+1.2, pch=16),
+  xlab = "Percent"
+)
+                   margin = c(1,2) ),
+xlim = c(-0.05,1.05), auto.key = list(columns = 3), par.settings = simpleTheme(cex=
+  Question #6 How many different cities are represented in the dataset?
+ # levels() gives us the cities
+levels(vehicle$city)
+## [1] "boston"   "chicago"  "denver"   "lasvegas" "nyc"
+## [7] "sfbay"
+# length() tells us how many there are
+length( levels(vehicle$city) )
+"sac"
+   ## [1] 7
+ Question #7 Visually display how the number/proportion of “for sale by owner” and “for sale by dealer” varies across city?
+It is a bit suspicious that all cities have roughly 5000 observations and that the percentages are almost perfectly 50/50 within each city. Smells like the data was filtered first...
+Note that we also created a new variable called ownerDealer in the setup section.
+ # Each city has ~5000 observations
+ table(vehicle$city)
+ ##
+ ##   boston  chicago   denver lasvegas      nyc      sac    sfbay
+ ##     4958     4886     4979     4963     4983     4966     4942
+ # prop.table() with margin = 2 gives the column percentages
+ prop.table(table(vehicle$ownerDealer, vehicle$city), margin = 2)
+ ##
+ ##             boston   chicago    denver  lasvegas       nyc       sac
+ ##   Owner  0.4975797 0.4901760 0.4994979 0.4984888 0.4992976 0.5000000
+ ##   Dealer 0.5024203 0.5098240 0.5005021 0.5015112 0.5007024 0.5000000
+ ##
+ ##              sfbay
+ ##   Owner  0.4991906
+ ##   Dealer 0.5008094
+ # Plot the counts from table() (Note: almost identical graphs as percentages)
+ plot( table(vehicle$city, vehicle$ownerDealer, useNA = "ifany"), main = "Owner/Dealer b
+ y City",
+       xlab = "City", ylab = "Owner or Dealer", col=c("darkblue","darkviolet"))
+     
+   # Plot the percentages from prop.table (Note the switch of the variables)
+plot( prop.table(table(vehicle$city, vehicle$ownerDealer), margin = 2), main = "Owner/D
+ealer by City",
+      xlab = "City", ylab = "Owner or Dealer", col=c("darkblue","darkviolet"))
+   # Use a dotplot since there are only two categories
+tbl = prop.table( table(vehicle$ownerDealer, vehicle$city, useNA = "ifany"), margin = 2
+)
+dotplot( sort(tbl[ 1, ]), xlim = c(-0.05, 1.05), xlab = "% Owner for Sale by Owner",
+ylab = "City",
+         main = "Percent for Sale by Owner by City", cex = 1.5)
+  The barplots basically capture the key information, but notice that the bar widths do not really represent anything meaningful. Since we are interested in the percentage for sale by owner within each city, a dotplot probably captures this the best since there are only two categories (byOwner = TRUE = owner, and byOwner = FALSE = dealer) and not missing data.
+We can see from the tables and very clearly from the plots that the percentages of owner posting and dealer postings are almost perfectly 50/50 and this does not seem to vary across the different cities at all.
+
+
+
+Question #8 What is the largest price for a vehicle in this data set? Examine this and fix the value. Now examine the new highest value for price.
+We saw in question #3 above that there are lots of problems with the price data.
+ # Being pedantic, let's get the max price
+ max(vehicle$price, na.rm = TRUE)
+ 
+  ## [1] 600030000
+ # Let's remind ourselves of the few worst prices
+idx = which( vehicle$price >=  9999999 & !is.na(vehicle$price) )
+# Let's look at the actual data for those cars > $100,000
+vehicle[ idx, c("header", "price", "maker", "year") ]
+ ##
+## posted22491
+## posted23881
+## posted6903  2002 Caddy Seville sls  30002500 cadillac 2002
+## posted16005      2001 Honda Accord   9999999    honda 2001
+          header     price    maker year
+1969 Pontiac GTO 600030000  pontiac 1969
+1969 Pontiac GTO 600030000  pontiac 1969
+ # Let's fix the two records for the 1969 Pontiac GTO with price = 600030000
+# We could remove it completely - maybe not the best approach.
+# We could average the prices from the description, $6000 and $30,000 = $18,000 - not
+bad approach.
+# We could research this car online and try to find some average price - pretty good
+approach.
+# Let's see if we can't find a decent point estimate from within the dataset itself:
+idx = ( vehicle$maker == "pontiac" & vehicle$year %in% c(1968, 1969) &
+          vehicle$price < 9999999 & vehicle$price > 1 &
+          grepl(pattern = "GTO", x = vehicle$header, ignore.case = TRUE) &
+          !is.na(vehicle$maker) & !is.na(vehicle$price) & !is.na(vehicle$header) )
+dat = vehicle[ idx, c("header", "price", "maker", "year") ]
+dat[ order(dat$price), ]
+ ##
+## posted4991
+## posted5371
+## posted231214 1968 Pontiac GTO 24500 pontiac 1968
+## posted16497  1969 Pontiac GTO 25000 pontiac 1969
+## posted201111 1969 Pontiac GTO 25000 pontiac 1969
+## posted7355   1968 pontiac gto 30000 pontiac 1968
+## posted16701  1968 Pontiac gto 38500 pontiac 1968
+## posted40911          1968 GTO 38500 pontiac 1968
+          header price   maker year
+1968 pontiac gto 15995 pontiac 1968
+1968 pontiac gto 15995 pontiac 1968
+   # Let's use a rounded mean price
+ newPrice = round( mean(vehicle$price[idx]), digits = -3)
+ vehicle$price[vehicle$price == 600030000 & !is.na(vehicle$price)] = newPrice
+ # Now let's fix the 2002 Caddy Seville sls with price = 30002500
+ # Let's see if we can't find a decent point estimate from within the dataset itself:
+ idx = ( vehicle$maker == "cadillac" & vehicle$year %in% c(2002) &
+           vehicle$price < 9999999 & vehicle$price > 1 &
+           grepl(pattern = "Seville", x = vehicle$header, ignore.case = TRUE) &
+           !is.na(vehicle$maker) & !is.na(vehicle$price) & !is.na(vehicle$header) )
+ dat = vehicle[ idx, c("header", "price", "maker", "year") ]
+ dat[ order(dat$price), ]
+ ##                            header price    maker year
+ ## posted20963 2002 cadillac seville   700 cadillac 2002
+ ## posted20691 2002 Cadillac Seville  1500 cadillac 2002
+ ## posted9323  2002 cadillac seville  2100 cadillac 2002
+ ## posted16927 2002 cadillac seville  3495 cadillac 2002
+ # Average price estimate is lower than the posting price of $2500 or $3000, so use th
+ e lower $2500
+ round( mean(vehicle$price[idx]), digits = -3)
+## [1] 2000
+ vehicle$price[vehicle$price == 30002500 & !is.na(vehicle$price)] = 2500
+ # The 2001 Honda Accord with price = 9999999 is a junk post
+ # "Selling my car for some lunch money. $20 OBO. Comes with complimentary Oboe."
+ # Remove it completely.
+ idx = which(vehicle$price == 9999999 & !is.na(vehicle$price))
+ vehicle = vehicle[ -idx, ]
+Again, SURELY there are more that need to be fixed, but that was enough pain for one day.
+Question #9 What are the three most common makes of cars in each city for “sale by owner” and for “sale by dealer”? Are they similar or quite different?
+    
+  cities = levels(vehicle$city)
+# We could do the inner function in one line, but it is hard to read so break it down
+into steps.
+#      names( head( sort( table(vehicle$maker[ vehicle$city == x & vehicle$byOwner == y
+& !is.na(vehicle$city) ]),
+#             decreasing = TRUE), 3) )
+makeByCityByOwner = lapply(X = c(TRUE, FALSE), FUN = function(y){
+  sapply(X = cities, FUN = function(x){
+    t = table(vehicle$maker[ vehicle$city == x & vehicle$byOwner == y & !is.na(vehicle$ci
+ty) ])
+    s = sort(t, decreasing = TRUE)
+    h = head(s, 3)
+    n = names(h)
+}) })
+names(makeByCityByOwner) = c("Owner", "Dealer")
+makeByCityByOwner
+## $Owner
+##      boston
+## [1,] "ford"
+## [2,] "honda"
+## [3,] "chevrolet" "honda"
+##      sfbay
+## [1,] "toyota"
+## [2,] "honda"
+## [3,] "ford"
+##
+## $Dealer
+##      boston
+## [1,] "ford"
+## [2,] "toyota"
+## [3,] "chevrolet" "nissan"
+##      sfbay
+## [1,] "toyota"
+## [2,] "ford"
+## [3,] "bmw"
+ chicago     denver      lasvegas    nyc      sac
+"chevrolet" "ford"      "ford"      "nissan" "toyota"
+"ford"
+"chevrolet" "chevrolet" "toyota" "ford"
+chicago
+"chevrolet" "ford"
+"ford"
+"toyota"
+"toyota"
+lasvegas
+            "ford"
+"chevrolet" "nissan"
+"honda"  "chevrolet"
+nyc      sac
+"nissan" "ford"
+"toyota" "toyota"
+denver
+"dodge"     "chevrolet" "honda"  "chevrolet"
+ # Check if the top in each city by owner and by dealer match
+makeByCityByOwner$Owner[ 1, ] == makeByCityByOwner$Dealer[ 1, ]
+##   boston  chicago   denver lasvegas      nyc      sac    sfbay
+##     TRUE     TRUE     TRUE     TRUE     TRUE    FALSE     TRUE
+ 
+ A quick visual scan shows that 2 of the top 3 makes by city for sale by owner are among the top 3 for sale by dealer within the same city. The top in each city by owner is the same as by dealer in all cities except SacTown. They are fairly similar.
+Question #10 Visually compare the distribution of the age of cars for different cities and for “sale by owner” and “sale by dealer”. Provide an interpretation of the plots, i.e., what are the key conclusions and insights?
+There are a few clear data errors with years in c(4, 1900, 2022), potentially others as well. We could fix them, or just ignore them since there are only a few data points that will not affect our analysis much.
+The 2022 Honda Odyssey “has only 117102 miles” so it is probably a typo for 2002, so let’s fix it that way.
+The year = 1900 ads are for wheels and buying back cars that fail the smog test so they are not cars at all. Remove them.
+The Jeep with year = 4 is probably 2004 since it has a “AM/FM cassette player-muli CD player”, so let’s fix it that way.
+ # Omitted here for brevity
+ # vehicle[ vehicle$year %in% c(4, 1900, 2022) & !is.na(vehicle$year), ]
+ # Clean up
+ vehicle$year[ vehicle$year == 2022 & !is.na(vehicle$year) ] = 2002
+ vehicle = vehicle[ -which(vehicle$year == 1900 & !is.na(vehicle$year)), ]
+ vehicle$year[ vehicle$year == 4 & !is.na(vehicle$year) ] = 2004
+ # Create an age variable
+ vehicle$age = 2016 - vehicle$year
+ # Overall by owner has older cars, dealers have newer cars
+ histogram( ~ age | byOwner, data = vehicle, main = "Age by Owner/Dealer", col = "light
+ blue")
+ 
+   # Subset to zoom in a bit on the plots
+idx = ( vehicle$age < 25 & !is.na(vehicle$age))
+# Zoomed in
+histogram( ~ age | byOwner, data = vehicle, subset = idx, main = "Age by Owner/Dealer
+Zoomed",
+           col = "lightblue")
+   # Looking by city, there is not much difference at all across cities for owner vs. de
+aler
+histogram( ~ age | byOwner + city, data = vehicle, subset = idx, main = "Age by City b
+y Owner/Dealer Zoomed",
+           col = "lightblue")
+ 
+ It does seem that cars for sale by owners tend to be older than cars for sale by dealers. However, this does not seem to vary much by city.
+Question #11 Plot the locations of the posts on a map? What do you notice?
+Remember that from question #6, the data was limited to just 7 major cities. Thus it would be a mistake to conclude something like almost all used cars on Craigslist (or from whatever website this data comes) sell in these 7 cities. We can conclude that the location of the people (and/or the cars themselves) who sell used cars in these major cities tend to be clustered fairly tightly around the major cities. Most buyers may be unlikely to travel far to look at, let alone, buy a used car.
+There could be several explanations for the points far from one of the major cities. They could be travelling when they actaully posted the ad, for example. But in general, the location of the person posting the car is generally the same as the city in which they are attempting to sell the vehicle.
+We also notice in the second plot of California that it seems that many people in Sac Town post their car on SF Bay Area, which we can see by the SF Bay points bleeding into the Sacramento area on the map. Perhaps they are trying to reach a bigger audience in the Bay.
+We also notice that there are a few people in Reno / Tahoe posting ads in Sacramento and SF Bay. And there also appears to be somebody posting off the coast of Monterrey, but perhaps that is a data error :)
+We could make one more improvement to this plot by using an alpha parameter to control the transparancy of the plotting points to better see density and bleeding into other regions.
+  # Split the data by city to see if location of poster is clustered around posting cit
+y
+locationByCity = split(vehicle[ , c("long", "lat")], vehicle$city)
+# Get color palette and then reverse the order darkest to lightest
+col.palette = brewer.pal( length(locationByCity), "Purples")
+col.palette = col.palette[ length(col.palette):1 ]
+map('state', mar = c(0,0,0,0))
+invisible(
+  lapply( 1:length(locationByCity),
+          FUN = function(x){
+) )
+    points(x = locationByCity[[ x ]]$long, y = locationByCity[[ x ]]$lat,
+    pch = ".", cex = 5, col = col.palette[x]  )
+}
+legend("bottomleft", legend = names(locationByCity), col = col.palette, pch = 15, cex
+= 0.9)
+ 
+  map('state', region = 'california', mar = c(0,0,0,0))
+ points(x = locationByCity[[ "sac" ]]$long, y = locationByCity[[ "sac" ]]$lat,
+        pch = ".", cex = 4, col = col.palette[1] )
+ points(x = locationByCity[[ "sfbay" ]]$long, y = locationByCity[[ "sfbay" ]]$lat,
+        pch = ".", cex = 4, col = col.palette[5] )
+ # reset margins
+ par(mar = c(5, 4, 4, 2) + 0.1 )
+Question #12 Summarize the distribution of fuel type, drive, transmission, and vehicle type. Find a good way to display this information.
+Notice that in the dotplot below, that the distributions in the different panels are all almost identical excpet that the distribtion shows some variation in the middle column where fuel type = "gas" . Thus, we can essentially drop the fuel type from the plot, subset to just fuel type = "gas" and consider the relationship
+  
+ among the remaining three variables.
+ # 9 panels;  circle colors are the vehicle type
+# dotplot( table(vehicle$fuel, vehicle$drive, vehicle$transmission, vehicle$type))
+# 15 panels
+dotplot( table(vehicle$type, vehicle$fuel, vehicle$drive, vehicle$transmission),
+         auto.key = list(columns = 3), par.settings = simpleTheme(cex=1.2, pch=16) )
+ 
+   # fuel = "gas" for almost all the data
+ table(vehicle$fuel, useNA = "ifany")
+ ##
+ ##   diesel electric      gas   hybrid    other     <NA>
+ ##     1071       68    29222      350     1187     2771
+Subsetting to just fuel == "gas" we see that automatic transmissions are the most common across all types of cars and across drive trains, followed by manual then other. Within the rear wheel drive vehicles, manual stick shifts do have a higher percentage than other verhicle types for hatchback, coupe and convertible, which makes sense since coupe and convertibles tend to be sports cars and hatchbacks tend to be cheaper, entry level models. Among 4 wheel ddrive, offroad vehicles have a higher
+ idx = (vehicle$fuel == "gas" & !is.na(vehicle$fuel))
+ dotplot(
+   prop.table( table(vehicle$type[idx], vehicle$drive[idx], vehicle$transmission[idx], us
+ eNA = "ifany"),
+                      margin = c(1,2) ),
+   xlim = c(-0.05,1.05), auto.key = list(columns = 3), par.settings = simpleTheme(cex=
+ 1.2, pch=16),
+   xlab = "Percent"
+)
+  
+  Question #13 Plot odometer reading and age of car? Is there a relationship? Similarly, plot odometer reading and price? Interpret the result(s). Are odometer reading and age of car related?
+From question #3, we fixed some prices and we also concluded that we would subset price to those prices >= 500 and <= 50,000, which captures about 94% of the data.
+We should spend some time cleaning up the odometer readings. For example, the max odometer reading of 1234567890 is just some annoying poster. But to keep things simple here, we see that 99th percentile of odometer readings is 2.610^{5}, thus we will trim the data at 500,000 to capture almost all of the distribtion.
+As we can see from the smoothScatter plot below, there generally does seem to be an upward trend for the overwhelming majority of the data. However, notice the dense shading between about 5 years of age and 20 years of age that have low odometer readings. Also notice that once age of the vehicle gets beyond about 25 years or so that there is actually a downward trend in that subset of the data. This is likely because very old antique cars just sit in some old man’s garage getting polished and buffed and only taken out for a ride during antique car shows.
+  quantile(vehicle$odometer, probs = 0.99, na.rm = TRUE)
+  ##    99%
+ ## 260000
+ idx = ( vehicle$odometer < 500000 & !is.na(vehicle$odometer) & !is.na(vehicle$age) )
+ smoothScatter(x = vehicle$age[idx], y = vehicle$odometer[idx], xlab = "Age of Vehicle",
+               ylab = "Odometer Reading", main = "Odometer Readings by Age of Vehicle"
+)
+As we can see in the smoothscatter plot below, there is a general negative relationship between odometer reading and price, but note that there are some very expensive cars with low odometer readings, many of those are antique cars.
+  
+   idx = ( vehicle$odometer < 500000 & vehicle$price >= 500 & vehicle$price <= 100000 &
+           !is.na(vehicle$odometer) & !is.na(vehicle$price) )
+ smoothScatter(x = vehicle$odometer[idx], y = vehicle$price[idx], xlab = "Odometer Readi
+ ng",
+               ylab = "Price of Vehicle", main = "Price by Odometer Readings of Vehicl
+e" )
+Question #14 Identify the “old” cars. What manufacturers made these? What is the price distribution for these?
+From the first smoothScatter plot below, it would seem that cars older than say 35 years are “old.”
+From the table below, Chevy and Ford make up more than 50% of the “old” cars and contains most of the classic American car brands, as one might expect. In particular, there are not many “old” Japanese cars since the U.S. did not start importing Japanese cars on a large scale until the oil shocks of the 1970’s, whereas our cutoff for “old” is approximately 1970.
+Comparing the price distribution of “old” cars compared to all cars, “old” cars seem have more density at higher prices with the majority of the prices less than $40,000 whereas the bulk of the overall data tends to be less than $20,000.
+ 
+  # Check overall age and price relationship
+idx = (vehicle$price >= 500 & vehicle$price <= 100000 &
+          !is.na(vehicle$price) & !is.na(vehicle$age) )
+smoothScatter(x = vehicle$age[idx], y = vehicle$price[idx], xlab = "Age of Vehicle",
+              ylab = "Price of Vehicle", main = "Price by Age of Vehicle" )
+  # Look at makers and price distribution for "old" cars
+idx = (vehicle$age >= 35 & !is.na(vehicle$age))
+# Look at the 10 largest makers of "old" cars
+round( sort( tail( sort(table(vehicle$maker[ idx ])) / sum(table(vehicle$maker[ idx ]))
+, 10)
+             , decreasing = TRUE), digits = 3 )
+##
+##  chevrolet       ford volkswagen      dodge    pontiac   cadillac
+ ## 0.315
+## buick
+## 0.027
+0.213 gmc
+   0.055      0.038      0.038      0.037
+plymouth oldsmobile
+0.026      0.025      0.024
+   idx = (vehicle$age >= 35 & !is.na(vehicle$age) & !is.na(vehicle$price))
+ smoothScatter(x = vehicle$age[idx], y = vehicle$price[idx], xlab = "Age of Vehicle",
+               ylab = "Vehicle Price", main = "Price by Age of Vehicle" )
+Question #15 I have omitted one important variable in this data set. What do you think it is? Can we derive this from the other variables? If so, sketch possible ideas as to how we would compute this variable.
+When searching for cars on websites, the most important filters are usually year, make and model, in that order. Notice that year and make (i.e. maker) are stand-alone variables in the dataset, but model is not. However, notice that variable called header in the dataset is year, make, then model. Thus if we could parse the text string of each header to pull out the model, we could derive our own stand-alone variable for model. In fact, a future homework assignment will focus on using regular expressions to do just this type of string parsing.
+ 
+  head(vehicle$header, 20)
+  ##  [1] "2012 Chevrolet Camaro SS"
+ ##  [2] "2013 Chevrolet Equinox LT"
+ ##  [3] "2013 Nissan Altima 2.5 SV"
+ ##  [4] "2009 Infiniti M35x X"
+ ##  [5] "2013 Infiniti G37x X"
+ ##  [6] "2012 Acura MDX 3.7L"
+ ##  [7] "2010 Toyota Yaris"
+ ##  [8] "2012 Acura RDX Base"
+ ##  [9] "2014 Chevrolet Cruze 1LT Auto"
+ ## [10] "2009 Lexus IS 250"
+ ## [11] "2013 Toyota Camry SE"
+ ## [12] "2014 Honda CR-Z"
+ ## [13] "2008 BMW 335 xi"
+ ## [14] "2013 Nissan Juke SL"
+ ## [15] "2013 Dodge Durango SXT"
+ ## [16] "2012 Toyota Camry 4dr Sedan I4 Automatic SE"
+ ## [17] "2012 Toyota Venza LE"
+ ## [18] "2014 Nissan Juke S"
+ ## [19] "2012 Toyota Corolla"
+ ## [20] "2012 Honda Pilot EX-L"
+Question #16 Display how condition and odometer are related. Also how condition and price are related. And condition and age of the car. Provide a brief interpretation of what you find.
+ # Print out conditions so we can cut and paste them into smaller
+ # categories. There's really no way out of this since a human has to decide
+ # what the new categories should be.
+ conditions = levels(vehicle$condition)
+ conditions = sprintf('"%s",\n', conditions)
+  cat(conditions)
+ 
+ ## "0used",
+##  "207,400",
+##  "ac/heater",
+##  "carfax guarantee!!",
+##  "certified",
+##  "complete parts car, blown engine",
+##  "excellent",
+##  "fair",
+##  "front side damage",
+##  "good",
+##  "hit and run :( gently",
+##  "honnda",
+##  "like new",
+##  "mint",
+##  "muscle car restore",
+##  "needs bodywork",
+##  "needs restoration!",
+##  "needs restored",
+##  "needs total restore",
+##  "needs work",
+##  "needs work/for parts",
+##  "new",
+##  "nice",
+##  "nice rolling restoration",
+##  "nice teuck",
+##  "not running",
+##  "parts",
+##  "pre owned",
+##  "pre-owned",
+##  "preowned",
+##  "preownes",
+##  "project",
+##  "project car",
+##  "rebuildable project",
+##  "restoration",
+##  "restoration project",
+##  "restore",
+##  "restored",
+##  "rough but runs",
+##  "salvage",
+##  "superb original",
+##  "used",
+##  "very good",
+# We'll base the new categories on the most common existing categories.
+sort(table(vehicle$condition))
+ 
+ ##
+##                            0used                          207,400
+##                                1                                1
+##                        ac/heater complete parts car, blown engine
+##                                1                                1
+##                front side damage            hit and run :( gently
+##                                1                                1
+##                           honnda                             mint
+##                                1                                1
+##               muscle car restore               needs restoration!
+##                                1                                1
+##              needs total restore                       needs work
+##                                1                                1
+##             needs work/for parts                             nice
+##                                1                                1
+##         nice rolling restoration                       nice teuck
+##                                1                                1
+##                      not running                        pre-owned
+##                                1                                1
+##                         preownes                      project car
+##                                1                                1
+##              rebuildable project                      restoration
+##                                1                                1
+##              restoration project                          restore
+##                                1                                1
+##                         restored                   rough but runs
+##                                1                                1
+##               carfax guarantee!!                   needs restored
+##                                2                                2
+##                        pre owned                  superb original
+##                                2                                2
+##                   needs bodywork                          project
+##                                3                                3
+##                            parts                         preowned
+##                                5                               10
+##                        very good                        certified
+##                               10                               54
+##
+##
+##
+##
+##
+##
+##
+##
+  salvage                              new
+       61                              273
+     fair                             used
+      770                             1180
+ like new                             good
+     2898                             4663
+excellent
+     7543
+ # Define new categories.
+new_cats = list(
+  excellent = c("excellent"),
+  good = c("good", "very good"),
+  "like new" = c("like new", "mint", "new", "pre owned", "pre-owned", "preowned", "pr
+eownes"),
+  used = c("0used", "used"),
+  fair = c("fair", "nice", "nice teuck"),
+  salvage = c("complete parts car, blown engine", "front side damage", "hit and run :
+( gently",
+stored",
+ing restoration",
+"muscle car restore", "needs bodywork", "needs restoration!", "needs re
+"needs total restore", "needs work", "needs work/for parts", "nice roll
+              "not running", "parts", "project", "project car", "rebuildable project"
+, "restoration",
+              "restoration project", "restore", "restored", "salvage", "rough but run
+s"),
+  other = c("207,400", "ac/heater", "carfax guarantee!!", "certified", "honnda", "sup
+erb original" )
+)
+# Convert conditions to new categories.
+vehicle$new_cond = vehicle$condition
+levels(vehicle$new_cond) = c(levels(vehicle$new_cond), "other")
+for (i in seq_along(new_cats)) {
+  new_cat = names(new_cats)[[i]]
+  vehicle$new_cond[vehicle$new_cond %in% new_cats[[i]]] = new_cat
+}
+vehicle$new_cond = factor(vehicle$new_cond)
+# Restrict to odometer less than 5 million.
+sane_odo = subset(vehicle, odometer < 5e6)
+odo_by_cond = split(sane_odo$odometer, sane_odo$new_cond)
+boxplot(odo_by_cond, col = "salmon")
+title("Odometer Distribution by Condition", ylab = "Miles")
+   # Make a second plot to show the distribution better.
+boxplot(odo_by_cond, col = "skyblue1", ylim = c(0, 5e5))
+title("Odometer Distribution by Condition", ylab = "Miles")
+   # Now we can see that the highest odometer readings seem to be for the "fair"
+# and "good" conditions, which is a little surprising. It's possible people
+# overstate the condition of the car when the odometer is higher, to try to
+# make it sound more appealing. The condition with the most spread-out
+# distribution is "salvage," which makes sense because salvage cars could be
+# very old, or they could be new cars that were damaged somehow.
+sane_price = subset(vehicle, price < 2e5)
+price_by_cond = split(sane_price$price, sane_price$new_cond)
+boxplot(price_by_cond, col = "thistle")
+title("Price Distribution by Condition", ylab = "Dollars")
+   # Make an age column.
+vehicle$age = 2015 - vehicle$year
+sane_age = subset(vehicle, age < 200)
+age_by_cond = split(sane_age$age, sane_age$new_cond)
+boxplot(age_by_cond, col = "aquamarine")
+title("Age Distribution by Condition", ylab = "Years")
+   # The price and age distributions don't show anything too surprising. Price and
+# condition appear to be directly related, with salvage cars having the lowest
+# prices. Cars that are "like new" or "excellent" are sometimes offered for
+# extremely high prices, whereas this is less common with cars in worse
+# condition. Age and condition, are inversely related: older cars seem to have
+# worse conditions. As with odometer and condition, salvage cars exhibit the
+# weakest relationship.
 
