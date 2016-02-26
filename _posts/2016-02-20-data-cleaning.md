@@ -185,8 +185,8 @@ posted16005      2001 Honda Accord   9999999    honda 2001
 It is realized that those are <b>pretty old cars</b> => Their high prices are probably __not legitimate__. Let's check and fix them:
   
   * With <b>Pontiac GTO</b> :
-    
-    ~~~r
+
+~~~r
     > idx = ( vehicle$maker == "pontiac" & vehicle$year %in% c(1968, 1969) &
 + vehicle$price < 9999999 & vehicle$price > 1 &
 + grepl(pattern = "GTO", x = vehicle$header, ignore.case = TRUE) &
