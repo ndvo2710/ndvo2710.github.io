@@ -8,7 +8,7 @@ image:
   feature: sample-cleaning.jpg
   credit: 2bm.co.uk
   creditlink: http://www.2bm.co.uk/wp-content/uploads/2014/10/2bm-cleaning-banner-image-new.jpg
-comments: true
+comments: True
 ---
 
 <section id="table-of-contents" class="toc">
@@ -21,6 +21,9 @@ comments: true
 </div>
 </section><!-- /#table-of-contents -->
 
+![https://www.dropbox.com/s/n7cb5mxtb9byu2h/6_8.pdf?dl=0](https://www.dropbox.com/s/n7cb5mxtb9byu2h/6_8.pdf?dl=0)
+
+![https://www.dropbox.com/s/u3gc1q71rst3vts/6_16.pdf?dl=0](https://www.dropbox.com/s/u3gc1q71rst3vts/6_16.pdf?dl=0)
 
 # INTRODUCTION
 
