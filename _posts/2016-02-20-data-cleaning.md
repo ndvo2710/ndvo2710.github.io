@@ -21,9 +21,9 @@ comments: True
 </div>
 </section><!-- /#table-of-contents -->
 
-![https://www.dropbox.com/s/n7cb5mxtb9byu2h/6_8.pdf?dl=0](https://www.dropbox.com/s/n7cb5mxtb9byu2h/6_8.pdf?dl=0)
+[https://www.dropbox.com/s/n7cb5mxtb9byu2h/6_8.pdf?dl=0](https://www.dropbox.com/s/n7cb5mxtb9byu2h/6_8.pdf?dl=0)
 
-![https://www.dropbox.com/s/u3gc1q71rst3vts/6_16.pdf?dl=0](https://www.dropbox.com/s/u3gc1q71rst3vts/6_16.pdf?dl=0)
+[https://www.dropbox.com/s/u3gc1q71rst3vts/6_16.pdf?dl=0](https://www.dropbox.com/s/u3gc1q71rst3vts/6_16.pdf?dl=0)
 
 # INTRODUCTION
 
@@ -32,6 +32,8 @@ Unless the data is small, _the presence of incorrect and inconsitent data is per
 By way of showing how data is messy in real life, I used for sale vehicle data which is harvested from Craiglist. Craiglist car for sale is where the the owners and dealers create a post for a vehicle providing information about model, year of the vehicle, fuel type, how many miles there are on the odometer. Here are the description of the variables in the data:
 
 <br>
+
+
 
 <sup> **id**  the (unique) identifier for the post </sup>
 
