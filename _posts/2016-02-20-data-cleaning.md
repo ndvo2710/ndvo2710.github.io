@@ -204,9 +204,9 @@ posted16701  1968 Pontiac gto 38500 pontiac 1968
 posted40911          1968 GTO 38500 pontiac 1968
 > round( mean(vehicle$price[idx]), digits = -3)
 27000
-    ~~~
+~~~
 
-    I looked at the price of all <b>Pontiac GTO of the same year</b>. These prices <i>varies from $15,995 to $38,500</i>. => <b><u>Fix: Change the price to the avarage price</u></b> of all Pontiac GTO of the same year.
+I looked at the price of all <b>Pontiac GTO of the same year</b>. These prices <i>varies from $15,995 to $38,500</i>. => <b><u>Fix: Change the price to the avarage price</u></b> of all Pontiac GTO of the same year.
 
     ~~~r
     > vehicle$price[vehicle$price == 600030000 & !is.na(vehicle$price)] = 27000
@@ -339,12 +339,12 @@ Let's look at the density plot again.
 ~~~
 
 <figure>
-  <a href="/images/data-cleaning-image/density-plot2.png" title="Distribution of Vehicle Prices"><img src="/images/data-cleaning-image/density-plot1.png"></a>
+  <a href="/images/data-cleaning-image/density-plot2.png" title="Distribution of Vehicle Prices"><img src="/images/data-cleaning-image/density-plot2.png"></a>
   <figcaption><center><b><i>Figure.</i> <u>Distribution Plot of Vehicle price</u></b></center></figcaption>
 </figure>
 
 Much better! But we also note several other problems like lots of missing prices in general. These could be corrected one-by- one perhaps.
-There are also lots of cars for sale at the price of $1. This is a common advertising tactic to post for the minimum price since most people sort prices lowest-to-highest and thus these ads get seen at the top more often. Most of these are misleading ads by dealers, some are for car parts, some are offers for car financing. The same holds for almost all ads less than $500. There is just too much data to clean up manually here so we will exclude them. SURELY we are throwing away some good data here and biasing our results.
+There are also lots of cars for sale at the price of $1. This is a common advertising tactic to post for the minimum price since most people sort prices lowest-to-highest and thus these ads get seen at the top more often. Most of these are misleading ads by dealers, some are for car parts, some are offers for car financing. 
 
 ~~~r
 > sum( is.na(vehicle$price) )
@@ -353,74 +353,101 @@ There are also lots of cars for sale at the price of $1. This is a common advert
 [1] 612
 ~~~
 
+The same holds for almost all ads less than $500. There is just too much data to clean up manually here so we will exclude them. SURELY we are throwing away some good data here and biasing our results if we are going to erase them out of the data. Fortunately, we can modify `filter_high_price` function to `filter_low_price` function.
+
+~~~r
+> filter_low_price = function(maker,year,header,price){
+    idx = (vehicle$maker == maker & vehicle$year %in% c(year, year+1) &
+          vehicle$price < 100000 & vehicle$price > 1 &
+          grepl(pattern = gsub(maker,"",gsub("\\d+\\s","",header), ignore.case=TRUE),x = vehicle$header, ignore.case = TRUE) &
+          !is.na(vehicle$maker) & !is.na(vehicle$price) & !is.na(vehicle$header))
+  if(length(vehicle$price[idx])!= 0){
+    newPrice = round( mean(vehicle$price[idx]), digits = -3)
+    if(price < 1.5*newPrice) vehicle$price[vehicle$price == price & !is.na(vehicle$price)] <<- newPrice #return to global environment
+  }
+}
+
+> idx = which( vehicle$price <= 500 & !is.na(vehicle$price))
+> shortlist = vehicle[ idx, c("header", "price", "maker", "year") ]
+> sapply(1:length(shortlist$maker), function(i) filter_low_price(shortlist$maker[i],shortlist$year[i],shortlist$header[i], shortlist$price[i]))
+[1] Error in if(price < 1.5*newPrice) {: missing Value where TRUE/FALSE needed
+~~~
+
+Oops! We got error. So I use `traceback()` command to see where the error is:
+
+~~~r
+> traceback()
+4: filter_low_price(shortlist$maker[i], shortlist$year[i], shortlist$header[i],
+       shortlist$price[i]) at #1
+3: FUN(X[[i]], ...) at #1
+2: lapply(X = X, FUN = FUN, ...)
+1: sapply(1:length(shortlist$maker), function(i) filter_low_price(shortlist$maker[i],
+       shortlist$year[i], shortlist$header[i], shortlist$price[i]))
+~~~
+
+I guess that there are something wrong with the `shortlist` data frame. Thanks to <b>RStudio/DT</b> package, we can look at the data more directly. 
+
+~~~r
+# install from CRAN
+> install.packages('DT')
+> idx = which( vehicle$price <= 500 & !is.na(vehicle$price))
+> shortlist = vehicle[ idx, c("header", "price", "maker", "year") ]
+> datatable(shortlist)
+~~~
+
+<figure>
+  <a href="/images/data-cleaning-image/data-table.png" title="Data Table of shortlist"><img src="/images/data-cleaning-image/data-table.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Data Table of shortlist</u></b></center></figcaption>
+</figure>
+
+Clearly, some <b>NA values</b> has caused the problem to `filter_low_price` function, since it doesn't detect the NA of the maker. So we remove the NA out of `shortlist$maker`, we will deal with them later.
+
+~~~r
+> idx = which( vehicle$price <= 500 & !is.na(vehicle$price) & !is.na(vehicle$maker))
+> shortlist = vehicle[ idx, c("header", "price", "maker", "year") ]
+> sapply(1:length(shortlist$maker), function(i) filter_low_price(shortlist$maker[i],shortlist$year[i],shortlist$header[i], shortlist$price[i]))
+~~~
+
+Let's check the data frame where the `vehicle$price <= 500` to see whether it works:
+
+~~~r
+> idx = which( vehicle$price <= 500 & !is.na(vehicle$price) & !is.na(vehicle$maker))
+> vehicle[ idx, c("header", "price", "maker", "year") ]
+                                            header price     maker year
+posted1974                  2005 Mini Cooper Sport    19      mini 2005
+posted17031               2014 Nissan Rogue SV AWD   340    nissan 2014
+posted18911      2003 Mercury marquis gs park lane   165   mercury 2003
+posted15112  2012 Audi Q5 3.2 Quattro Premium Plus   455      audi 2012
+posted4082              2014 Ford Explorer Limited   365      ford 2014
+posted21615                  1957 CHEVROLET BELAIR    70 chevrolet 1957
+posted18374  2012 Audi Q5 3.2 Quattro Premium Plus   455      audi 2012
+posted2555                      1997 Subaru legacy    80    subaru 1997
+posted18929             2014 Ford Explorer Limited   365      ford 2014
+posted9448                2012 Chrysler 300-Series   179  chrysler 2012
+posted29613               1998 ford e150 econoline   375      ford 1998
+posted128913                       1992 Saturn SL2    80    saturn 1992
+posted229713   1961 chevrolet corvette convertible    53 chevrolet 1961
+posted229813   1961 chevrolet corvette convertible    53 chevrolet 1961
+posted229913   1961 chevrolet corvette convertible    53 chevrolet 1961
+~~~
+
+The data frame is much shorter. So, it works! Also we can erase all the data in this data frame because the price of all the entries in this data frame does not make sense and we can find the similar information of them in the `vehicle` data frame. Let's erase them:
+
+~~~r
+vehicle = vehicle[-idx,]
+~~~
+
+~~~r
+> quantile(x = vehicle$price, probs = c(0.05,0.99), na.rm = TRUE)
+   5%   99%
+ 1350 46000
+~~~
+
+
+
 =======================================================================
 
 
-vehicle[ vehicle$price >= 9999999 & !is.na(vehicle$price), c("header", "body")]
-
-
- ## posted22491 \n        We have 1968 & 1969 Pontiac GTO's.\nCurrently we are working
- on a 1968 end a 1969 Gto project is almost complete.\nOur Intention is the custom to
- specification by owner.\nCost will be between $6000 & $30,000. This will be depending
- on the car in the condition and the Owner financial capabilities. \nSerious inquires
- only inquiries only.. please call Tony at \n show contact info\n\n
- ## posted23881 \n        We have 1968 & 1969 Pontiac GTO's.\nCurrently we are working
- on a 1968 end a 1969 Gto project is almost complete.\nOur Intention is the custom to
- specification by owner.\nCost will be between $6000 & $30,000. This will be depending
- on the car in the condition and the Owner financial capabilities. \nSerious inquires
- only inquiries only.. please call Tony at \n show contact info\n\n
- ## posted6903
- \n        clean, fully loaded, nice shine, good running engine and trans, willing to
- trade for old school or truck?????????????????? Mounted on 22 inch rims new tires no
- bends no cracks\n
- ## posted16005
- \n        Selling my car for some lunch money. $20 OBO. Comes with complimentary Oboe
- .\n
-The two records with price of 600030000 are 1968 and 1969 Pontiac GTO - $600030000, which can see from reading the body of the post that these are offers to customize GTO’s for somewhere between $6,000 and $30,000 and these values seem to be pasted together. We can revisit this in question #8, but for now, let’s exclude these.
-Best guess for the Seville SLS with price 30002500 looks like a typo by the person who posted the ad. Perhaps they were originally thinking that they would sell it for $3,000, but then changed their mind and lowered the price to $2,500 but did not properly clear the field for price before they editing the posting price.
-          header
-1969 Pontiac GTO
-1969 Pontiac GTO
- We can revisit this in question #8, but for now, let’s exclude this.
-The 2001 Honda Accord with price 9999999 looks like a deliberate misleading price by the person who posted the ad given that they failed to fill in several other fields.
-As a side note, numbers like 99, or 999 or 99999999, etc. are often default entries for missing values, much like NA, #N/A, , Null, NULL, etc. Depending on the data, even numbers like -1 could be defined as missing data. We can revisit this in question #8, but for now, let’s exclude this.
-For Question #3 here, all cars with a price greater than $240,000 seem to have data errors so we will exclude all of them here.
-We also note several other problems like lots of missing prices in general. These could be corrected one-by- one perhaps.
-There are also lots of cars for sale at the price of $1. This is a common advertising tactic to post for the minimum price since most people sort prices lowest-to-highest and thus these ads get seen at the top more often. Most of these are misleading ads by dealers, some are for car parts, some are offers for car financing. The same holds for almost all ads less than $500. There is just too much data to clean up manually here so we will exclude them. SURELY we are throwing away some good data here and biasing our results.
- # How many prices are NA?
- sum( is.na(vehicle$price) )
-## [1] 3328
- # How many cars for sale at $1?
- sum( vehicle$price == 1 & !is.na(vehicle$price) )
-## [1] 612
- # Let's take a look 10% randomly selected $1 cars
- idx = which( vehicle$price == 1 & !is.na(vehicle$price) )
- idx = sample(x = idx, size = 60, replace = FALSE)
- # Omitted here for brevity
- # vehicle[ idx, "body"]
- # Only include prices between $500 and $240,000
- idx = (vehicle$price >= 500 & vehicle$price <= 240000 & !is.na(vehicle$price))
- densityplot(vehicle$price[ idx ], xlab = "Price", main = "Price")
-     
-   # 94% of the data is between about $500 and $50,000
-quantile(x = vehicle$price, probs = c(0.05,0.99), na.rm = TRUE)
-##    5%   99%
-##   499 47000
-# Final plot
-avg = mean( vehicle$price[ idx ] )
-med = median( vehicle$price[ idx ] )
-dec = quantile(x = vehicle$price[ idx ], probs = seq(from = 0.1, to = 0.9, by = 0.1) )
-idx = (vehicle$price >= 500 & vehicle$price <= 50000 & !is.na(vehicle$price))
-plot(density(vehicle$price[ idx ]), xlab = "Price", main = "Price", lwd = 2)
-abline(h = 0)
-points(x = c(avg, med), y = c(0,0), col = c("forestgreen", "darkorange"), pch = 18, c
-ex = 3.0)
-points(x = dec, y = rep(x = 0, times = length(dec)), col = "blue2", pch = 18, cex = 1
-.5)
-legend("topright", legend = c("Mean", "Median", "Deciles"), col = c("forestgreen", "d
-arkorange", "blue2"),
-pch = 18)
-  
   Question #4 What are the different categories of vehicles,
 i.e. the type variable/column? What is the proportion for each category ?
  # Different types.  Note the NA's
