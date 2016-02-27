@@ -25,6 +25,12 @@ comments: True
 
 [https://www.dropbox.com/s/u3gc1q71rst3vts/6_16.pdf?dl=0](https://www.dropbox.com/s/u3gc1q71rst3vts/6_16.pdf?dl=0)
 
+[https://www.dropbox.com/s/oropt7929kjsvfc/6_20.pdf?dl=0](https://www.dropbox.com/s/oropt7929kjsvfc/6_20.pdf?dl=0)
+
+[https://www.dropbox.com/s/imujbdsomuztov2/screenshot.png?dl=0](https://www.dropbox.com/s/imujbdsomuztov2/screenshot.png?dl=0)
+
+[https://www.dropbox.com/s/q8qvb5knybl8o8c/6.25.pdf?dl=0](https://www.dropbox.com/s/q8qvb5knybl8o8c/6.25.pdf?dl=0)
+
 # INTRODUCTION
 
 Unless the data is small, _the presence of incorrect and inconsitent data is pervasive_. As a result, we should spend a lot of time cleaning data. This time is also, typically underestimated. 
