@@ -21,15 +21,7 @@ comments: True
 </div>
 </section><!-- /#table-of-contents -->
 
-[https://www.dropbox.com/s/n7cb5mxtb9byu2h/6_8.pdf?dl=0](https://www.dropbox.com/s/n7cb5mxtb9byu2h/6_8.pdf?dl=0)
-
-[https://www.dropbox.com/s/u3gc1q71rst3vts/6_16.pdf?dl=0](https://www.dropbox.com/s/u3gc1q71rst3vts/6_16.pdf?dl=0)
-
-[https://www.dropbox.com/s/oropt7929kjsvfc/6_20.pdf?dl=0](https://www.dropbox.com/s/oropt7929kjsvfc/6_20.pdf?dl=0)
-
-[https://www.dropbox.com/s/imujbdsomuztov2/screenshot.png?dl=0](https://www.dropbox.com/s/imujbdsomuztov2/screenshot.png?dl=0)
-
-[https://www.dropbox.com/s/q8qvb5knybl8o8c/6.25.pdf?dl=0](https://www.dropbox.com/s/q8qvb5knybl8o8c/6.25.pdf?dl=0)
+Viết Tiếng Việt . Testing: ngồi, nằm, ngũ, nặng.
 
 # INTRODUCTION
 
