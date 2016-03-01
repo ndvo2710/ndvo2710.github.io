@@ -21,7 +21,7 @@ comments: True
 </div>
 </section><!-- /#table-of-contents -->
 
-Viết Tiếng Việt . Testing: ngồi, nằm, ngũ, nặng.
+
 
 # INTRODUCTION
 
