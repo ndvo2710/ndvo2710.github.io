@@ -536,6 +536,50 @@ Let's look at <u>proportions among the non-missing</u> (not NA)
   <figcaption><center><b><i>Figure.</i> <u>Proportions of Car Types Among Non-Missing</u></b></center></figcaption>
 </figure>
 
+<b><u>Observed:</u> </b> <i><b>Nearly half of the data is missing the vehicle type. Among the non-missing type, 40% of the vehicle is sedan. </b></i>  
+
+- We are doing the same with `fuel`
+
+~~~r
+> t = prop.table( x = table(vehicle$fuel, useNA = "ifany") )
+> names(t)[ is.na(names(t)) ] = "NA"
+> plot1 = dotplot(x = sort(t), xlim = c(-0.05, 1.05), cex = 1.5, main = "Proportions of Vehicle Fuel categories")
+> t = prop.table( x = table(vehicle$fuel[ !is.na(vehicle$fuel) ], useNA = "ifany") )
+> plot2 = dotplot(x = sort(u), xlim = c(-0.05, 1.05), cex = 1.5, main = "Proportions of Vehicle Fuel categories Among Non-Missing")
+> library(latticeExtra) # It is used to combine lattice plots since par(mfrow) does not work with lattice
+> c(plot1,plot2)
+~~~
+
+<figure>
+  <a href="/images/data-cleaning-image/dot-plot4.png" title="Proportions of Vehicle Fuel categories"><img src="/images/data-cleaning-image/dot-plot4.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Proportions of Vehicle Fuel categories</u></b></center></figcaption>
+</figure>
+
+We can display the <b><u>relationship between fuel type and vehicle type</u></b> by using `mosaic plots`
+
+~~~r
+> tbl = table(vehicle$fuel, vehicle$type)
+> row.order = order( rowSums( tbl ), decreasing = TRUE )
+> col.order = order( colSums( tbl ), decreasing = TRUE )
+> tbl = tbl[ row.order, col.order ]
+> col.palette = colorRampPalette(brewer.pal(9,"Reds"))(length(col.order))
+> mosaicplot(tbl, las = 2, color = rev(col.palette),
++            main =  "Overall Fuel Type by Vehicle Type", cex = 1.5)
+~~~
+
+<figure>
+  <a href="/images/data-cleaning-image/mosaic-plot1.png" title="Overall Fuel Type by Vehicle Type"><img src="/images/data-cleaning-image/mosaic-plot1.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Overall Fuel Type by Vehicle Type</u></b></center></figcaption>
+</figure>
+
+
+
+Question #5 Display the relationship between fuel type and vehicle type. Does this depend on transmission type?
+
+What we can see from the mosaic plots below overall and by transmission type and ignoring vehicle type other and fuel type other, is that gas vehicles dominate across vehicle types and across transmission types, with the notable exception that trucks have higher percent diesel than other vehicle types, as do buses with automatic transmissions - this is expected.
+It might be easier to see these same relationships in dotplots than mosaicplots.
+
+
 =======================================================================
 
 
