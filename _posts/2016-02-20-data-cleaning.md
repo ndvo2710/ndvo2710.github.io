@@ -572,9 +572,59 @@ We can display the <b><u>relationship between fuel type and vehicle type</u></b>
   <figcaption><center><b><i>Figure.</i> <u>Overall Fuel Type by Vehicle Type</u></b></center></figcaption>
 </figure>
 
+<b><u>Question:</u></b> Does this depend on transmission type?
 
+~~~r
+> fuelVehicleBytransmission = split( vehicle[ , c("fuel", "type")], vehicle$transmission)
+> invisible(
++     lapply( 1:length(fuelVehicleBytransmission), FUN = function(x){
++             tbl = table(fuelVehicleBytransmission[[x]]$fuel, fuelVehicleBytransmission[[x]]$type)
++           row.order = order( rowSums( tbl ), decreasing = TRUE )
++           col.order = order( colSums( tbl ), decreasing = TRUE )
++           tbl = tbl[ row.order, col.order ]
++           # Get color palette and then reverse the order darkest to lightest
++           col.palette = colorRampPalette(brewer.pal(9,"Blues"))(length(col.order))
++           col.palette = col.palette[ length(col.palette):1 ]
++           mosaicplot(tbl, las = 2, color = col.palette,
++                      main = paste0("Fuel and Vehicle by Transmission = ",
++                                    names(fuelVehicleBytransmission)[x]), cex = 1.5
++                      )
++           }
++           )
++         )
+~~~
 
-Question #5 Display the relationship between fuel type and vehicle type. Does this depend on transmission type?
+<figure>
+  <a href="/images/data-cleaning-image/mosaic-plot2a.png" title="Fuel and Vehicle by Transmission"><img src="/images/data-cleaning-image/mosaic-plot2a.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Fuel and Vehicle by Transmission by automatic</u></b></center></figcaption>
+</figure>
+
+<figure>
+  <a href="/images/data-cleaning-image/mosaic-plot2b.png" title="Fuel and Vehicle by Transmission"><img src="/images/data-cleaning-image/mosaic-plot2b.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Fuel and Vehicle by Transmission by manual</u></b></center></figcaption>
+</figure>
+
+<figure>
+  <a href="/images/data-cleaning-image/mosaic-plot2c.png" title="Fuel and Vehicle by Transmission"><img src="/images/data-cleaning-image/mosaic-plot2c.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Fuel and Vehicle by Transmission by others</u></b></center></figcaption>
+</figure>
+
+<b><u>HOWEVER, IT IS HARD TO SEE THIS RELATIONSHIP WITH 3 MOSAIC PLOTs</u></b>
+<b>=></b> Use dotplot
+
+~~~r
+> dotplot(
++   prop.table( table(vehicle$type , vehicle$transmission,  vehicle$fuel, useNA = "ifany") ,margin = c(1,2) ),
++ xlim = c(-0.05,1.05), auto.key = list(columns = 3), par.settings = simpleTheme(cex= 1.2, pch = 16),
++ xlab = "Percent"
++ )
+~~~
+
+<figure>
+  <a href="/images/data-cleaning-image/dot-plot5.png" title="Fuel and Vehicle by Transmission"><img src="/images/data-cleaning-image/dot-plot5.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Fuel and Vehicle by Transmission</u></b></center></figcaption>
+</figure>
+
 
 
 
