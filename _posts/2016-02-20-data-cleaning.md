@@ -446,7 +446,82 @@ vehicle = vehicle[-idx,]
  1350 46000
 ~~~
 
+=======================================================================
 
+Price is not the only variable we should care about in this dataset. So let's check the list of variables again:
+
+~~~r
+> names(vehicle)
+ [1] "id"           "title"        "body"         "lat"          "long"
+ [6] "posted"       "updated"      "drive"        "odometer"     "type"
+[11] "header"       "condition"    "cylinders"    "fuel"         "size"
+[16] "transmission" "byOwner"      "city"         "time"         "description"
+[21] "location"     "url"          "price"        "year"         "maker"
+[26] "makerMethod"
+~~~
+
+<b>type</b> stands for types of vehicle. List all the different types of vehicle:
+
+~~~r
+> unique(vposts$type)
+ [1] coupe       SUV         sedan       hatchback   wagon       van
+ [7] <NA>        convertible pickup      truck       mini-van    other
+[13] bus         offroad
+~~~
+
+or we can use <b><i>table</i></b> function instead of using <b><i>unique</i></b>
+
+~~~r
+> names( table(vehicle$type, useNA = "ifany") )
+ [1] "bus"         "convertible" "coupe"       "hatchback"   "mini-van"
+ [6] "offroad"     "other"       "pickup"      "sedan"       "SUV"
+[11] "truck"       "van"         "wagon"       NA
+~~~
+
+To make use of the types of vehicle, we must know the proportion of these types of vehicle:
+
+~~~r
+> sort( round( x = prop.table( x = table(vehicle$type, useNA = "ifany") ), digits = 4) )
+
+        bus     offroad    mini-van         van       wagon       other
+     0.0006      0.0019      0.0131      0.0146      0.0161      0.0192
+convertible   hatchback      pickup       truck       coupe         SUV
+     0.0204      0.0236      0.0262      0.0347      0.0469      0.1213
+      sedan        <NA>
+     0.2031      0.4583
+~~~
+
+Let's plot the proportions. I use `dotplot` from <b>lattice</b> library.
+
+~~~r
+> t = prop.table( x = table(vehicle$type, useNA = "ifany") )
+> dotplot(x = sort(t), xlim = c(-0.05, 1.05), cex = 1.5, main = "Proportions of Car Typ
++ es")
+~~~
+
+<figure>
+  <a href="/images/data-cleaning-image/dot-plot1.png" title="Proportion of Vehicle Types"><img src="/images/data-cleaning-image/dot-plot1.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Proportion of Vehicle Types</u></b></center></figcaption>
+</figure>
+
+We made a mistake! Apparently, <b>NA</b> is missing from the chart. Or we could say that `lattice>dotplot does not plot NA at all`. So we can force it to do that by:
+~~~r
+> names(t)[ is.na(names(t)) ] = "NA"
+> t
+         bus  convertible        coupe    hatchback     mini-van      offroad
+0.0006347008 0.0203681265 0.0469101610 0.0236281807 0.0130690670 0.0019041025
+       other       pickup        sedan          SUV        truck          van
+0.0192141250 0.0262246841 0.2030754140 0.1213432577 0.0346777451 0.0145981190
+       wagon           NA
+0.0160983209 0.4582539957
+
+> dotplot(x = sort(t), xlim = c(-0.05, 1.05), cex = 1.5, main = "Proportions of Car Types")
+~~~
+
+<figure>
+  <a href="/images/data-cleaning-image/dot-plot2.png" title="Proportion of Vehicle Types"><img src="/images/data-cleaning-image/dot-plot2.png"></a>
+  <figcaption><center><b><i>Figure.</i> <u>Proportion of Vehicle Types</u></b></center></figcaption>
+</figure>
 
 =======================================================================
 
