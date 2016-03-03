@@ -576,8 +576,7 @@ We can display the <b><u>relationship between fuel type and vehicle type</u></b>
 
 Question #5 Display the relationship between fuel type and vehicle type. Does this depend on transmission type?
 
-What we can see from the mosaic plots below overall and by transmission type and ignoring vehicle type other and fuel type other, is that gas vehicles dominate across vehicle types and across transmission types, with the notable exception that trucks have higher percent diesel than other vehicle types, as do buses with automatic transmissions - this is expected.
-It might be easier to see these same relationships in dotplots than mosaicplots.
+
 
 
 =======================================================================
