@@ -505,6 +505,7 @@ Let's plot the proportions. I use `dotplot` from <b>lattice</b> library.
 </figure>
 
 We made a mistake! Apparently, <b>NA</b> is missing from the chart. Or we could say that `lattice>dotplot does not plot NA at all`. So we can force it to do that by:
+
 ~~~r
 > names(t)[ is.na(names(t)) ] = "NA"
 > t
