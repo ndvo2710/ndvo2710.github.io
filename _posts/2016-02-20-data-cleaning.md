@@ -2,13 +2,13 @@
 layout: post
 title: Data Exploration And Cleaning
 excerpt: "Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more."
-modified: 2016-02-20
+modified: 2016-03-03
 tags: [R, cleaning data, tutorial]
+comments: true
 image:
   feature: sample-cleaning.jpg
   credit: 2bm.co.uk
   creditlink: http://www.2bm.co.uk/wp-content/uploads/2014/10/2bm-cleaning-banner-image-new.jpg
-comments: True
 ---
 
 <section id="table-of-contents" class="toc">
@@ -24,6 +24,8 @@ comments: True
 
 
 # INTRODUCTION
+
+Dirty data are everywhere. In fact most real world dataset start off dirty in one way or another. By the time they made their way in textbook and course, most are already been cleaned and prepared for analysis. This is really convenient when all you want to talk about is how to analyze or model the data. But it can leave you a loss when you face cleaning your own data. Also the thrive of (so-called) big data, data cleaning is more important than ever before. And the data get bigger, the number of things go wrong do too. Each imperfection become harder to find that we cannot really look at the entire dataset and the spreadsheet on your computer. In fact data cleaning is the central part of data science process.
 
 Unless the data is small, _the presence of incorrect and inconsitent data is pervasive_. As a result, we should spend a lot of time cleaning data. This time is also, typically underestimated. 
 
@@ -631,7 +633,7 @@ We can display the <b><u>relationship between fuel type and vehicle type</u></b>
 
 =======================================================================
 
-
+Question 6
 
 
 
