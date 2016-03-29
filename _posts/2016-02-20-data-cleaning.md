@@ -627,6 +627,41 @@ We can display the <b><u>relationship between fuel type and vehicle type</u></b>
   <figcaption><center><b><i>Figure.</i> <u>Fuel and Vehicle by Transmission</u></b></center></figcaption>
 </figure>
 
+* Instead of focusing about <b>price</b> variable only, we should look at other variables. In these variables, I can think of examining the relationship between <b>byOwner and city</b>. 
+
+    <b>A.</b> For <i>city</i> variable:
+
+~~~r
+> levels(vehicle$city)
+[1] "boston"   "chicago"  "denver"   "lasvegas" "nyc"      "sac"      "sfbay"
+> length( levels(vehicle$city) )
+[1] 7
+> table(vehicle$city)
+
+  boston  chicago   denver lasvegas      nyc      sac    sfbay
+    4955     4883     4977     4963     4981     4966     4937
+~~~
+
+The above table shows us the number of vehicles in different cities.
+
+  <b>B.</b> For <i>byOwner</i> variable:
+It tells us information about whether the vehicle is listed or sold by owner or dealer. Since it is a `TRUE/FALSE` vector, we should create another variable with observation as `Owner/Dealer`. So we call it `ownerDealer`
+
+~~~r
+library(dplyr)
+lut = c("TRUE" = "Owner", "FALSE" = "Dealer")
+ownerDealer= (lut[as.character(vehicle$byOwner)] %>% unname())
+~~~
+
+It is quite suspicious that all cities have roughly 5000 observations and that percentages are almost 50/50. It does not seem right...
+
+~~~r
+> prop.table(table(vehicle$ownerDealer, vehicle$city), margin = 2)
+
+            boston   chicago    denver  lasvegas       nyc       sac     sfbay
+  Dealer 0.5025227 0.5097276 0.5005023 0.5015112 0.5005019 0.5000000 0.5013166
+  Owner  0.4974773 0.4902724 0.4994977 0.4984888 0.4994981 0.5000000 0.4986834
+~~~
 
 
 
