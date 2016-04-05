@@ -607,7 +607,7 @@ Source: local data frame [22,751 x 7]
 ```
 
 <figure>
-  <a href="/images/dplyr-image/filter-verb.png" title="Filter Verb"><img src="/images/data-cleaning-image/density-plot1.png"></a>
+  <a href="/images/dplyr-image/filter-verb.png" title="Filter Verb"><img src="/images/dplyr-image/filter-verb.png"></a>
   <figcaption><left><b><i>Figure.</i> <u>Filter</u></b></left></figcaption>
 </figure>
 
@@ -903,62 +903,461 @@ Variables not shown: TailNum (chr), ActualElapsedTime (int), AirTime (int),
 
 
 ```r
+> # Arrange according to carrier and decreasing departure delays
+> arrange(hflights, UniqueCarrier, desc(DepDelay))
+Source: local data frame [22,751 x 21]
 
+   Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
+1  2011     5         12         4    2158    2301            AA       426
+2  2011    11         15         2    1742    1858            AA       458
+3  2011    12         17         6    1805    1912            AA      1033
+4  2011     6         21         2    1050    1148            AA      1995
+5  2011     6         22         3    1317    1501            AA      1534
+6  2011    10         13         4    1138    1454            AA      1946
+7  2011     3          9         3    2137    2240            AA       653
+8  2011     5         20         5    1020    1136            AA      2002
+9  2011     3         24         4     821     924            AA      1225
+10 2011     5          2         1    2116    2224            AA       426
+..  ...   ...        ...       ...     ...     ...           ...       ...
+Variables not shown: TailNum (chr), ActualElapsedTime (int), AirTime (int),
+  ArrDelay (int), DepDelay (int), Origin (chr), Dest (chr), Distance (int),
+  TaxiIn (int), TaxiOut (int), Cancelled (int), CancellationCode (chr),
+  Diverted (int)
+> 
+> # Arrange flights by total delay (normal order).
+> arrange(hflights, DepDelay + ArrDelay)
+Source: local data frame [22,751 x 21]
+
+   Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
+1  2011    12         25         7     741     926            OO      4591
+2  2011    12          4         7     759    1014            XE      4455
+3  2011     9         10         6    1830    2036            AS       731
+4  2011     3          8         2    1037    1437            CO       432
+5  2011    10          2         7     939    1055            OO      5166
+6  2011     2         14         1    1917    2027            MQ      3328
+7  2011     1          3         1    1056    1303            MQ      3796
+8  2011     1         11         2    1005    1326            CO      1544
+9  2011     9         29         4     938    1057            OO      2040
+10 2011     9          2         5    1855    2238            CO      1661
+..  ...   ...        ...       ...     ...     ...           ...       ...
+Variables not shown: TailNum (chr), ActualElapsedTime (int), AirTime (int),
+  ArrDelay (int), DepDelay (int), Origin (chr), Dest (chr), Distance (int),
+  TaxiIn (int), TaxiOut (int), Cancelled (int), CancellationCode (chr),
+  Diverted (int)
+> 
+> # Keep flights leaving to DFW before 8am and arrange according to decreasing AirTime 
+> arrange(filter(hflights, Dest == "DFW", DepTime < 800), desc(AirTime) )
+Source: local data frame [77 x 21]
+
+   Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
+1  2011    12         13         2     706     824            MQ      3328
+2  2011    12          9         5     724     854            CO      1206
+3  2011    12         14         3     732     849            XE      4326
+4  2011     1         21         5     746     904            OO      1117
+5  2011    11          2         3     556     724            MQ      3265
+6  2011     8          5         5     559     711            MQ      3265
+7  2011    12         13         2     729     845            XE      4326
+8  2011     7          1         5     557     703            MQ      3265
+9  2011     7          5         2     557     701            MQ      3265
+10 2011    11         24         4     601     715            MQ      3265
+..  ...   ...        ...       ...     ...     ...           ...       ...
+Variables not shown: TailNum (chr), ActualElapsedTime (int), AirTime (int),
+  ArrDelay (int), DepDelay (int), Origin (chr), Dest (chr), Distance (int),
+  TaxiIn (int), TaxiOut (int), Cancelled (int), CancellationCode (chr),
+  Diverted (int)
+> 
 ```
 
 
 ```r
+# print a list containing only TailNum of flights that departed too late, sorted by total taxiing time
+> select(arrange(filter(hflights, DepDelay > 30), TaxiIn + TaxiOut),TailNum)
+Source: local data frame [2,152 x 1]
 
+   TailNum
+1   N747SA
+2   N630WN
+3   N912WN
+4   N255WN
+5   N711HK
+6   N353SW
+7   N326SW
+8   N636WN
+9   N751SW
+10  N9222N
+..     ...
 ```
 
 
 ```r
+> # Print out a summary with variables min_dist and max_dist
+> summarise(hflights, min_dist = min(Distance), max_dist = max(Distance))
+Source: local data frame [1 x 2]
 
+  min_dist max_dist
+1       79     3904
+> 
+> # Print out a summary with variable max_div : the longest Distance for diverted flights
+> summarise(filter(hflights, Diverted == 1), max_div = max(Distance))
+Source: local data frame [1 x 1]
+
+  max_div
+1    1428
 ```
 
 
 ```r
+> temp1 = filter(hflights, !is.na(ArrDelay))
+> summarise(temp1, earliest = min(ArrDelay), 
+    average = mean(ArrDelay), latest = max(ArrDelay), sd = sd(ArrDelay))
+Source: local data frame [1 x 4]
 
+  earliest  average latest       sd
+1      -57 6.836407    704 30.08375
+> temp2 = filter(hflights, !is.na(TaxiIn) & !is.na(TaxiOut))
+> summarise(temp2, max_taxi_diff = max(abs(TaxiIn - TaxiOut)))
+Source: local data frame [1 x 1]
+
+  max_taxi_diff
+1           141
+> # hflights is available
+> 
+> # Remove rows that have NA ArrDelay: temp1
+> temp1 = filter(hflights, !is.na(ArrDelay))
+> 
+> # Generate summary about ArrDelay column of temp1
+> summarise(temp1, earliest = min(ArrDelay), 
+    average = mean(ArrDelay), latest = max(ArrDelay), sd = sd(ArrDelay))
+Source: local data frame [1 x 4]
+
+  earliest  average latest       sd
+1      -57 6.836407    704 30.08375
+> 
+> # Keep rows that have no NA TaxiIn and no NA TaxiOut: temp2
+> temp2 = filter(hflights, !is.na(TaxiIn) & !is.na(TaxiOut))
+> 
+> 
+> # Print the maximum taxiing difference of temp2 with summarise()
+> summarise(temp2, max_taxi_diff = max(abs(TaxiIn - TaxiOut)))
+Source: local data frame [1 x 1]
+
+  max_taxi_diff
+1           141
 ```
 
 
 ```r
+> # Generate summarizing statistics for hflights
+> summarise(hflights, n_obs = length(Year), 
+    n_carrier = length(unique(UniqueCarrier)),
+    n_dest = length(unique(Dest)),
+    dest100 = Dest[100])
+Source: local data frame [1 x 4]
 
+  n_obs n_carrier n_dest dest100
+1 22751        15    115     EWR
+> 
+> # Filter hflights to keep all American Airline flights: aa
+> aa = filter(hflights, UniqueCarrier == "American")
+> 
+> # Generate summarizing statistics for aa 
+> summarise(aa, n_flights = length(Year),
+    n_canc = length(which(Cancelled==1)),
+    p_canc = length(which(Cancelled==1))/length(Cancelled) * 100,
+    avg_delay = mean(ArrDelay, na.rm = TRUE))
+Source: local data frame [1 x 4]
+
+  n_flights n_canc   p_canc avg_delay
+1       315      5 1.587302 -0.116129
 ```
 
 
 ```r
+> # Generate summarizing statistics for hflights
+> summarise(hflights, n_obs = length(Year), 
+    n_carrier = length(unique(UniqueCarrier)),
+    n_dest = length(unique(Dest)),
+    dest100 = Dest[100])
+Source: local data frame [1 x 4]
 
+  n_obs n_carrier n_dest dest100
+1 22751        15    115     EWR
+> 
+> # Filter hflights to keep all American Airline flights: aa
+> aa = filter(hflights, UniqueCarrier == "American")
+> 
+> # Generate summarizing statistics for aa 
+> summarise(aa, n_flights = length(Year),
+    n_canc = length(which(Cancelled==1)),
+    p_canc = round(length(which(Cancelled==1))/length(Cancelled) * 100,2),
+    avg_delay = round(mean(ArrDelay, na.rm = TRUE),2))
+Source: local data frame [1 x 4]
+
+  n_flights n_canc p_canc avg_delay
+1       315      5   1.59     -0.12
 ```
 
 
 ```r
+> # Solve the exercise using a combination of dplyr verbs and %>%
+> hflights %>%
+    filter(Distance / (ActualElapsedTime + 100) * 60 < 105 | Cancelled == 1 | Diverted == 1) %>%
+    summarise( n_non = n(), 
+             p_non = n()/nrow(hflights) * 100 ,
+             n_dest = n_distinct(Dest), 
+             min_dist = min(Distance), 
+             max_dist = max(Distance))
+Source: local data frame [1 x 5]
 
+  n_non   p_non n_dest min_dist max_dist
+1  4294 18.8739     84       79     2007
 ```
 
 
 ```r
+> # Count the number of overnight flights
+> hflights %>%
+    filter(!is.na(DepTime) & !is.na(ArrTime) & ArrTime < DepTime) %>%
+    summarise(n = n())
+Source: local data frame [1 x 1]
 
+    n
+1 265
+```
+
+Generate a per-carrier summary of hflights with the following variables: n_flights, the number of flights flown by the carrier; n_canc, the number of cancelled flights; p_canc, the percentage of cancelled flights; avg_delay, the average arrival delay of flights whose delay does not equal NA. Next, order the carriers in the summary from low to high by their average arrival delay. Use percentage of flights cancelled to break any ties. Which airline scores best based on these statistics?
+
+Generate a per-day-of-week summary of hflights with the variable avg_taxi, the average total taxiing time. Pipe this summary into an arrange() call such that the day with the highest avg_taxi comes first.
+```r
+> # Make an ordered per-carrier summary of hflights
+> hflights %>%
+    group_by(UniqueCarrier) %>%
+    summarise(n_flights = n(),
+              n_canc = length(which(Cancelled==1)),
+              p_canc = n_canc / n_flights * 100,
+              avg_delay = mean(ArrDelay, na.rm=TRUE)) %>%
+    arrange(avg_delay)
+Source: local data frame [15 x 5]
+
+        UniqueCarrier n_flights n_canc     p_canc  avg_delay
+1          US_Airways       422      5  1.1848341 -1.0721154
+2                Mesa         7      1 14.2857143 -0.8333333
+3            American       315      5  1.5873016 -0.1161290
+4             AirTran       225      2  0.8888889  0.7117117
+5              Alaska        32      0  0.0000000  1.0625000
+6            Frontier        79      0  0.0000000  4.0000000
+7             JetBlue        72      3  4.1666667  4.0000000
+8         Continental      6978     50  0.7165377  6.0759329
+9  Atlantic_Southeast       229      7  3.0567686  6.2927928
+10             United       194      5  2.5773196  6.5925926
+11              Delta       241      5  2.0746888  7.1440678
+12          Southwest      4572     74  1.6185477  7.5294903
+13         ExpressJet      7325    112  1.5290102  7.6131367
+14     American_Eagle       441      8  1.8140590  7.8101852
+15            SkyWest      1619     26  1.6059296  9.1620429
+> 
+> # Make an ordered per-day summary of hflights
+> hflights %>%
+    group_by(DayOfWeek) %>%
+    summarise(avg_taxi = mean(TaxiIn + TaxiOut, na.rm = TRUE)) %>%
+    arrange(desc(avg_taxi))
+Source: local data frame [7 x 2]
+
+  DayOfWeek avg_taxi
+1         1 21.61392
+2         5 21.39562
+3         2 21.28001
+4         3 21.23543
+5         4 21.16079
+6         7 20.78389
+7         6 20.68192
 ```
 
 
 ```r
+> # Solution to first instruction
+> hflights %>%
+    filter(!is.na(ArrDelay)) %>%
+    group_by(UniqueCarrier) %>%
+    summarise(p_delay = length(which(ArrDelay > 0)) / n()) %>%
+    mutate(rank = rank(p_delay)) %>%
+    arrange(rank)
+Source: local data frame [15 x 3]
 
+        UniqueCarrier   p_delay rank
+1             AirTran 0.2972973    1
+2              Alaska 0.3125000    2
+3          US_Airways 0.3149038    3
+4             JetBlue 0.3235294    4
+5            American 0.3258065    5
+6                Mesa 0.3333333    6
+7  Atlantic_Southeast 0.3693694    7
+8      American_Eagle 0.3750000    8
+9               Delta 0.3983051    9
+10             United 0.4550265   10
+11          Southwest 0.4645003   11
+12         ExpressJet 0.4867798   12
+13        Continental 0.4937807   13
+14           Frontier 0.5063291   14
+15            SkyWest 0.5422446   15
+> 
+> # Solution to second instruction
+> hflights %>%
+    filter(!is.na(ArrDelay) & ArrDelay > 0) %>%
+    group_by(UniqueCarrier) %>%
+    summarise(avg = mean(ArrDelay)) %>%
+    mutate(rank = rank(avg)) %>%
+    arrange(rank)
+Source: local data frame [15 x 3]
+
+        UniqueCarrier      avg rank
+1            Frontier 13.42500    1
+2                Mesa 14.00000    2
+3          US_Airways 20.19084    3
+4         Continental 21.83245    4
+5            American 23.07921    5
+6          ExpressJet 23.45569    6
+7             SkyWest 24.31395    7
+8           Southwest 25.18831    8
+9             AirTran 26.28788    9
+10             United 28.03488   10
+11             Alaska 28.30000   11
+12              Delta 33.97872   12
+13            JetBlue 36.63636   13
+14     American_Eagle 39.07407   14
+15 Atlantic_Southeast 39.23171   15
 ```
 
 
 ```r
+> # Which plane (by tail number) flew out of Houston the most times? How many times? adv1
+> adv1 <- hflights %>%
+          group_by(TailNum) %>%
+          summarise(n = n()) %>%
+          filter(n == max(n))
+> adv1
+Source: local data frame [1 x 2]
 
+  TailNum   n
+1  N16944 115
+> # How many airplanes only flew to one destination from Houston? adv2
+> adv2 <- hflights %>%
+          group_by(TailNum) %>%
+          summarise(ndest = n_distinct(Dest)) %>%
+          filter(ndest == 1) %>%
+          summarise(nplanes = n())
+> adv2
+Source: local data frame [1 x 1]
+
+  nplanes
+1    1039
+> 
+> # Find the most visited destination for each carrier: adv3
+> adv3 <- hflights %>% 
+          group_by(UniqueCarrier, Dest) %>%
+          summarise(n = n()) %>%
+          mutate(rank = rank(desc(n))) %>%
+          filter(rank == 1)
+> adv3
+Source: local data frame [15 x 4]
+Groups: UniqueCarrier
+
+        UniqueCarrier Dest   n rank
+1             AirTran  ATL 211    1
+2              Alaska  SEA  32    1
+3            American  DFW 186    1
+4      American_Eagle  DFW 234    1
+5  Atlantic_Southeast  DTW  89    1
+6         Continental  LAX 417    1
+7               Delta  ATL 219    1
+8          ExpressJet  CRP 313    1
+9            Frontier  DEN  78    1
+10            JetBlue  JFK  72    1
+11               Mesa  CLT   6    1
+12            SkyWest  COS 143    1
+13          Southwest  DAL 839    1
+14         US_Airways  CLT 237    1
+15             United  ORD  59    1
+> # Find the carrier that travels to each destination the most: adv4
+> adv4 <- hflights %>% 
+          group_by(Dest, UniqueCarrier) %>%
+          summarise(n = n()) %>%
+          mutate(rank = rank(desc(n))) %>%
+          filter(rank == 1)
+> adv4
+Source: local data frame [115 x 4]
+Groups: Dest
+
+   Dest UniqueCarrier   n rank
+1   ABQ    ExpressJet 109    1
+2   AEX    ExpressJet  76    1
+3   AMA    ExpressJet 132    1
+4   ANC   Continental  18    1
+5   ASE       SkyWest   9    1
+6   ATL         Delta 219    1
+7   AUS   Continental 274    1
+8   AVL    ExpressJet  29    1
+9   BFL       SkyWest  43    1
+10  BHM    ExpressJet 193    1
+..  ...           ... ...  ...
 ```
 
 
 ```r
-
-```
-
-
-```r
-
+> # set up a src that connects to the mysql database (src_mysql is provided by dplyr)
+> my_db <- src_mysql(dbname = "dplyr", 
+                  host = "dplyr.csrrinzqubik.us-east-1.rds.amazonaws.com", 
+                  port = 3306, 
+                  user = "dplyr",
+                  password = "dplyr")
+> 
+> # and reference a table within that src: nycflights is now available as an R object that references to the remote nycflights table
+> nycflights <- tbl(my_db, "dplyr")
+> 
+> # glimpse at nycflights
+> glimpse(nycflights)
+Observations: 336776
+Variables:
+$ id        (int) 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17...
+$ year      (int) 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 201...
+$ month     (int) 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+$ day       (int) 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+$ dep_time  (int) 517, 533, 542, 544, 554, 554, 555, 557, 557, 558, 558, 55...
+$ dep_delay (int) 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1, ...
+$ arr_time  (int) 830, 850, 923, 1004, 812, 740, 913, 709, 838, 753, 849, 8...
+$ arr_delay (int) 11, 20, 33, -18, -25, 12, 19, -14, -8, 8, -2, -3, 7, -14,...
+$ carrier   (chr) "UA", "UA", "AA", "B6", "DL", "UA", "B6", "EV", "B6", "AA...
+$ tailnum   (chr) "N14228", "N24211", "N619AA", "N804JB", "N668DN", "N39463...
+$ flight    (int) 1545, 1714, 1141, 725, 461, 1696, 507, 5708, 79, 301, 49,...
+$ origin    (chr) "EWR", "LGA", "JFK", "JFK", "LGA", "EWR", "EWR", "LGA", "...
+$ dest      (chr) "IAH", "IAH", "MIA", "BQN", "ATL", "ORD", "FLL", "IAD", "...
+$ air_time  (int) 227, 227, 160, 183, 116, 150, 158, 53, 140, 138, 149, 158...
+$ distance  (int) 1400, 1416, 1089, 1576, 762, 719, 1065, 229, 944, 733, 10...
+$ hour      (int) 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, ...
+$ minute    (int) 17, 33, 42, 44, 54, 54, 55, 57, 57, 58, 58, 58, 58, 58, 5...
+> 
+> 
+> # Calculate the grouped summaries detailed in the instructions
+>   nycflights %>%
+    group_by(carrier) %>%
+    summarise(n_flights = n(), avg_delay = mean(arr_delay)) %>%
+    arrange(avg_delay)
+Source: mysql 5.6.21-log [dplyr@dplyr.csrrinzqubik.us-east-1.rds.amazonaws.com:/dplyr]
+From: <derived table> [?? x 3]
+Arrange: avg_delay 
+Warning message: Decimal MySQL column 2 imported as numeric
+   carrier n_flights avg_delay
+1       AS       714   -9.8613
+2       HA       342   -6.9152
+3       AA     32729    0.3556
+4       DL     48110    1.6289
+5       VX      5162    1.7487
+6       US     20536    2.0565
+7       UA     58665    3.5045
+8       9E     18460    6.9135
+9       B6     54635    9.3565
+10      WN     12275    9.4675
+..     ...       ...       ...
 ```
 
 
