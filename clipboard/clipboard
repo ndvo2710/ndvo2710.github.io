@@ -1,0 +1,102 @@
+[toc]
+
+# CAPTURE WHAT'S ON YOUR MIND (DROPBOX + MACDOWN > EVERNOTE)- TUTORIAL FOR MacOS
+
+## THE STORY OF SCREENSHOT:
+
+==<u><b>Reasons why I love using Evernote:</b></u>== For years, I was an Evernote power user. It could store everything I possibly needed, and make it available everywhere from my laptop to my phone and my tablet. One of the best feature I like is screenshot clipping on Mac (this feature requires a few steps more on Windows) by using this powerful hotkey `Cmd + Ctrl + C`. This is how the clipping feature looks like:
+
+![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-09_03-32-06.png)
+
+How cool is that! In addition, as you can see from the above screenshot, you can add text to that small 'drop-down' workplace when you click on the evernote icon on the menu bar.
+
+==<u><b>Reasons why I STOP using Evernote:</b></u>== It happens when I started using [Macdown](http://macdown.uranusjr.com/blog/post/2/macdown-help/)(one of the best Markdown editor). It has so many useful features such as:
+
+* Fenced Code Block with syntax highlighted like this:
+
+![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-09_03-13-25.png)
+
+* TeX-like math syntax
+* Detect table of contents token(Table of contents for headings)
+
+==<u><b>However,</b></u>== sometimes I miss the cool clipping feature from Evernote. It's because it is too much work to add a photo into markdown. Normally, you have to `take a screenshot > Copy it to Dropbox public folder > Copy Public Link > Write markdown code to show the image ` (Macdown can render local images, but I prefer storing them in my dropbox). It takes 4 steps in markdown whereas I only need 1 step with Evernote. So I decided to integrate this Evernote feature into markdown. 
+
+## INSTRUCTIONS:
+
+Thanks to [Andy Taylor](https://andytaylor.me) for the instructions of [Better OSX Screenshots with Shell Scripts](https://andytaylor.me/2014/05/22/better-os-x-screenshots-with-shell-scripts/). I have borrowed some from him then added some of mine. Here are the tutorials of how I do:
+
+* ==<u><b>Step 1:</b></u>== `Open Automator > Choose Service`
+
+![](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-08-26_09-00-46.png)
+
+* ==<u><b>Step 2:</b></u>== `Change Service receive to 'no input'`, and then drag these following actions to the right panel `1) Run Shell Script` + `2) Get Contents of Clipboard` + `3) Run Shell Script` (As Picture Shown)
+
+![](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-08-26_09-01-15.png)
+
+
+* ==<u><b>Step 3:</b></u>== `Get Dropbox User ID`
+
+You can get your dropbox User ID by: `Got to Public Folder` > `Right Click on any file` > `Copy Public Link` > `Paste it to your web browser URL`
+
+You should get any link like this: `https://dl.dropboxusercontent.com/u/278685/Screensh...`
+
+Your ID is after `/u/`. In my case, the ID is <b>278685</b>
+
+
+* ==<u><b>Step 4:</b></u>== Create two folder in Dropbox Public Folder. First folder is `shots` ( This folder will contains all of your screenshot photos). Second folder is `shots_text_file` (this folder contains only 1 file named `text.mdown`)
+
+* ==<u><b>Step 5:</b></u>== Get back to Automator in Step 2:
+
+* Step 5a: First shell script
+
+```sh
+dropboxuser=278685 # Replace with your ID
+directoryname=shots
+filename=shot_`date '+%Y-%m-%d_%H-%M-%S'`.png
+path=~/Dropbox/Public/$directoryname/
+mkdir -p $path
+screencapture -o -i $path$filename
+open --reveal $path$filename
+publicurl=![image]\(https://dl.dropboxusercontent.com/u/$dropboxuser/$directoryname/$filename\)
+printf $publicurl | pbcopy
+```
+
+* Step 5b: Second shell script
+
+```sh
+pbpaste >> ~/Dropbox/Public/shots_text_file/text.mdown
+printf '\n\n' >> ~/Dropbox/Public/shots_text_file/text.mdown
+```
+
+* ==<u><b>Step 6:</b></u>== Save your Automator with name as `script_screenshots`
+
+* ==<u><b>Step 7:</b></u>== `Open Preferences > Keyboard`, then go to `Screen Shots` Uncheck `Save Picture of selected area...`
+
+![](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-08-26_09-13-13.png)
+
+* ==<u><b>Step 8:</b></u>== go to `Services` to check `script_screenshots`  under `General`. And then assign hot keys `Cmd + Shift + 4` for this service.
+
+![](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-08-26_09-13-31.png)
+
+## HOW TO USE IT:
+
+* ==<u><b>Trigger with a hotkey:</b></u>== `Cmd + Shift + 4` then take your screenshot. Here are two screenshots that I took:
+
+`>Pic 1:`
+	
+![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-09_05-14-34.png)
+
+`>Pic 2:`
+	
+
+![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-09_05-15-00.png)
+
+* ==<u><b>Open `Dropbox > Public > shot_text_file > text.mdown`</b></u>== You will have something like this:
+
+![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-09_05-18-28.png)
+
+* ==<u><b>Note:</b></u>== In fact, I rarely use this `text.mdown` file. I just use it as a backup md file, or when I need to take the dozens or hundreds of screenshots at the same time( For Example: Copy Chegg Homework Solutions by Screenshots. :D). Usually, each time I take screenshot by triggering `Cmd + Shift + 4`, I just navigate to my Macdown editor and then `Cmd + V`.
+
+
+
+
