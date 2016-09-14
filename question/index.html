@@ -1316,6 +1316,239 @@ div#notebook {
 <span class="p">)</span> <span class="k">as</span> <span class="n">Temp</span>
 <span class="k">group</span> <span class="k">by</span> <span class="n">RowNumber</span>
 </pre></div>
+<table>
+<thead><tr>
+<th>Doctor</th>
+<th>Professor</th>
+<th>Singer</th>
+<th>Actor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aamina</td>
+<td>Ashley</td>
+<td>Christeen</td>
+<td>Eve</td>
+</tr>
+<tr>
+<td>Julia</td>
+<td>Belvet</td>
+<td>Jane</td>
+<td>Jennifer</td>
+</tr>
+<tr>
+<td>Priya</td>
+<td>Britney</td>
+<td>Jenny</td>
+<td>Ketty</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>Maria</td>
+<td>Kristeen</td>
+<td>Samantha</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>Meera</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>Naomi</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>Priyanka</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><hr><hr><hr><hr><hr></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">set</span> <span class="o">@</span><span class="n">r1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">@</span><span class="n">r2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">@</span><span class="n">r3</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">@</span><span class="n">r4</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="k">select</span> <span class="k">case</span> <span class="k">when</span> <span class="n">Occupation</span><span class="o">=</span><span class="s1">&#39;Doctor&#39;</span> <span class="k">then</span> <span class="p">(</span><span class="o">@</span><span class="n">r1</span><span class="p">:</span><span class="o">=@</span><span class="n">r1</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">when</span> <span class="n">Occupation</span><span class="o">=</span><span class="s1">&#39;Professor&#39;</span> <span class="k">then</span> <span class="p">(</span><span class="o">@</span><span class="n">r2</span><span class="p">:</span><span class="o">=@</span><span class="n">r2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">when</span> <span class="n">Occupation</span><span class="o">=</span><span class="s1">&#39;Singer&#39;</span> <span class="k">then</span> <span class="p">(</span><span class="o">@</span><span class="n">r3</span><span class="p">:</span><span class="o">=@</span><span class="n">r3</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">when</span> <span class="n">Occupation</span><span class="o">=</span><span class="s1">&#39;Actor&#39;</span> <span class="k">then</span> <span class="p">(</span><span class="o">@</span><span class="n">r4</span><span class="p">:</span><span class="o">=@</span><span class="n">r4</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">end</span> <span class="k">as</span> <span class="n">RowNumber</span><span class="p">,</span>
+    <span class="k">case</span> <span class="k">when</span> <span class="n">Occupation</span><span class="o">=</span><span class="s1">&#39;Doctor&#39;</span> <span class="k">then</span> <span class="n">Name</span> <span class="k">end</span> <span class="k">as</span> <span class="n">Doctor</span><span class="p">,</span>
+    <span class="k">case</span> <span class="k">when</span> <span class="n">Occupation</span><span class="o">=</span><span class="s1">&#39;Professor&#39;</span> <span class="k">then</span> <span class="n">Name</span> <span class="k">end</span> <span class="k">as</span> <span class="n">Professor</span><span class="p">,</span>
+    <span class="k">case</span> <span class="k">when</span> <span class="n">Occupation</span><span class="o">=</span><span class="s1">&#39;Singer&#39;</span> <span class="k">then</span> <span class="n">Name</span> <span class="k">end</span> <span class="k">as</span> <span class="n">Singer</span><span class="p">,</span>
+    <span class="k">case</span> <span class="k">when</span> <span class="n">Occupation</span><span class="o">=</span><span class="s1">&#39;Actor&#39;</span> <span class="k">then</span> <span class="n">Name</span> <span class="k">end</span> <span class="k">as</span> <span class="n">Actor</span>
+  <span class="k">from</span> <span class="n">OCCUPATIONS</span>
+  <span class="k">order</span> <span class="k">by</span> <span class="n">Name</span>
+</pre></div>
+<h2 id="OUTPUT:">OUTPUT:<a class="anchor-link" href="#OUTPUT:">&#182;</a></h2><table>
+<thead><tr>
+<th>Row Number</th>
+<th>Doctor</th>
+<th>Professor</th>
+<th>Singer</th>
+<th>Actor</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>NULL</td>
+<td>Ashley</td>
+<td>NULL</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>NULL</td>
+<td>Belvet</td>
+<td>NULL</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>NULL</td>
+<td>Britney</td>
+<td>NULL</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>Christeen</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>Eve</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>Jane</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>Jennifer</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>Jenny</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Julia</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>Ketty</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>Kristeen</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>NULL</td>
+<td>Maria</td>
+<td>NULL</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>NULL</td>
+<td>Meera</td>
+<td>NULL</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>NULL</td>
+<td>Naomi</td>
+<td>NULL</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Priya</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>NULL</td>
+<td>Priyanka</td>
+<td>NULL</td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>Samantha</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
