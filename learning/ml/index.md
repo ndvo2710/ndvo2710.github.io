@@ -1,3 +1,4 @@
+<a id='post34'></a>
 
 ## TABLE OF CONTENTS:
 
@@ -88,6 +89,8 @@
 
 [Files](https://drive.google.com/file/d/0B1vaOU1uB8DPMS1SUXFkcmZKNmc/view)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -106,6 +109,8 @@ Không sâu bằng caret nhưng các bác sĩ có thể sử dụng dễ dàng h
 https://cran.rstudio.com/web/packages/FFTrees/index.html
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_02-10-50.png)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -131,6 +136,8 @@ R mạnh và linh hoạt hơn rất nhiều so với các gói công cụ thốn
 
 [pdf](https://drive.google.com/file/d/0B1vaOU1uB8DPbEVGaU9uamxKSm8/view)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -143,6 +150,8 @@ R mạnh và linh hoạt hơn rất nhiều so với các gói công cụ thốn
 ## Book Recommendation: Analysis of Large and Complex Data:
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_02-15-12.png)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -157,6 +166,8 @@ R mạnh và linh hoạt hơn rất nhiều so với các gói công cụ thốn
 
 [pdf file](https://drive.google.com/file/d/0B1vaOU1uB8DPRERFWEJaWVBpQ0U/view)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -169,6 +180,8 @@ R mạnh và linh hoạt hơn rất nhiều so với các gói công cụ thốn
 ## Book Reccomendation: Applied Survival Analysis Using R
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_02-24-11.png)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -183,6 +196,7 @@ R mạnh và linh hoạt hơn rất nhiều so với các gói công cụ thốn
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_02-25-42.png)
 
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -202,6 +216,8 @@ Xin chân thành cảm ơn các bạn.
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_02-27-40.png)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -217,6 +233,8 @@ Bài 5 trong series caret: so sánh khả năng dự báo của mô hình phân 
 
 [pdf file](https://drive.google.com/file/d/0B1vaOU1uB8DPUWxtVjBXTWJfd0k/view)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -229,6 +247,9 @@ Bài 5 trong series caret: so sánh khả năng dự báo của mô hình phân 
 ## Tips:
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_02-29-21.png)
+
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -243,6 +264,8 @@ Bài 5 trong series caret: so sánh khả năng dự báo của mô hình phân 
 
 [PDF Files](https://sites.google.com/site/bayesforvietnam/home/bai-giang-slides/HoiquyBeta%20Bayes.pdf?attredirects=0)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -255,6 +278,8 @@ Bài 5 trong series caret: so sánh khả năng dự báo của mô hình phân 
 ## So sánh 2 phân nhóm độc lập theo BAYES:
 
 [Youtube link](https://www.youtube.com/watch?v=SrxdKqCo9v0&feature=youtu.be)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -269,6 +294,7 @@ Bài 5 trong series caret: so sánh khả năng dự báo của mô hình phân 
 
 [PDF File](https://sites.google.com/site/bayesforvietnam/home/bai-giang-slides/Negbinomial%20Bayes.pdf?attredirects=0&d=1)
 
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -287,6 +313,8 @@ Nhắc lại: Suy diễn Bayes dựa trên nền tảng: Mức độ khả tín,
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_02-35-25.png)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -300,6 +328,8 @@ Nhắc lại: Suy diễn Bayes dựa trên nền tảng: Mức độ khả tín,
 
 [Youtube Link](https://www.youtube.com/watch?v=8DAaWKoMfvw)
 [Materials](https://sites.google.com/site/bayesforvietnam/home)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -316,6 +346,8 @@ Bài thứ 4 của series CARET sẽ hướng dẫn thực hành về Neural Net
 
 [PDF file](https://drive.google.com/file/d/0B1vaOU1uB8DPdmpGYXRDR3Q5Q1k/view)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -331,6 +363,8 @@ Bài thứ 4 của series CARET sẽ hướng dẫn thực hành về Neural Net
 
 [Pdf File](https://drive.google.com/file/d/0B1vaOU1uB8DPclRaX1NXUE5haUk/view)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -345,6 +379,8 @@ Bài thứ 4 của series CARET sẽ hướng dẫn thực hành về Neural Net
 Bài thứ 3 trong series CARET sẽ giới thiệu về tập hợp Mô hình (có nơi dịch là Đồng diễn), một phương pháp tối ưu hóa khả năng dự báo bằng cách can thiệp lên variance và/hoặc bias.
 
 [PDF File](https://drive.google.com/file/d/0B1vaOU1uB8DPRjVEdmhIbEdYOWM/view)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -363,6 +399,8 @@ Mục tiêu của bài này là hướng dẫn Huấn luyện và Kiểm định
 
 [PDF File](https://drive.google.com/file/d/0B1vaOU1uB8DPRHJtSUctVV9iaEk/view)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -379,6 +417,8 @@ CARET là một giao thức tổng quát cho phép kết nối với hàng trăm
 CARET hỗ trợ 217 dạng mô hình khác nhau. Bài này sẽ ứng dụng mô hình cây kiểu CART vào chẩn đoán.
 
 [PDF File](https://drive.google.com/file/d/0B1vaOU1uB8DPaWpWd3dzMnBSRHM/view)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -397,6 +437,9 @@ Một trong những trở ngại khó chịu khi phân tích Longitudinal data l
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_02-48-49.png)
 
+[Back To Table Of Contents](#post34)
+
+
 <hr>
 <hr>
 <hr>
@@ -409,6 +452,9 @@ Một trong những trở ngại khó chịu khi phân tích Longitudinal data l
 ## Skill set số 3: Thiết lập tương phản cho biến phân nhóm trong ANOVA
 
 [PDF File](https://drive.google.com/file/d/0B1vaOU1uB8DPYzY4VXAyOTFvMlk/view)
+
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -424,6 +470,8 @@ Một trong những trở ngại khó chịu khi phân tích Longitudinal data l
 Bài tiếp theo trong series BAYES bàn về cách thay thế test t Student bằng phương pháp Bayes (Thực ra cả 2 đều dựa trên phân phối t của Student và một mô hình tuyến tính). Một lần nữa bạn sẽ thấy là Bayes mạnh và linh hoạt hơn rất nhiều.
 
 [PDF File](https://drive.google.com/file/d/0B1vaOU1uB8DPLWJLQjFkem5EY2M/view)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -441,6 +489,7 @@ Chủ đề của bài này là dùng Bayes thay thế cho ANOVA. Bạn sẽ th�
 
 [PDF File](https://drive.google.com/file/d/0B1vaOU1uB8DPZ19xMGNmOWpJNVk/view)
 
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -463,6 +512,7 @@ Chủ đề của bài này là dùng Bayes thay thế cho ANOVA. Bạn sẽ th�
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_02-56-11.png)
 
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -476,6 +526,8 @@ Chủ đề của bài này là dùng Bayes thay thế cho ANOVA. Bạn sẽ th�
 ## Box-Cox Transformation
 
 [PDF File](https://drive.google.com/file/d/0B1vaOU1uB8DPbnBRdVFRY2JFUFU/view)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -505,9 +557,9 @@ list(training=trainsubset,testing=testsubset)
 
 Cách sử dụng hàm này:
 
-1. Load data vào R: ví dụ `data = read.csv("dataset.csv")`
+<b>Step 1:</b> Load data vào R: ví dụ `data = read.csv("dataset.csv")`
 
-2. Áp dụng hàm splitdata trên data với cú pháp: tên đối tượng `split = splitdata`(tên data, seed=con số tùy chọn, ratio=tỉ lệ mẫu train so với data ban đầu)
+<b>Step 2:</b> Áp dụng hàm splitdata trên data với cú pháp: tên đối tượng `split = splitdata`(tên data, seed=con số tùy chọn, ratio=tỉ lệ mẫu train so với data ban đầu)
 
 Ghi chú: tỉ lệ mẫu train tùy bạn chọn, nếu sample size đủ lớn bạn có thể đặt tỉ lệ này = 0.5; bằng không bạn có thể đặt tỉ lệ từ 0.7 tới 0.9 để đảm bảo đủ để dựng mô hình (quan trọng hơn). 
 
@@ -519,16 +571,21 @@ Thí dụ:
 
 sẽ cắt data thành 2 phần, 70% dùng dựng mô hình, 30% còn lại dùng để kiểm định
 
-3. Tạo đối tượng cho mẫu train và test
+<b>Step 3:</b> Tạo đối tượng cho mẫu train và test
 
-```r
-train=split$training
-test=split$testing
+```R
+train = split$training
+```
+
+```R
+test = split$testing
 ```
 
 Bây giờ bạn đã có 2 subset là train và test như ý rồi nha.
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_03-00-15.png)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -542,6 +599,8 @@ Bây giờ bạn đã có 2 subset là train và test như ý rồi nha.
 ##  Bộ slide bài giảng của Richard McElreath về mô hình Bayes
 
 [Web link](https://speakerdeck.com/rmcelreath)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -559,6 +618,8 @@ Trong bài này, Bs. Nhi sẽ hướng dẫn các bạn dựng model Poisson b�
 
 [PDF File](https://drive.google.com/file/d/0B1vaOU1uB8DPYlhXWWFDV0JBdzA/view)
 
+[Back To Table Of Contents](#post34)
+
 <hr>
 <hr>
 <hr>
@@ -571,6 +632,8 @@ Trong bài này, Bs. Nhi sẽ hướng dẫn các bạn dựng model Poisson b�
 ## Ngữ pháp mô hình trong R
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_03-03-22.png)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -587,6 +650,8 @@ Polynomial regression
 Đây là bài thứ 2 trong series GLM; đề tài là hồi quy đa thức bậc cao. Bài này sẽ trình bày cả 5 phương pháp để dựng mô hình hồi quy đa thức bậc cao, bao gồm Trực giao, phân đoạn, riêng phần, Spline bậc 3 và Spline bù trừ
 
 [PDF File](https://drive.google.com/file/d/0B1wk5GIjnbH5d3NFWXVVa013UFk/view)
+
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -645,6 +710,7 @@ Tất cả những phần còn lại trong y3 và y4 chỉ là râu ria, vd: y3 
 
 ![image](https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_03-07-43.png)
 
+[Back To Table Of Contents](#post34)
 
 <hr>
 <hr>
@@ -664,6 +730,6 @@ Package được sử dụng là gamlss. Đây là package mạnh nhất mình t
 
 [Pdf File](https://drive.google.com/file/d/0B1vaOU1uB8DPd0pZeVllUFYxVzA/view)
 
-
+[Back To Table Of Contents](#post34)
 
 
