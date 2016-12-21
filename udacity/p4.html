@@ -1,0 +1,2384 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<title>PS4Notes</title>
+
+
+<style type="text/css">
+/*
+   This document has been created with Marked.app <http://marked2app.com>
+   Please leave this notice in place, along with any additional credits below.
+   ---------------------------------------------------------------
+   Title: Kult
+   Author: Peter Sziebig - @bigpe
+   Description: Easy to read
+*/
+
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 300;
+    src: local("Ubuntu Light"), local("Ubuntu-Light"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/WtcvfJHWXKxx4x0kuS1kobO3LdcAZYWl9Si6vvxL-qU.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Ubuntu"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/CGXpU_uR_FUfdeyCjAWgZ-vvDin1pK8aKteLpeZ5c0A.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 500;
+    src: local("Ubuntu Medium"), local("Ubuntu-Medium"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/gMhvhm-nVj1086DvGgmzB7O3LdcAZYWl9Si6vvxL-qU.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 700;
+    src: local("Ubuntu Bold"), local("Ubuntu-Bold"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/nsLtvfQoT-rVwGTHHnkeJrO3LdcAZYWl9Si6vvxL-qU.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: italic;
+    font-weight: 300;
+    src: local("Ubuntu Light Italic"), local("Ubuntu-LightItalic"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/DZ_YjBPqZ88vcZCcIXm6VqfTCPadK0KLfdEfFtGWCYw.woff") format("woff");
+}
+
+
+
+html {
+    font-size: 100%;
+}
+html, button, input, select, textarea {
+    font-family: sans-serif;
+}
+
+html, body, button, input, select, textarea {
+    color: #57534A;
+    font-family: "Ubuntu","Myriad Pro","Myriad",sans-serif;
+    font-size: 18px;
+	font-weight: 300;
+}
+
+body{
+    margin: 0 auto;
+    padding-top: 20px;
+    background-color: #FFFFFF;
+}
+
+body, textarea {
+    line-height: 1.4;
+}
+
+
+body:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+body {
+    padding-left: 6rem;
+    padding-right: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 42rem;
+    display: block;
+}
+
+
+
+h1, h2, h3, dt {
+    color: #423F37;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+h2, .article-list .article-title {
+    font-size: 1.5em;
+    margin: 0.83em 0;
+}
+h3, dt {
+    font-size: 1.17em;
+    margin: 1em 0;
+}
+h4 {
+    font-size: 1em;
+    margin: 1.33em 0;
+}
+h5 {
+    font-size: 0.83em;
+    margin: 1.67em 0;
+}
+h6 {
+    font-size: 0.75em;
+    margin: 2.33em 0;
+}
+
+
+a {
+    color: #8DB359;
+    cursor: pointer;
+    outline: 0 none;
+    text-decoration: underline;
+}
+
+a:hover {
+    outline: 0 none;
+    color: #739544;
+}
+
+
+p, pre {
+    margin: 1em 0;
+}
+code, kbd, pre, samp {
+    font-family: monospace,serif;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+
+}
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+pre {
+    background-color: #F8F5F0;
+    font-size: 0.7rem;
+    overflow-x: auto;
+    padding: 1.3rem;
+    position: relative;
+    white-space: pre;
+    word-wrap: normal;
+}
+pre, code, kbd, samp {
+    margin: 0;
+}
+code, kbd, pre, samp {
+    font-family: monospace,serif;
+}
+
+code {
+    color: #423F37;
+}
+
+
+aside {
+    display: block;
+    float: right;
+    width: 390px;
+}
+
+
+b, strong {
+    font-weight: bold;
+    color: #423F37;
+    font-weight: 700;
+}
+
+blockquote {
+    color: #423F37;
+    font-size: 1.25em;
+    font-weight: 700;
+	margin: 1em 40px;
+}
+
+blockquote {
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+
+figure {
+	margin-left: -4.5rem;
+    margin-right: -4.5rem;
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+
+
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color -moz-use-text-color #ECE6DA;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 1px;
+    margin: 3em 6em;
+}
+
+
+img {
+    max-width: 100%;
+    display: block;
+    border: 0 none;
+}
+
+
+ol > li:before {
+    color: #423F37;
+    content: counter(ol, decimal) ".";
+    counter-increment: ol;
+    font-weight: 700;
+    margin-right: 0.333em;
+    position: absolute;
+    right: 100%;
+}
+
+ul > li:before {
+    background-color: #423F37;
+    border-radius: 14px 14px 14px 14px;
+    content: "";
+    height: 6px;
+    margin-right: 0.333em;
+    margin-top: 0.55em;
+    position: absolute;
+    right: 100%;
+    width: 6px;
+}
+
+ol, ul, dl {
+    margin-left: 2rem;
+    padding: 0;
+}
+ol {
+    counter-reset: ol;
+}
+li + li, dd + dt {
+    margin-top: 0.5em;
+}
+
+ul > li {
+    position: relative;
+}
+
+ol > li {
+    position: relative;
+}
+li {
+    list-style: none outside none;
+}
+
+
+figure > figcaption {
+    margin-top: 0.5em;
+}
+small, dd, figcaption {
+    color: #A19C91;
+    display: block;
+    font-size: 0.8rem;
+    font-style: italic;
+    line-height: 1.2;
+}
+
+
+tbody{display:table-row-group}
+tfoot{display:table-footer-group}
+table{margin-bottom:2em;font-size: 0.8em;padding:0;border-collapse:collapse;-webkit-box-shadow:1px 1px 2px rgba(0,0,0,.35);width:80%;margin:0 auto 2em auto}
+table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left}
+table th{
+padding-top:9px;!important;text-transform:uppercase;vertical-align:middle}
+table td{vertical-align:top;border-top:1px solid #ddd;}
+table tbody th{border-top:1px solid #ddd;vertical-align:top}
+table{border:1px solid #ddd;border-collapse:separate;*border-collapse:collapse;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px}
+table th+th,table td+td,table th+td{border-left:1px solid #ddd}
+table thead tr:first-child th:first-child,table tbody tr:first-child td:first-child{-webkit-border-radius:4px 0 0 0;-moz-border-radius:4px 0 0 0;border-radius:4px 0 0 0}
+table thead tr:first-child th:last-child,table tbody tr:first-child td:last-child{-webkit-border-radius:0 4px 0 0;-moz-border-radius:0 4px 0 0;border-radius:0 4px 0 0}
+table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px}
+table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0}
+tbody tr:nth-child(odd){background-color:rgba(0,0,0,0.03)}
+
+caption{display:table-caption;font-weight:300;font-size:1.3em;text-transform:uppercase;letter-spacing:2px;word-spacing:.2em;background:rgba(0,0,0,.75);color:#EEE;padding:4px;-webkit-border-radius:4px;margin:4px 0;-webkit-box-shadow:2px 2px 2px rgba(0,0,0,.35)}
+
+/* grey out placeholders */
+:-moz-placeholder {
+  color: #bfbfbf;
+}
+::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+
+
+.article-date {
+    color: #C7C2B8;
+    display: block;
+    font-size: 0.8rem;
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+div.prism-show-language {
+	position: relative;
+}
+
+div.prism-show-language > div.prism-show-language-label {
+	color: black;
+	background-color: #CFCFCF;
+	display: inline-block;
+	position: absolute;
+	bottom: auto;
+	left: auto;
+	top: 0;
+	right: 0;
+	width: auto;
+	height: auto;
+	font-size: 0.9em;
+	border-radius: 0 0 0 5px;
+	padding: 0 0.5em;
+	text-shadow: none;
+	z-index: 1;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-transform: none;
+	-moz-transform: none;
+	-ms-transform: none;
+	-o-transform: none;
+	transform: none;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0"><mark>Lesson 4</mark></h1>
+
+<hr>
+
+<p>Set working directory and read data:</p>
+
+<div><pre><code class="language-r">setwd(&quot;/Users/ndvo/Dropbox/Udacity\ Nanodegree/P4_EDA/facebook/&quot;)
+
+pf = read.delim(&#39;pseudo_facebook.tsv&#39;)</code></pre></div>
+
+<div><pre><code class="language-r">&gt; head(pf)
+   userid age dob_day dob_year dob_month gender tenure friend_count
+1 2094382  14      19     1999        11   male    266            0
+2 1192601  14       2     1999        11 female      6            0
+3 2083884  14      16     1999        11   male     13            0
+4 1203168  14      25     1999        12 female     93            0
+5 1733186  14       4     1999        12   male     82            0
+6 1524765  14       1     1999        12   male     15            0
+  friendships_initiated likes likes_received mobile_likes mobile_likes_received
+1                     0     0              0            0                     0
+2                     0     0              0            0                     0
+3                     0     0              0            0                     0
+4                     0     0              0            0                     0
+5                     0     0              0            0                     0
+6                     0     0              0            0                     0
+  www_likes www_likes_received
+1         0                  0
+2         0                  0
+3         0                  0
+4         0                  0
+5         0                  0
+6         0                  0</code></pre></div>
+
+<div><pre><code class="language-r">&gt; str(pf)
+&#39;data.frame&#39;:   99003 obs. of  15 variables:
+ $ userid               : int  2094382 1192601 2083884 1203168 1733186 1524765 1136133 1680361 1365174 1712567 ...
+ $ age                  : int  14 14 14 14 14 14 13 13 13 13 ...
+ $ dob_day              : int  19 2 16 25 4 1 14 4 1 2 ...
+ $ dob_year             : int  1999 1999 1999 1999 1999 1999 2000 2000 2000 2000 ...
+ $ dob_month            : int  11 11 11 12 12 12 1 1 1 2 ...
+ $ gender               : Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 2 1 2 1 2 2 2 1 2 2 ...
+ $ tenure               : int  266 6 13 93 82 15 12 0 81 171 ...
+ $ friend_count         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ friendships_initiated: int  0 0 0 0 0 0 0 0 0 0 ...
+ $ likes                : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ likes_received       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ mobile_likes         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ mobile_likes_received: int  0 0 0 0 0 0 0 0 0 0 ...
+ $ www_likes            : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ www_likes_received   : int  0 0 0 0 0 0 0 0 0 0 ...</code></pre></div>
+
+<hr>
+
+<h3 id="toc_1">Scatterplots and Perceived Audience Size</h3>
+
+<p>Notes:  </p>
+
+<ul>
+<li>diagonal line == accuracy line</li>
+<li>people tend to guess &lsquo;round&rsquo; numbers: 50, 100, 200</li>
+<li>people underestimate their audience</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_2">Scatterplots</h3>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-r">ggplot(aes(x = age, y = friend_count), data = pf) + 
+  geom_point()</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-06_23-29-20.png" alt="image"></p>
+
+<hr>
+
+<h4 id="toc_3">What are some things that you notice right away?</h4>
+
+<p>Response:</p>
+
+<ul>
+<li>younger people seems to have more friends (and definitely more high-friend outliers)</li>
+<li>age 70 (69?) looks strongly overrepresented</li>
+<li>ages &gt; 100 looks strongly overrepresented</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_4">ggplot Syntax</h3>
+
+<p>Notes:</p>
+
+<ul>
+<li>ggplot2 tutorial: <a href="http://www.ceb-institute.org/bbs/wp-content/uploads/2011/09/handout_ggplot2.pdf">http://www.ceb-institute.org/bbs/wp-content/uploads/2011/09/handout_ggplot2.pdf</a></li>
+<li>list of geoms: <a href="http://docs.ggplot2.org/current/">http://docs.ggplot2.org/current/</a></li>
+<li>Grammar of Graphics (book behind ggplot2 grammar): <a href="http://www.amazon.com/The-Grammar-Graphics-Statistics-Computing/dp/0387245448">http://www.amazon.com/The-Grammar-Graphics-Statistics-Computing/dp/0387245448</a></li>
+</ul>
+
+<div><pre><code class="language-{r"></code></pre></div>
+
+<hr>
+
+<h3 id="toc_5">Overplotting</h3>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-r"># to find out min and max of pf$age
+# summary(pf$age)
+# 13.00   20.00   28.00   37.28   50.00  113.00 
+
+# also, setting alpha = 1/20 - it takes 20 points to build to &#39;full&#39; colour point.
+# geom_jitter (instead of geom_point) - at random noise to disperse the vertical columns 
+ggplot(aes(x = age, y = friend_count), data = pf) +
+  geom_jitter(alpha = 1/20) + 
+  #scale_y_log10() + 
+  xlim(13, 90)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-06_23-40-40.png" alt="image"></p>
+
+<h4 id="toc_6">What do you notice in the plot?</h4>
+
+<p>Response:</p>
+
+<ul>
+<li>younger users friedn count isn&rsquo;t much higher than older ones - it&rsquo;s just many high value outliers which creates such impression</li>
+<li>younger users have more friends than olders ones</li>
+<li>younger users have more high value outliers</li>
+<li>there is more younger users (?)</li>
+<li>distribution is looking a bit bimodal with values decreasing ~40 and going up ~50
+***</li>
+</ul>
+
+<h3 id="toc_7">Coord_trans()</h3>
+
+<p>Notes:<br>
+Look up the documentation for coord_trans() and add a layer to the plot that transforms friend_count using the square root function. Create your plot!</p>
+
+<div><pre><code class="language-{r"># Dealing with jitter values &lt; 0
+#ggplot(aes(x = age, y = friend_count), data = pf[pf$friend_count&gt;0,]) +
+#  geom_jitter(alpha = 1/20) + 
+#  coord_trans(ytrans = &quot;sqrt&quot;) +
+#  xlim(13, 90)
+
+ggplot(aes(x = age, y = friend_count), data = pf) +
+  geom_jitter(alpha = 1/20, position = position_jitter(h = 0)) + 
+  coord_trans(ytrans = &quot;sqrt&quot;) +
+  xlim(13, 90)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-07_13-09-57.png" alt="image"></p>
+
+<h4 id="toc_8">What do you notice?</h4>
+
+<p>There is more younger users of facebook (density of points for age &lt; 30 is higher than for other ages)</p>
+
+<hr>
+
+<h3 id="toc_9">Alpha and Jitter</h3>
+
+<p>Examine the relationship between friendships_initiated (y) and age (x) using the ggplot syntax.</p>
+
+<p>We recommend creating a basic scatter plot first to see what the distribution looks like and then adjusting it by adding one layer at a time.</p>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-r">p &lt;- ggplot(aes(x = age, y = friendships_initiated), data = pf)
+
+p1 &lt;- p + geom_point() + theme(text = element_text(face= &quot;bold&quot;,size = 25))
+
+p2 &lt;- p + geom_jitter() + theme(text = element_text(face= &quot;bold&quot;,size = 25))
+
+p3 &lt;- p + geom_jitter(alpha = 1/20, position = position_jitter(h = 0)) +
+  scale_y_sqrt() +
+  theme(text = element_text(face= &quot;bold&quot;,size = 25)) +
+  xlim(13, 90)
+grid.arrange(p1, p2, p3, ncol = 1)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-07_14-20-56.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_10">Overplotting and Domain Knowledge</h3>
+
+<p>Notes:</p>
+
+<ul>
+<li>choose proper (sometimes transformed) values for x and y.
+e.g. Moira changed the x and y scales from &lsquo;how many friends saw your post&rsquo; to &lsquo;% of friends saw your post&rsquo;.
+This scales nicely with # of friends people have.</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_11">Conditional Means</h3>
+
+<p>More dplyr resources:</p>
+
+<ul>
+<li>Introduction to dplyr: <a href="http://rstudio-pubs-static.s3.amazonaws.com/11068_8bc42d6df61341b2bed45e9a9a3bf9f4.html">http://rstudio-pubs-static.s3.amazonaws.com/11068_8bc42d6df61341b2bed45e9a9a3bf9f4.html</a></li>
+<li>Hadley Wickham <q>dplyr</q> talk:
+
+<ul>
+<li><a href="http://www.r-bloggers.com/hadley-wickham-presents-dplyr-at-user-2014/">http://www.r-bloggers.com/hadley-wickham-presents-dplyr-at-user-2014/</a></li>
+<li><a href="http://www.r-bloggers.com/hadley-wickhams-dplyr-tutorial-at-user-2014-part-1/">http://www.r-bloggers.com/hadley-wickhams-dplyr-tutorial-at-user-2014-part-1/</a></li>
+<li><a href="http://www.r-bloggers.com/hadley-wickhams-dplyr-tutorial-at-user-2014-part-2/">http://www.r-bloggers.com/hadley-wickhams-dplyr-tutorial-at-user-2014-part-2/</a></li>
+</ul></li>
+<li>lapply blog post: <a href="https://rollingyours.wordpress.com/2014/10/20/the-lapply-command-101/">https://rollingyours.wordpress.com/2014/10/20/the-lapply-command-101/</a></li>
+</ul>
+
+<div><pre><code class="language-r">library(dplyr)
+
+pf.fc_by_age &lt;- pf %&gt;%
+                    select(age, friend_count) %&gt;%
+                    group_by(age) %&gt;%
+                    summarise(Mean_Friend_Count = mean(friend_count))
+                    
+                </code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-07_22-49-21.png" alt="image"></p>
+
+<p>Create your plot!</p>
+
+<div><pre><code class="language-r">p_fc_by_age &lt;- ggplot(aes(x = age, y = Mean_Friend_Count, fill = age), data = pf.fc_by_age)
+p_fc_by_age + geom_bar(stat = &#39;identity&#39;) +
+            scale_x_continuous(breaks= c(seq(15,120,5),13))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-07_22-50-17.png" alt="image"></p>
+
+<div><pre><code class="language-r">p_fc_by_age &lt;- ggplot(aes(x = age, y = Mean_Friend_Count, fill = as.factor(age)), data = pf.fc_by_age)
+p_fc_by_age + geom_bar(stat = &#39;identity&#39;) +
+            scale_x_continuous(breaks= c(seq(15,120,5),13))
+</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-07_22-51-17.png" alt="image"></p>
+
+<div><pre><code class="language-r">p_fc_by_age + geom_line() +
+        scale_x_continuous(breaks= c(seq(15,120,5),13))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-07_22-59-37.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_12">Overlaying Summaries with Raw Data</h3>
+
+<p>We take the jittered friendship graph as the base and add 4 summary overlays on top of it:</p>
+
+<ul>
+<li>mean (black line)</li>
+<li>median (blue line)</li>
+<li>10th and 90th percentile (blue dashed lines)</li>
+</ul>
+
+<div><pre><code class="language-r">ggplot(aes(x = age, y = friend_count), data = pf) +
+  #xlim(13, 90) +
+  #coord_trans(ytrans = &quot;sqrt&quot;) +
+  coord_cartesian(xlim = c(13, 90), ylim=c(0, 1000)) +
+  geom_point(alpha = 0.05, 
+             position = position_jitter(h = 0),
+             color = &#39;orange&#39;) + 
+  geom_line(stat = &#39;summary&#39;, fun.y = mean, aes(color = &#39;Mean&#39;), size = 1) +
+  geom_line(stat = &#39;summary&#39;, fun.y = median, aes(color = &#39;Median&#39;), size = 1) +
+  geom_line(stat = &#39;summary&#39;, fun.y = quantile, fun.args = list(probs = .1), linetype = 2, aes(color = &#39;10th percentile&#39;), size = 1) +
+  geom_line(stat = &#39;summary&#39;, fun.y = quantile, fun.args = list(probs = .9), linetype = 2, aes(color = &#39;90th percentile&#39;), size = 1) +
+  scale_color_manual(values=c(&quot;black&quot;, &quot;blue&quot;, &quot;red&quot;, &quot;dark green&quot;)) +
+  theme(text = element_text(face= &quot;bold&quot;,size = 25))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-08_01-26-47.png" alt="image"></p>
+
+<h4 id="toc_13">What are some of your observations of the plot?</h4>
+
+<p>Response:</p>
+
+<ul>
+<li>there is a high peak of friends in young users group (&lt;25) which then flats ~100 for older users</li>
+<li>having &gt; 1000 friends is rare</li>
+<li>most (90%) users with age &gt; 30 have less than 250 friends</li>
+<li>age = 69 and age &gt; 80 seems like fake age data - they have large friends count, similar to values of youngest users</li>
+<li>median and percentile lines follow the same trend as mean - there are no anomalies in 10% of lowes or highest friend counts</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_14">Moira: Histogram Summary and Scatterplot</h3>
+
+<p>See the Instructor Notes of this video to download Moira&rsquo;s paper on perceived audience size and to see the final plot.</p>
+
+<p>Notes:</p>
+
+<ul>
+<li>histograms are used to show quntitative data about how user perceive their audience</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_15">Correlation</h3>
+
+<p>Notes:</p>
+
+<ul>
+<li>visual guide to correlation: </li>
+</ul>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-08_01-44-24.png" alt="image"></p>
+
+<ul>
+<li>correlation coefficient: <a href="http://www.r-tutor.com/elementary-statistics/numerical-measures/correlation-coefficient">http://www.r-tutor.com/elementary-statistics/numerical-measures/correlation-coefficient</a></li>
+<li>udacity correlation: <a href="https://www.udacity.com/course/viewer#!/c-ud201/l-1345848540/m-171582737">https://www.udacity.com/course/viewer#!/c-ud201/l-1345848540/m-171582737</a></li>
+<li>different methods of correlation: <a href="http://www.statisticssolutions.com/correlation-pearson-kendall-spearman/">http://www.statisticssolutions.com/correlation-pearson-kendall-spearman/</a></li>
+</ul>
+
+<div><pre><code class="language-{r">cor.test(pf$age, pf$friend_count, method=&quot;pearson&quot;)</code></pre></div>
+
+<p>Look up the documentation for the cor.test function.</p>
+
+<p>What&rsquo;s the correlation between age and friend count? Round to three decimal places.<br>
+Response:<br>
+cor = -0.027</p>
+
+<p>Results:<br>
+-0.3 &lt; cor &lt; 0.3 - no correlation<br><br>
+0.3 &lt; cor &lt; 0.5 - small correlation<br><br>
+0.5 &lt; cor &lt; 0.7 - moderate correlation<br><br>
+0.7 &lt; cor - large correlation  </p>
+
+<hr>
+
+<h3 id="toc_16">Correlation on Subsets</h3>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-{r">with(pf[pf$age&lt;=70,] , cor.test(age, friend_count))</code></pre></div>
+
+<hr>
+
+<h3 id="toc_17">Correlation Methods</h3>
+
+<p>Notes: correlation numbers are useful but do not give as much insight as plotting the data.</p>
+
+<hr>
+
+<h2 id="toc_18">Create Scatterplots</h2>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-{r}"># There are few significant outliers that extend the axis. Let&#39;s remove them as 1-2% top outliers. Where to cut?
+# quantile(pf$likes_received, probs = c(.90, .95, .98))
+
+ggplot(aes(x = www_likes_received, y = likes_received), data=pf) +
+  geom_point(alpha = 0.05) +
+  coord_cartesian(xlim = c(1, 600), ylim = c(1, 600)) +
+  scale_x_sqrt() +
+  scale_y_sqrt() + 
+  # add correlation line
+  geom_smooth(method = &#39;lm&#39;, color = &#39;red&#39;)</code></pre></div>
+
+<hr>
+
+<p>What&rsquo;s the correlation betwen the two variables? Include the top 5% of values for the variable in the calculation and round to 3 decimal places.</p>
+
+<div><pre><code class="language-{r">cor.test(pf$www_likes_received, pf$likes_received, method=&quot;pearson&quot;)</code></pre></div>
+
+<p>Response: 0.948</p>
+
+<hr>
+
+<h3 id="toc_19">Moira on Correlation</h3>
+
+<p>Notes:</p>
+
+<ul>
+<li>be aware of the correlation of your variables (e.g. # of status updates and # of photos uploaded).
+Such correlations might describe same behavior/situation (here: how user is engaged). Later on, as you try to 
+build models, you should choose if you want to keep both strongly correlated vars as model input.</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_20">More Caution with Correlation</h3>
+
+<p>Notes:</p>
+
+<ul>
+<li>dataset of soil temp per month (one observation per month). Month values goes from 1-203</li>
+<li>examples about tricky correlation; book Applied Linear Regression: <a href="http://users.stat.umn.edu/%7Esandy/alr3ed/website/">http://users.stat.umn.edu/~sandy/alr3ed/website/</a></li>
+</ul>
+
+<div><pre><code class="language-{r">#install.packages(&#39;alr3&#39;)
+library(alr3)
+data(Mitchell)
+
+ggplot(aes(x = Month, y = Temp), data = Mitchell) +
+  geom_point()</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-09_16-46-05.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_21">Noisy Scatterplots</h3>
+
+<p>a. Take a guess for the correlation coefficient for the scatterplot.</p>
+
+<p>0.05</p>
+
+<p>b. What is the actual correlation of the two variables?<br>
+(Round to the thousandths place)</p>
+
+<div><pre><code class="language-{r">cor.test(Mitchell$Month, Mitchell$Temp, method=&quot;pearson&quot;)</code></pre></div>
+
+<p>0.057</p>
+
+<hr>
+
+<h3 id="toc_22">Making Sense of Data</h3>
+
+<p>Break up the x-axis in 12 months increments </p>
+
+<div><pre><code class="language-{r">ggplot(aes(x = Month, y = Temp), data = Mitchell) +
+  geom_point() + 
+  scale_x_continuous(breaks = seq(0, 203, 12))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-09_16-52-40.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_23">A New Perspective</h3>
+
+<p>Zoom in into the plot, stretch y-axis and extend the x-axis. </p>
+
+<p>What do you notice?  </p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-09_16-52-04.png" alt="image"></p>
+
+<p>Response:<br><br>
+Every year, temperature follows the same pattern: starts with low values on January, goes up<br>
+and peaks around June, July. Then, the temperature symmetrically goes down to lowest values in December.<br>
+Function looks like first half of sinusoidal function.</p>
+
+<p>Watch the solution video and check out the Instructor Notes!<br>
+Notes:</p>
+
+<ul>
+<li>make sure you use whole context about the data you have. Here: months are cyclic</li>
+<li>use proper scales for the plot: here, with x extended and y stretched, the cyclicity of data could be seen</li>
+<li>William Playfair and the Psychology of Graphs: <a href="http://www.psych.utoronto.ca/users/spence/Spence%20(2006).pdf">http://www.psych.utoronto.ca/users/spence/Spence%20(2006).pdf</a></li>
+<li>there are other tests that can find the cyclic correlation in data (e.g. library(energey); dcor.ttest())</li>
+</ul>
+
+<div><pre><code class="language-r">ggplot(aes(x=(Month%%12),y=Temp),data=Mitchell)+ 
+  geom_point() 
+</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-12_14-18-29.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_24">Understanding Noise: Age to Age Months</h3>
+
+<p>Notes: concrete values of means are just sample of the data and still contains some noise inside them.<br>
+The effect is event more visible if we count mean<u>friend</u>count / age<u>by</u>month.</p>
+
+<div><pre><code class="language-r">ggplot(aes(x=age, y=friend_count_mean), data=pf.fc_by_age) +
+  geom_line()
+head(pf.fc_by_age, 10)
+pf.fc_by_age[17:19,]</code></pre></div>
+
+<hr>
+
+<h3 id="toc_25">Age with Months Means</h3>
+
+<div><pre><code class="language-r"># Use December 31 as the reference date.
+pf$age_with_months &lt;- pf$age + (1 - pf$dob_month / 12)</code></pre></div>
+
+<p>Programming Assignment</p>
+
+<div><pre><code class="language-r">pf.fc_by_age_months &lt;- pf %&gt;%
+                          group_by(age_with_months) %&gt;%
+                          summarise(friend_count_mean = mean(friend_count),
+                                    friend_count_median = median(friend_count),
+                                     n = n()) %&gt;%
+                          arrange(age_with_months)
+  
+head(pf.fc_by_age_months)
+
+</code></pre></div>
+
+<hr>
+
+<h3 id="toc_26">Noise in Conditional Means</h3>
+
+<div><pre><code class="language-r">pf.fc_by_age_months[pf.fc_by_age_months$age_with_months&lt;71,] %&gt;%
+ggplot(data = ., aes(x = age_with_months, y = friend_count_mean)) +
+    geom_line() +
+    theme(text = element_text(face= &quot;bold&quot;,size = 25))
+</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-12_14-37-44.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_27">Smoothing Conditional Means</h3>
+
+<div><pre><code class="language-r">p1 &lt;- subset(pf.fc_by_age, age &lt; 71) %&gt;%
+        ggplot(aes(x = age, y = friend_count_mean), data = .) +
+          geom_line() +
+          theme(text = element_text(face= &quot;bold&quot;,size = 25))
+
+
+
+p2 &lt;- pf.fc_by_age_months[pf.fc_by_age_months$age_with_months&lt;71,] %&gt;%
+        ggplot(data = ., aes(x = age_with_months, y = friend_count_mean)) +
+            geom_line() +
+            theme(text = element_text(face= &quot;bold&quot;,size = 25))
+
+library(gridExtra)
+grid.arrange(p2, p1, ncol = 1)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-12_14-44-12.png" alt="image"></p>
+
+<p>Notes: </p>
+
+<ul>
+<li>by decreasing the bucket size (age -&gt; age<u>by</u>month) we increase the noise of the plot.</li>
+<li>plots below represent variance/bias tradeoff (e.g. miss features (age 69))</li>
+</ul>
+
+<p>Local Regression:</p>
+
+<ul>
+<li>explained visually: <a href="http://simplystatistics.org/2014/02/13/loess-explained-in-a-gif/">http://simplystatistics.org/2014/02/13/loess-explained-in-a-gif/</a></li>
+<li>Simply Statistics blog: <a href="http://simplystatistics.org/">http://simplystatistics.org/</a></li>
+<li>local regression wikipedia: <a href="https://en.wikipedia.org/wiki/Local_regression">https://en.wikipedia.org/wiki/Local_regression</a></li>
+</ul>
+
+<div><pre><code class="language-r">p1 &lt;- subset(pf.fc_by_age, age &lt; 71) %&gt;%
+        ggplot(aes(x = age, y = friend_count_mean), data = .) +
+          geom_line() +
+          geom_smooth() +
+          theme(text = element_text(face= &quot;bold&quot;,size = 20))
+
+
+
+p2 &lt;- pf.fc_by_age_months[pf.fc_by_age_months$age_with_months&lt;71,] %&gt;%
+        ggplot(data = ., aes(x = age_with_months, y = friend_count_mean)) +
+            geom_line() +
+            geom_smooth() +
+            theme(text = element_text(face= &quot;bold&quot;,size = 20))
+
+p3 &lt;- subset(pf, age&lt;71) %&gt;%
+        ggplot(aes(x = round(age / 5) * 5, y = friend_count), data = .) +
+            geom_line(stat = &#39;summary&#39;, fun.y = mean) +
+            theme(text = element_text(face= &quot;bold&quot;,size = 20))
+
+
+library(gridExtra)
+grid.arrange(p2, p1, p3, ncol = 1)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-12_14-52-09.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_28">Which Plot to Choose?</h3>
+
+<p>Notes:</p>
+
+<hr>
+
+<h3 id="toc_29">Analyzing Two Variables</h3>
+
+<p>Reflection:</p>
+
+<ul>
+<li>Lesson covered:
+
+<ul>
+<li>scatterplots</li>
+<li>conditional means</li>
+<li>correlation</li>
+<li>noise</li>
+</ul></li>
+<li>scatterplots:
+
+<ul>
+<li>main tool for analysis of two variables</li>
+<li>great tool to reveal outliers and anomalies in data (age 69, different variance for young and old users)</li>
+<li>with proper layers (jitter, mean, median, qunatiles), one scatterplot presents clearly lots of information</li>
+</ul></li>
+<li>conditional means:
+
+<ul>
+<li>augments scatterplots</li>
+<li>perfect for showing trends</li>
+<li>makes me thing about groups of data (here: age) and how to split it</li>
+</ul></li>
+<li>correlation
+
+<ul>
+<li>quick test of hypothesis (is #of friends going down with age?)</li>
+<li>you need to understand the data before (correlation of soil temp vs month)</li>
+</ul></li>
+<li>noise
+
+<ul>
+<li>varianve vs bias</li>
+<li>use smoothening to remove the noise and find  trends</li>
+</ul></li>
+</ul>
+
+<p>Extra notes:</p>
+
+<ul>
+<li>A deep dive into Bivariate Data Analysis: <a href="http://dept.stat.lsa.umich.edu/%7Ekshedden/Courses/Stat401/Notes/401-bivariate-slides.pdf">http://dept.stat.lsa.umich.edu/~kshedden/Courses/Stat401/Notes/401-bivariate-slides.pdf</a>
+
+<ul>
+<li>bivariate = two parameters for each simple random sample</li>
+<li>marginal property = property that describes X values only or Y values only</li>
+<li>joint property = property that describex X and Y at the same time</li>
+<li>joint distribution = complete summary of stat props of (X, Y)
+
+<ul>
+<li>joint distribution is not described completelty by marginal distribution of both variables</li>
+</ul></li>
+<li>scatterplot = most important graphical summary of data</li>
+<li>correlation
+
+<ul>
+<li>Pearson
+    - r == coefficient (Pearson correlation coefficient)
+    - covariance (numerator of r)
+    - page 21 and 22 shows chart how values contribute to coefficient value</li>
+</ul></li>
+<li>&hellip; more</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="toc_30"><mark>Problems set 4</mark></h1>
+
+<h2 id="toc_31">Price vs. x</h2>
+
+<div><pre><code class="language-r"># In this problem set, you&#39;ll continue
+# to explore the diamonds data set.
+
+# Your first task is to create a
+# scatterplot of price vs x.
+# using the ggplot syntax.
+
+library(ggplot2)
+library(ggthemes)
+theme_set(theme_minimal())
+library(dplyr)
+data(diamonds)
+
+summary(diamonds$x)
+diamonds %&gt;%
+    ggplot(aes(x = x, y = price), data = .) +
+    geom_point(alpha = 0.05) +
+    scale_x_continuous(limits = c(3.5,10),breaks = seq(3,10,0.5)) +
+    theme(text = element_text(face= &quot;bold&quot;,size = 20))
+</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-13_17-28-11.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>price seems to grow exponentially wit the lenght (x) value</li>
+<li>there seems to exist &lsquo;size clusters&rsquo;: e.g. for value of ~5.25 there is significantly more observations than for 5.0 and 5.5;
+same for larges sizes (e.g. 5.75)</li>
+<li>there is less large diamonds (size &gt; 7) than small and medium ones</li>
+<li>one can&rsquo;t buy small diamonds for more than 5000$</li>
+<li>buying large diamond for &lt; 5000$ is almost impossible</li>
+</ul>
+
+<h2 id="toc_32">Correlation</h2>
+
+<div><pre><code class="language-r"># correlation between price and x (0.88)
+cor.test(diamonds$price, diamonds$x)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_00-52-53.png" alt="image"></p>
+
+<div><pre><code class="language-r"># correlation between price and y (0.87)
+cor.test(diamonds$price, diamonds$y)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_00-53-26.png" alt="image"></p>
+
+<div><pre><code class="language-r"># correlation between price and z (0.86)
+cor.test(diamonds$price, diamonds$z)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_00-53-57.png" alt="image"></p>
+
+<h2 id="toc_33">Price vs. depth</h2>
+
+<div><pre><code class="language-{r}">diamonds %&gt;%
+    ggplot(aes(x = depth, y = price), data = .) +
+    geom_point(alpha = 0.1) +
+    scale_x_continuous(limits = c(50,70),breaks = seq(50,70,1)) +
+    theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_01-28-09.png" alt="image">    </p>
+
+<div><pre><code class="language-r"># Change the code to make the transparency of the
+# points to be 1/100 of what they are now and mark
+# the x-axis every 2 units.
+
+diamonds %&gt;%
+    ggplot(aes(x = depth, y = price), data = .) +
+    geom_point(alpha = 0.01) +
+    scale_x_continuous(limits = c(50,70),breaks = seq(50,70,2)) +
+    theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_01-30-05.png" alt="image"></p>
+
+<p>Typical depth range: 58 to 64.</p>
+
+<div><pre><code class="language-{r}"># What&#39;s the correlation of depth vs price? (-0.01)
+cor.test(diamonds$depth, diamonds$price)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_01-42-05.png" alt="image"></p>
+
+<p>Would you use depth to predict price of a diamond: <strong>No</strong><br>
+Why: <strong>low absolute value of correlation coefficient (next to 0) means there is no correlation between depth and price.<br>
+Diamonds of any depth can achieve both very low and very high price.</strong></p>
+
+<h2 id="toc_34">Price vs. carat</h2>
+
+<div><pre><code class="language-r"># Create a scatterplot of price vs carat
+# and omit the top 1% of price and carat
+# values.
+diamonds.top1p_excluded &lt;- diamonds %&gt;% 
+    subset(diamonds$carat &lt; quantile(diamonds$carat, .99) &amp; 
+            diamonds$price &lt; quantile(diamonds$price, .99))
+
+diamonds.top1p_excluded %&gt;%
+    ggplot(aes(x = carat, y = price), data = .) +
+      geom_point() +
+      theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_01-51-37.png" alt="image"></p>
+
+<h2 id="toc_35">Price vs. volume</h2>
+
+<div><pre><code class="language-r"># Create a scatterplot of price vs. volume (x * y * z).
+# This is a very rough approximation for a diamond&#39;s volume.
+
+diamonds %&gt;%
+    ggplot(aes(x = volume, y = price), data = .) +
+      geom_point(alpha = 0.05) +
+      scale_x_log10(limits=c(50, 1000), breaks=c(50, 100, 200, 300, 400, 500, 700, 1000)) +
+      theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_01-58-01.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>price vs volume follows similar trend as price vs x (exponential growth of price with x)</li>
+<li>there are volume clusters (e.g. 150, 200, 400, 500)</li>
+<li>diamonds with volume &lt; 350 are most popular</li>
+<li>log scale is not required here - continuous scale works better (easier to interpret)</li>
+</ul>
+
+<p>Did not notice:</p>
+
+<ul>
+<li>outliers:
+
+<ul>
+<li>expensive diamond near 4000 and a cheaper diamond with a volume near 900
+(I removed the outliers to make the chart x-axis limits better)</li>
+</ul></li>
+<li>diamonds with volume == 0 (8!)</li>
+</ul>
+
+<div><pre><code class="language-{r}"># What&#39;s the correlation of price and volume? (0.92)
+# NOTE: instructor notes suggest removing outliers (vol &gt; 800 &amp;&amp; vol = 0)
+cor.test(diamonds$price, diamonds$volume)</code></pre></div>
+
+<h3 id="toc_36">Adjustments - price vs. volume</h3>
+
+<div><pre><code class="language-r"># Subset the data to exclude diamonds with a volume
+# greater than or equal to 800. Also, exclude diamonds
+# with a volume of 0. Adjust the transparency of the
+# points and add a linear model to the plot. (See the
+# Instructor Notes or look up the documentation of
+# geom_smooth() for more details about smoothers.)
+require(mgcv)
+diamonds.vol_nooutliers = diamonds[diamonds$volume &lt; 800 &amp; diamonds$volume != 0, ]
+ggplot(aes(x = volume, y = price), data = diamonds.vol_nooutliers) +
+  geom_point(alpha = 0.05) + 
+  stat_smooth(method = &#39;lm&#39;, formula = y ~ x, aes(color = &#39;lm: y ~ x&#39;), size = 1) +
+  stat_smooth(method = &#39;lm&#39;, formula = y ~ poly(x, 2), aes(color = &#39;lm: y ~ poly(x, 2)&#39;), size = 1) +
+  stat_smooth(method = &#39;lm&#39;, formula = y ~ poly(x, 3), aes(color = &#39;lm: y ~ poly(x, 3)&#39;)) +
+  stat_smooth(method = &#39;gam&#39;, formula = y ~ s(x), aes(color = &#39;gam: y ~ s(x)&#39;)) +
+  scale_color_manual(values=2:5) +
+  theme(text = element_text(face= &quot;bold&quot;,size = 20))
+</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_04-28-17.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>linear and square models are worse than cubic and gam models - they overprice smaller diamonds</li>
+<li>estimating value of diamonds with volume &gt; 300 is not doable with any models - variance is too high and model
+cannot determine the price based on volume only</li>
+</ul>
+
+<h2 id="toc_37">Mean price by clarity</h2>
+
+<p>Use the function dplyr package to create a new data frame containing info on diamonds by clarity.</p>
+
+<p>Name the data frame diamondsByClarity</p>
+
+<p>The data frame should contain the following variables in this order.</p>
+
+<div><pre><code class="language-none">1. mean_price
+2. median_price
+3. min_price
+4. max_price
+5. n</code></pre></div>
+
+<div><pre><code class="language-r">diamondsByClarity = group_by(diamonds, clarity)
+diamondsByClarity = summarise(diamondsByClarity,
+                              mean_price = mean(price),
+                              median_price = median(price),
+                              min_price = min(price),
+                              max_price = max(price),
+                              n = n())
+diamondsByClarity</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_04-48-00.png" alt="image"></p>
+
+<h2 id="toc_38">Bar Charts of Mean Price</h2>
+
+<p>We’ve created summary data frames with the mean price<br>
+by clarity and color. You can run the code in R to<br>
+verify what data is in the variables diamonds_mp_by_clarity<br>
+and diamonds_mp_by_color.</p>
+
+<p>Your task is to write additional code to create two bar plots<br>
+on one output image using the grid.arrange() function from the package<br>
+gridExtra.</p>
+
+<p>flowigdata.com article on Bar Charts vs Histograms: <a href="http://flowingdata.com/2014/02/27/how-to-read-histograms-and-use-them-in-r/">http://flowingdata.com/2014/02/27/how-to-read-histograms-and-use-them-in-r/</a></p>
+
+<div><pre><code class="language-r">data(diamonds)
+library(dplyr)
+library(gridExtra)
+
+diamonds_by_clarity &lt;- group_by(diamonds, clarity)
+diamonds_mp_by_clarity &lt;- summarise(diamonds_by_clarity, mean_price = mean(price))
+
+diamonds_by_color &lt;- group_by(diamonds, color)
+diamonds_mp_by_color &lt;- summarise(diamonds_by_color, mean_price = mean(price))
+
+#diamonds_by_cut &lt;- group_by(diamonds, cut)
+#diamonds_mp_by_cut &lt;- summarise(diamonds_by_cut, mean_price = mean(price))
+
+p1 &lt;- ggplot(aes(x = clarity, y = mean_price, fill = clarity),
+        data = diamonds_mp_by_clarity) + geom_bar(stat=&#39;identity&#39;) +
+         theme(text = element_text(face= &quot;bold&quot;,size = 20))
+p2 &lt;- ggplot(aes(x = color, y = mean_price, fill = color),
+        data = diamonds_mp_by_color) + geom_bar(stat=&#39;identity&#39;) +
+         theme(text = element_text(face= &quot;bold&quot;,size = 20))
+#p3 &lt;- ggplot(aes(x = cut, y = mean_price), data = diamonds_mp_by_cut) + geom_bar(stat=&#39;identity&#39;)
+grid.arrange(p1, p2, ncol = 1)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-14_04-55-15.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>color seems to define a scale with &lsquo;best&rsquo; and &lsquo;worst&rsquo; colors (price for J &gt; &hellip; &gt; price for D)</li>
+<li>clarity also seems to define some type of order with spike on SI2 and lowest price values -&gt; IF</li>
+<li>(instructor notes): mean price tends to decrease as clarity improve; the same can be said for color.<br>
+Look at mean price across cut.</li>
+</ul>
+
+<h2 id="toc_39">Gapminder Revisited</h2>
+
+<div><pre><code class="language-r">library(openxlsx)
+library(tidyr)
+fertility &lt;- read.xlsx(&#39;indicator undata total_fertility.xlsx&#39;, rowNames = TRUE, rows=1:259)
+fertility &lt;- mutate(fertility, country=rownames(fertility))
+fertility &lt;- gather(fertility, year, &quot;fertility&quot;, 1:(length(fertility)-1), convert=TRUE)
+fertility &lt;- arrange(fertility, country, year)
+
+income &lt;- read.xlsx(&#39;indicator gapminder gdp_per_capita_ppp.xlsx&#39;, rowNames = TRUE, rows=1:260)
+income &lt;- mutate(income, country=rownames(income))
+income &lt;- gather(income, year, &quot;fertility&quot;, 1:(length(income)-1), convert = TRUE)
+income &lt;- arrange(income, country, year)
+
+fer_inc &lt;- inner_join(income, fertility, by = c(&quot;country&quot;, &quot;year&quot;))
+names(fer_inc) &lt;- c(&quot;country&quot;, &quot;year&quot;, &quot;income&quot;, &quot;fertility&quot;)
+head(fer_inc)</code></pre></div>
+
+<h3 id="toc_40">How did fertility income change in time?</h3>
+
+<div><pre><code class="language-{r}">summary(fer_inc$income)
+ggplot(aes(x = year, y = income), data = fer_inc) +
+  geom_point(alpha = 0.2, color = &#39;orange&#39;) +
+  coord_cartesian(ylim=c(300, 190000)) +
+  scale_y_log10() +
+  geom_line(stat = &#39;summary&#39;, fun.y = mean) +
+  geom_line(stat = &#39;summary&#39;, fun.y = median, color = &#39;blue&#39;) +
+  geom_line(stat = &#39;summary&#39;, fun.y = quantile, probs = .1, linetype = 2, color = &#39;blue&#39;) +
+  geom_line(stat = &#39;summary&#39;, fun.y = quantile, probs = .9, linetype = 2, color = &#39;blue&#39;)
+
+fer_inc[!is.na(fer_inc$income) &amp; fer_inc$income &lt; 300,]</code></pre></div>
+
+<p>Observations:</p>
+
+<ul>
+<li>there are some values of income &lt; 300 (Liberia in 1992-1997) which were removed from plot for better axis adjustment.
+What happened in Liberia in 1990s? [civil war]</li>
+<li>there are countries with income &gt; 100000 (Brunei, Kuwait, Macao, Qatar and United Arab Emirates). It&rsquo;s good to have lots
+of oil, right?:)<br></li>
+<li>general trend is that income is growing (significantly!); the growth started in 1900 and continues until now</li>
+<li>median and mean do not go far from each other.<br>
+Probably the income distribution is ~ normal distribution</li>
+</ul>
+
+<h3 id="toc_41">How did income and fertility changed in time?</h3>
+
+<div><pre><code class="language-{r}">fer_inc.means &lt;- fer_inc %&gt;%
+  group_by(year) %&gt;%
+  summarise(mean_income = mean(income, na.rm = TRUE),
+            mean_fertility = mean(fertility, na.rm = TRUE),
+            n = n()) %&gt;%
+  arrange(year)
+head(fer_inc.means)
+p1 &lt;- ggplot(aes(x = year), data = fer_inc.means) +
+  geom_point(aes(y = mean_income), color = &#39;red&#39;)
+p2 &lt;- ggplot(aes(x = year), data = fer_inc.means) +  
+  geom_point(aes(y = mean_fertility), color = &#39;blue&#39;)
+library(gridExtra)
+grid.arrange(p1, p2, ncol=1)
+
+cor.test(fer_inc$income, fer_inc$fertility)</code></pre></div>
+
+<p>Observations:</p>
+
+<ul>
+<li>as the mean income is going up, so does the mean fertility rates are dropping. 
+It seems like both value are correlated (Pearson: -0.48), so increase in income causes decrease in fertility.</li>
+</ul>
+
+<hr>
+
+<hr>
+
+<hr>
+
+<h1 id="toc_42"><mark>Lesson 5</mark></h1>
+
+<h3 id="toc_43">Multivariate Data</h3>
+
+<p>Notes:</p>
+
+<hr>
+
+<h3 id="toc_44">Moira Perceived Audience Size Colored by Age</h3>
+
+<p>Notes: the idea is that perceived audience size accuracy might change with age (older people being more accurate about the size).<br>
+Scatterplot with coloured points (cololur =&gt; age) didn&rsquo;t show a clear answer.</p>
+
+<hr>
+
+<h3 id="toc_45">Third Qualitative Variable</h3>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-r">library(ggplot2)
+library(ggthemes)
+theme_set(theme_minimal())
+pf &lt;- read.csv(&#39;pseudo_facebook.tsv&#39;, sep = &#39;\t&#39;)
+# Female  FB users are generally older than males.
+
+
+pf %&gt;% subset(!is.na(gender)) %&gt;%
+ggplot(data = ., aes(x = gender, y = age)) +
+    geom_boxplot() +
+    stat_summary(fun.y = mean, geom = &quot;point&quot;, shape = 4) +
+    theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-19_10-48-04.png" alt="image"></p>
+
+<div><pre><code class="language-r">pf %&gt;% subset(!is.na(gender)) %&gt;%
+ggplot(data = ., aes(x = age, y = friend_count)) +
+    geom_line(aes(color = gender), stat = &#39;summary&#39;, fun.y = median) +
+    theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-19_11-03-57.png" alt="image"></p>
+
+<h4 id="toc_46">Excercise</h4>
+
+<p>Write code to create a new data frame, called &lsquo;pf.fc_by_age_gender&rsquo;, that contains<br>
+information on each age AND gender group.</p>
+
+<p>The data frame should contain the following variables:</p>
+
+<ul>
+<li>mean_friend_count,</li>
+<li>median_friend_count,</li>
+<li>n (the number of users in each age and gender grouping)</li>
+</ul>
+
+<div><pre><code class="language-r">library(dplyr)
+pf.fc_by_age_gender &lt;- 
+    pf %&gt;%
+      filter(!is.na(gender)) %&gt;%
+      group_by(age, gender) %&gt;%
+      summarise(mean_friend_count = mean(friend_count),
+                median_friend_count = median(friend_count),
+                n = n()) %&gt;%
+      ungroup() %&gt;%
+      arrange(age)
+
+pf.fc_by_age_gender</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-19_11-23-37.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_47">Plotting Conditional Summaries</h3>
+
+<p>Notes: with the conditional summaries inside dataframe, we no longer need to use &lsquo;stat&rsquo; and &lsquo;fun.y&rsquo; parameters  to geom_line.</p>
+
+<div><pre><code class="language-r">
+pf.fc_by_age_gender %&gt;%
+ggplot(data = ., aes(x = age, y = median_friend_count)) +
+    geom_line(aes(color = gender)) +
+    theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-19_14-15-42.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_48">Thinking in Ratios</h3>
+
+<p>Notes: charts shows that friend count difference is larger for younger users.<br>
+We&rsquo;d like to see a ratio: how many more friends do girls have. Does the ratio hold in time?</p>
+
+<hr>
+
+<h3 id="toc_49">Wide and Long Format</h3>
+
+<p>Notes:</p>
+
+<p>Long format: (age, gender) -&gt; (observations)</p>
+
+<p>Wide format: (age) -&gt; (observation for male, observation for female)</p>
+
+<hr>
+
+<h3 id="toc_50">Reshaping Data</h3>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-r">library(tidyr)
+library(reshape2)
+
+# rehape with tidyr (note &#39;spread&#39; and &#39;mutate&#39;)
+pf.fc_by_age_gender.wide &lt;-
+  pf.fc_by_age_gender %&gt;%
+  select(age, gender, median_friend_count) %&gt;%
+  subset(!is.na(gender)) %&gt;% 
+    spread(gender, median_friend_count) %&gt;% 
+    mutate(ratio = male / female) 
+head(pf.fc_by_age_gender.wide)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-19_14-26-00.png" alt="image"></p>
+
+<div><pre><code class="language-r">pf.fc_by_age_gender.wide &lt;- 
+    pf.fc_by_age_gender %&gt;%
+        dcast(age ~ gender, value.var = &#39;median_friend_count&#39;)
+head(pf.fc_by_age_gender.wide)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-19_14-30-22.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_51">Ratio Plot</h3>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-r"># Plot the ratio of the female to male median friend counts 
+# using the data frame pf.fc_by_age_gender.wide.
+
+# Think about what geom you should use.
+# Add a horizontal line to the plot with a y intercept of 1, which will be the base line. 
+# Look up the documentation for geom_hline to do that. Use the parameter linetype in geom_hline to make the line dashed.
+
+# The linetype parameter can take the values 0-6:
+# 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash
+pf.fc_by_age_gender.wide %&gt;%
+    ggplot(aes(x = age, y = female / male)) +
+        geom_line(color = &#39;#02a0e2&#39;) +
+        geom_hline(yintercept = 1, color = &#39;red&#39;, linetype = 2) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-19_14-50-03.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_52">Third Quantitative Variable</h3>
+
+<p>Notes: from the graph above, female have more friends than males (&gt; 2 times more for young users).<br>
+<code>Hypothesis: there is lots of male who are new-joiners and haven&#39;t build their friends list yet.</code><br>
+We want to analyze the ratio based on account age (tenure).</p>
+
+<div><pre><code class="language-r">pf$year_joined &lt;- 2014 - ceiling(pf$tenure / 365)
+# optionally:  pf$year_joined &lt;- floor(2014 - pf$tenure / 365)</code></pre></div>
+
+<hr>
+
+<h3 id="toc_53">Cut a Variable</h3>
+
+<p>Notes: there are not many users for 2005 and 2006, so we want to group the early years users together.</p>
+
+<div><pre><code class="language-{r">table(pf$year_joined)
+pf$year_joined.bucket &lt;- cut(pf$year_joined, breaks = c(2004, 2009, 2011, 2012, 2014))
+summary(pf$year_joined.bucket)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-19_14-59-31.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-19_14-59-47.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_54">Plotting it All Together</h3>
+
+<p>Notes: plot belows confirms the thesies: user who are longer of facebook (bigger tenure) have more friends.</p>
+
+<div><pre><code class="language-r"># Create a line graph of friend_count vs. age so that each year_joined.bucket is a line
+# tracking the median user friend_count across age. This means you should have four different
+# lines on your plot.
+
+# You should subset the data to exclude the users whose year_joined.bucket is NA.
+pf %&gt;%
+    subset(!is.na(year_joined.bucket)) %&gt;%
+    ggplot(data = ., aes(x = age, y = friend_count)) +
+        geom_line(aes(color = year_joined.bucket), stat = &#39;summary&#39;, fun.y = median) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))
+</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-19_15-14-44.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_55">Plot the Grand Mean</h3>
+
+<p>Notes: grand mean is low (below the [2011-2012] cohort), which means that large number of users are in the last cohort<br>
+and bring the grand mean down.</p>
+
+<div><pre><code class="language-r"># Write code to do the following:
+
+# (1) Add another geom_line to code below to plot the grand mean of the friend count vs age.
+# (2) Exclude any users whose year_joined.bucket is NA.
+# (3) Use a different line type for the grand mean.
+
+# As a reminder, the parameter linetype can take the values 0-6:
+# 0 = blank, 1 = solid, 2 = dashed, # 3 = dotted, 4 = dotdash, 5 = longdash, # 6 = twodash
+pf %&gt;%
+    subset(!is.na(year_joined.bucket)) %&gt;%
+    ggplot(data = ., aes(x = age, y = friend_count)) +
+        geom_line(aes(color = year_joined.bucket), stat = &#39;summary&#39;, fun.y = mean) +
+        geom_line(stat = &quot;summary&quot;, fun.y = mean, color = &#39;blue&#39;, alpha = 0.5, linetype = &#39;dashed&#39;)+
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))
+
+</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_06-34-03.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_56">Friending Rate</h3>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-r">friend_rate &lt;- subset(pf, tenure &gt;= 1)
+friend_rate &lt;- friend_rate$friend_count / friend_rate$tenure
+summary(friend_rate)
+# alt
+# with(subset(pf, tenure &gt;= 1), summary(friend_count / tenure))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_06-38-09.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_57">Friendships Initiated</h3>
+
+<p>Notes:</p>
+
+<p>What is the median friend rate?</p>
+
+<p>0.2205</p>
+
+<p>What is the maximum friend rate?</p>
+
+<p>417.0000</p>
+
+<div><pre><code class="language-r"># Create a line graph of mean of friendships_initiated per day (of tenure)
+# vs. tenure colored by year_joined.bucket.
+
+# You need to make use of the variables tenure, friendships_initiated, and year_joined.bucket.
+
+pf %&gt;%
+subset(tenure &gt;= 1) %&gt;%
+    ggplot(data = ., aes(x = tenure, y = friendships_initiated / tenure)) +
+        geom_line(aes(color = year_joined.bucket), stat = &#39;summary&#39;, fun.y = mean) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_06-57-32.png" alt="image"></p>
+
+<div><pre><code class="language-r">pf %&gt;%
+subset(tenure &gt;= 1) %&gt;%
+    ggplot(data = ., aes(x = tenure, y = friendships_initiated / tenure)) +
+        geom_line(aes(color = year_joined.bucket), stat = &#39;summary&#39;, fun.y = mean) +
+        scale_y_sqrt() +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_06-58-08.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_58">Bias-Variance Tradeoff Revisited</h3>
+
+<p>Notes: understanding bias vs variance: <a href="http://scott.fortmann-roe.com/docs/BiasVariance.html">http://scott.fortmann-roe.com/docs/BiasVariance.html</a></p>
+
+<p>Books: The Elements of Statistical Learning: <a href="http://statweb.stanford.edu/%7Etibs/ElemStatLearn/">http://statweb.stanford.edu/~tibs/ElemStatLearn/</a></p>
+
+<div><pre><code class="language-r">pf %&gt;%
+subset(tenure &gt;= 1) %&gt;%
+    ggplot(data = ., aes(x = tenure, y = friendships_initiated / tenure)) +
+        geom_line(aes(color = year_joined.bucket), stat = &#39;summary&#39;, fun.y = mean) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_07-06-47.png" alt="image"></p>
+
+<div><pre><code class="language-r">pf %&gt;%
+subset(tenure &gt; 0) %&gt;%
+    ggplot(data = ., aes(x = 7 * round(tenure / 7),
+                     y = friendships_initiated / tenure)) +
+        geom_line(aes(color = year_joined.bucket), stat = &#39;summary&#39;, fun.y = mean) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_07-08-41.png" alt="image"></p>
+
+<div><pre><code class="language-r">pf %&gt;%
+subset(tenure &gt; 0) %&gt;%
+    ggplot(data = ., aes(x = 30 * round(tenure / 30),
+                     y = friendships_initiated / tenure)) +
+        geom_line(aes(color = year_joined.bucket), stat = &#39;summary&#39;, fun.y = mean) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_07-10-29.png" alt="image"></p>
+
+<div><pre><code class="language-r">pf %&gt;%
+subset(tenure &gt; 0) %&gt;%
+    ggplot(data = ., aes(x = 90 * round(tenure / 90),
+                     y = friendships_initiated / tenure)) +
+        geom_line(aes(color = year_joined.bucket), stat = &#39;summary&#39;, fun.y = mean) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_07-12-08.png" alt="image"></p>
+
+<div><pre><code class="language-r"># finally, we can use geom_smooth to add smoother to the plot
+pf %&gt;%
+subset(tenure &gt; 0) %&gt;%
+    ggplot(data = ., aes(x = 7 * round(tenure / 7),
+                     y = friendships_initiated / tenure)) +
+        geom_smooth(aes(color = year_joined.bucket)) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_07-14-40.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_59">Sean&rsquo;s NFL Fan Sentiment Study</h3>
+
+<p>Links:</p>
+
+<ul>
+<li>The Emotional Highs and Lows of the NFL Season :
+<a href="https://www.facebook.com/notes/facebook-data-science/the-emotional-highs-and-lows-of-the-nfl-season/10152033221418859">https://www.facebook.com/notes/facebook-data-science/the-emotional-highs-and-lows-of-the-nfl-season/10152033221418859</a></li>
+<li>NFL on Wikipedia: <a href="https://en.wikipedia.org/wiki/National_Football_League">https://en.wikipedia.org/wiki/National_Football_League</a></li>
+<li>analyst profile (seaj j. taylor): <a href="http://seanjtaylor.com/">http://seanjtaylor.com/</a></li>
+</ul>
+
+<p>Notes:</p>
+
+<ul>
+<li>measuring the emotions you experience on daily basisc (here: emotions of NFL games)</li>
+<li>metric: ratio of positive / negative words</li>
+<li>multiple models were wrong and did not tell the story that is known to NFL fans (emotional rollercoaster) </li>
+<li><strong>moving average</strong> is very strong and flexible statistic that lets data to speak for itself</li>
+<li>7-days-average + splines == mixed models showed the best story</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_60">Introducing the Yogurt Data Set</h3>
+
+<p>Notes: yogurt dataset contains multiple rows per household; one per each transaction.</p>
+
+<div><pre><code class="language-r">yo &lt;- read.csv(&#39;/Users/ndvo/Dropbox/udacity-data-science-master/p4/l5/yogurt.csv&#39;)
+
+yo %&gt;% str
+yo %&gt;% head</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_10-44-02.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_61">Histograms Revisited</h3>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-r"># Change the id from an int to a factor
+yo$id &lt;- factor(yo$id)
+yo$id %&gt;% str
+
+yo %&gt;%
+    ggplot(data = ., aes(x= yo$price)) +
+        geom_histogram() +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_10-49-20.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_10-50-03.png" alt="image"></p>
+
+<p>What do you notice?:</p>
+
+<ul>
+<li>there are few price values that show up in the graph. Multiple price values have no data at all (discrete dataset)</li>
+<li>there is more records with high prices (people tend to buy better tasting, more expensive yogurts or is it marketing effect?)</li>
+<li>some combinations of purchases are very rare; probably they mean rare combination of purchaases</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_62">Number of Purchases</h3>
+
+<p>Notes:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_11-25-09.png" alt="image"></p>
+
+<ul>
+<li>3rd Quantile of price == Max</li>
+<li>not many distinct (unique) values (20)</li>
+</ul>
+
+<div><pre><code class="language-r">summary(yo$price)
+unique(yo$price)
+
+# Create a new variable called all.purchases, which gives the total counts of yogurt for
+# each observation or household.
+yo$all.purchases &lt;- rowSums(yo[,c(&#39;strawberry&#39;, &#39;blueberry&#39;, &#39;pina.colada&#39;, &#39;plain&#39;, &#39;mixed.berry&#39;)])</code></pre></div>
+
+<hr>
+
+<h3 id="toc_63">Prices over Time</h3>
+
+<p>Notes:</p>
+
+<div><pre><code class="language-r">yo %&gt;%
+    ggplot(aes(x = time, y = price), data = .) +
+        geom_point(alpha = 0.1, color = &#39;blue&#39;) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_11-31-18.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_64">Sampling Observations</h3>
+
+<p>Notes: when beginning with the dataset it&rsquo;s often good to look at sample of the data.</p>
+
+<p>In the yogurt dataset, it&rsquo;s best to take a look at particular households to see variance within the household<br>
+and between the households.</p>
+
+<ul>
+<li>how often they&rsquo;re buying yogurt?</li>
+<li>at what price they&rsquo;re buying</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_65">Looking at Samples of Households</h3>
+
+<div><pre><code class="language-r"># set the seed for reproducible results
+set.seed(4000)
+sample.ids &lt;- sample(levels(yo$id), 16)
+
+yo %&gt;%
+subset(id %in% sample.ids) %&gt;%
+    ggplot(aes(x = time, y = price), data = .) +
+        facet_wrap(~ id) +
+        geom_line(aes(color = id)) +
+                guides(color = FALSE) +
+        geom_point(aes(size = all.purchases), pch = 1) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 15))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_11-46-51.png" alt="image"></p>
+
+<p>Notes:</p>
+
+<ul>
+<li>plots show differences in the quantity and frequencies of purchases</li>
+<li>generally, most of the households increase the price in time</li>
+</ul>
+
+<p>Seed 4000:</p>
+
+<ul>
+<li>there are households who seem not to care about coupons (steady, high prices)</li>
+<li>there are households which do care about the coupons (sudden drops in the price). Also, 
+there is usually larger quantity of yogurt bought on lower price</li>
+<li>price rather increase in time; households do not &lsquo;downgrade&rsquo; to yougurt with lower prices</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_66">The Limits of Cross Sectional Data</h3>
+
+<p>Notes: if we have observations over time, we can facet them using primary id (household id)</p>
+
+<p>This cannot be done with FB data, because it&rsquo;s snapshot of friendship counts at one moment in time.</p>
+
+<hr>
+
+<h3 id="toc_67">Many Variables</h3>
+
+<p>Notes: much of the analysis so far was focused on some pre-chosen variable, pair of variables, etc.</p>
+
+<p>But we might:</p>
+
+<ul>
+<li>want visualizations of summaries to point to auxiliary, story-telling variable (especially, when there is a lot of them).</li>
+<li>visualize large set of variables</li>
+<li>look for relationships between many variables.</li>
+</ul>
+
+<p>We can speed up the analysis, by producing many plots &amp; comparisons at once.</p>
+
+<hr>
+
+<h3 id="toc_68">Scatterplot Matrix</h3>
+
+<div><pre><code class="language-r">library(GGally)
+theme_set(theme_minimal(20))
+
+# set the seed for reproducible results
+set.seed(1836)
+pf_subset &lt;- pf[, c(2:15)]
+names(pf_subset)
+ggpairs(pf_subset[sample.int(nrow(pf_subset), 1000), ], axisLabels = &#39;internal&#39;,mapping=ggplot2::aes(colour = gender))
+</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_13-27-29.png" alt="image"></p>
+
+<p>Notes:</p>
+
+<ul>
+<li>we have scatterplots and histograms for gender (categorical)</li>
+</ul>
+
+<hr>
+
+<h3 id="toc_69">Even More Variables</h3>
+
+<p>Notes:</p>
+
+<hr>
+
+<h3 id="toc_70">Heat Maps</h3>
+
+<p>Notes:</p>
+
+<p>melting data: <a href="http://www.r-bloggers.com/melt/">http://www.r-bloggers.com/melt/</a></p>
+
+<div><pre><code class="language-r">nci &lt;- read.table(&quot;/Users/ndvo/Dropbox/udacity-data-science-master/p4/l5/nci.tsv&quot;)
+# changing the colnames to produce a nicer plot
+nci %&gt;% dim
+colnames(nci) &lt;- c(1:64)
+
+nci[1:200,] %&gt;% as.matrix %&gt;% str
+nci[1:200,] %&gt;% as.matrix %&gt;% melt %&gt;% str
+nci[1:200,] %&gt;% as.matrix %&gt;% melt %&gt;% head
+
+nci.long.samp &lt;- nci[1:200,] %&gt;% as.matrix %&gt;% melt
+names(nci.long.samp) &lt;- c(&quot;gene&quot;, &quot;case&quot;, &quot;value&quot;)
+nci.long.samp %&gt;% head</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_13-15-56.png" alt="image"></p>
+
+<div><pre><code class="language-r">nci.long.samp %&gt;%
+    ggplot(aes(x = case, y = gene, fill = value), data = .) +
+        geom_tile() +
+        scale_fill_gradientn(colors = colorRampPalette(c(&quot;blue&quot;,&quot;red&quot;))(100)) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_14-26-38.png" alt="image"></p>
+
+<hr>
+
+<h3 id="toc_71">Analyzing Three of More Variables</h3>
+
+<p>Reflection:</p>
+
+<ul>
+<li>extra variables (3rd, 4th) might provide insight into problem/observation that did not have clear explanation
+with smaller number of variables (here: # of friends per age, gender and account tenure)</li>
+<li>explore with different statistics and plots (NFL data: splines and moving means) to find the effect you&rsquo;re looking for</li>
+<li>sample the data (rows and columns) to grab initial idea of what&rsquo;s going on</li>
+<li>don&rsquo;t be afraid to &lsquo;start wide&rsquo; with many variables on scatterplots matrices, heatmaps and so.
+Let those point you at data to dig in deeper</li>
+</ul>
+
+<hr>
+
+<h1 id="toc_72"><mark>Problems set 5</mark></h1>
+
+<h2 id="toc_73"> Price Histograms with Facet and Color</h2>
+
+<div><pre><code class="language-r">library(ggplot2)
+library(ggthemes)
+theme_set(theme_minimal())
+library(dplyr)
+data(diamonds)
+
+# Create a histogram of diamond prices.
+# Facet the histogram by diamond color and use cut to color the histogram bars.
+
+# The plot should look something like this. http://i.imgur.com/b5xyrOu.jpg
+
+# Note: In the link, a color palette of type &#39;qual&#39; was used to color the histogram using
+# scale_fill_brewer(type = &#39;qual&#39;)
+
+diamonds %&gt;%
+    ggplot(aes(x= price), data = .) +
+    geom_histogram(aes(fill = cut), position = &#39;stack&#39;) +
+    facet_wrap(~ color) +
+    scale_fill_brewer(&quot;cut&quot;, type = &#39;qual&#39;, palette = &quot;Set1&quot;) +
+    theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_14-40-04.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>H-I-J colors seems to present different distribution (bimodal) vs distribution of D-E-F-G colors.
+OTOH, this should be investigated, as the first impression might be false due to high spikes in D-G colors.</li>
+<li>ideal cut share is bigger in smaller price ranges (probably because they&rsquo;re smaller diamonds and it&rsquo;s hard to find
+big ideal diamond)</li>
+</ul>
+
+<h2 id="toc_74">Price vs. Table Colored by Cut</h2>
+
+<div><pre><code class="language-r"># Create a scatterplot of diamond price vs. table and color the points by the cut of
+# the diamond.
+
+# The plot should look something like this.
+# http://i.imgur.com/rQF9jQr.jpg
+
+
+diamonds %&gt;%
+    ggplot(aes(x = table, y = price), data = .) +
+      geom_point(aes(color = cut), size = 3) +
+      # add scale and limits to see typical range easily
+      scale_x_continuous(limits = c(50, 70), breaks=seq(50, 70, 1)) +
+      scale_color_brewer(&quot;cut&quot;, type = &#39;qual&#39;, palette = 1) +
+      theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_14-43-05.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>there is most popular (preferred) range of table values 52-66.</li>
+<li>there seems to be no correlation between table and price</li>
+<li>cut is correlated with table (table goes up then cut goes from ideal to fair)</li>
+</ul>
+
+<h4 id="toc_75">Typical table value</h4>
+
+<p>What is the typical table range for the majority of diamonds of IDEAL cut? 53-57</p>
+
+<p>What is the typical table range for the majority of diamonds of PREMIUM cut? 58-62</p>
+
+<h2 id="toc_76">Price vs. Volume and Diamond Clarity</h2>
+
+<div><pre><code class="language-{r}"># Create a scatterplot of diamond price vs. volume (x * y * z) and color the points by
+# the clarity of diamonds. 
+# Use scale on the y-axis to take the log10 of price. You should also omit the top 1% of diamond volumes from the plot.
+
+# Note: Volume is a very rough approximation of a diamond&#39;s actual volume.
+
+# The plot should look something like this. http://i.imgur.com/excUpea.jpg
+
+# Note: In the link, a color palette of type &#39;div&#39; was used to color the scatterplot using
+# scale_color_brewer(type = &#39;div&#39;)
+
+diamonds$volume = diamonds$x * diamonds$y * diamonds$z
+
+diamonds %&gt;%
+subset(volume &lt; quantile(diamonds$volume, 0.99)) %&gt;%
+    ggplot(aes(x = volume, y = price), data = .) +
+      geom_point(aes(color = clarity)) +
+      scale_y_log10() +
+      scale_color_brewer(type = &#39;div&#39;)  +
+      theme(text = element_text(face= &quot;bold&quot;,size = 20))
+</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_14-46-33.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>larger volume clearly affects the price</li>
+<li>better the clarity, higher the price of diamonds. 
+Clarity is not as strong predictor as volume (on the log scale, the clarity adjusts the price to general trend coming from volume)</li>
+<li>there is less large diamonds (&gt;250) with best clarities</li>
+</ul>
+
+<h2 id="toc_77">Proportion of Friendships Initiated</h2>
+
+<p>Many interesting variables are derived from two or more others.<br><br>
+For example, we might wonder how much of a person&rsquo;s network on a service like Facebook the user actively initiated. Two users<br>
+with the same degree (or number of friends) might be very different if one initiated most of those connections on the<br>
+service, while the other initiated very few. So it could be useful to consider this proportion of existing friendships that<br>
+the user initiated. This might be a good predictor of how active a user is compared with their peers, or other traits, such as<br>
+personality (i.e., is this person an extrovert?).</p>
+
+<p>Your task is to create a new variable called &lsquo;prop_initiated&rsquo; in the Pseudo-Facebook data set. The variable should contain<br>
+the proportion of friendships that the user initiated.</p>
+
+<div><pre><code class="language-{r}">pf = read.delim(&#39;pseudo_facebook.tsv&#39;)
+pf$prop_initiated = pf$friendships_initiated / pf$friend_count</code></pre></div>
+
+<h2 id="toc_78">prop_initiated vs. tenure</h2>
+
+<div><pre><code class="language-r"># Create a line graph of 
+# the median proportion of friendships initiated (&#39;prop_initiated&#39;) vs. tenure 
+# and color the line segment by year_joined.bucket.
+
+# Recall, we created year_joined.bucket in Lesson 5
+# by first creating year_joined from the variable tenure.
+# Then, we used the cut function on year_joined to create
+# four bins or cohorts of users.
+
+# (2004, 2009]
+# (2009, 2011]
+# (2011, 2012]
+# (2012, 2014]
+
+# The plot should look something like this.
+# http://i.imgur.com/vNjPtDh.jpg
+# OR this
+# http://i.imgur.com/IBN1ufQ.jpg
+
+pf$year_joined &lt;- 2014 - ceiling(pf$tenure / 365)
+pf$year_joined.bucket &lt;- cut(pf$year_joined, breaks = c(2004, 2009, 2011, 2012, 2014))
+
+pf %&gt;%
+    ggplot(aes(x= tenure, y = prop_initiated), data = .) +
+    geom_line(aes(color = year_joined.bucket), stat = &#39;summary&#39;, fun.y = median) +
+    theme(text = element_text(face= &quot;bold&quot;,size = 20))
+    </code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_14-51-36.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>prop<u>initiated has the same trend, as friend</u>count. More mature (tenure) FB users are less active than the new ones.</li>
+<li>variability of the prop_initiated raises in time. Apparently, all new users (despite the character traits) are active ones,
+and the want to build up their friends network quickly. After the initial &lsquo;storm&rsquo;, the person character has stronger impact
+on how the person is active.</li>
+<li>clearly, people who joined after 2012 initiated the greated proportion of their FB friendships</li>
+</ul>
+
+<h2 id="toc_79">Smoothing prop_initiated vs. tenure</h2>
+
+<div><pre><code class="language-{r}"># Smooth the last plot you created of of prop_initiated vs tenure colored by
+# year_joined.bucket. 
+# You can bin together ranges of tenure or add a smoother to the plot.
+
+pf %&gt;%
+    ggplot(aes(x = 30 * round(tenure / 30), y = prop_initiated), data = .) +
+        geom_line(aes(color = year_joined.bucket), 
+                    stat = &#39;summary&#39;, fun.y = median) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_14-53-48.png" alt="image"></p>
+
+<div><pre><code class="language-r">pf %&gt;%
+    ggplot(aes(tenure, y = prop_initiated), data = .) +
+        geom_smooth(aes(color = year_joined.bucket)) +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_14-55-19.png" alt="image"></p>
+
+<p>For the group with the largest propotion of the friendships initiated, what is the group&rsquo;s average (mean)<br>
+proportion of friendships initiaited?</p>
+
+<div><pre><code class="language-r">with(subset(pf, pf$year_joined.bucket == &quot;(2012,2014]&quot;), table(year_joined.bucket))
+
+with(subset(pf, year_joined.bucket == &quot;(2012,2014]&quot;), mean(prop_initiated, na.rm=TRUE))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_14-56-26.png" alt="image"></p>
+
+<h2 id="toc_80">Price/Carat Binned, Faceted, &amp; Colored</h2>
+
+<div><pre><code class="language-r"># Create a scatter plot of the price/carat ratio of diamonds. 
+# The variable x should be assigned to cut. 
+# The points should be colored by diamond color, 
+# and the plot should be faceted by clarity.
+
+# The plot should look something like this.
+# http://i.imgur.com/YzbWkHT.jpg.
+
+# Note: In the link, a color palette of type &#39;div&#39; was used to color the histogram using
+# scale_color_brewer(type = &#39;div&#39;)
+
+diamonds %&gt;%
+    ggplot(aes(x = cut, y = price/carat), data = .) +
+      # use geom_jitter to spread the values inside single color bucket
+      geom_jitter(aes(color = color), alpha = 1, position = position_jitter(h = 0)) +
+      facet_wrap(~ clarity) +
+      scale_color_brewer(type = &#39;div&#39;) +
+      theme(text = element_text(face= &quot;bold&quot;,size = 12))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_14-59-33.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>there is a trend to increase the price as the cut (x-axis) gets better</li>
+<li>there is more diamonds with middle-type clarity (SI2, SII, VS2), than bad ones (I1) and best (WS1, IF)</li>
+<li>for given cut and clarity there are &lsquo;levels&rsquo; of prices (visible e.g. for D colours in each bar)</li>
+</ul>
+
+<h2 id="toc_81">Gapminder Multivariate Analysis</h2>
+
+<p>Gapminder data: <a href="http://www.gapminder.org/data/">http://www.gapminder.org/data/</a></p>
+
+<p>In your investigation, examine 3 or more variables and create 2-5 plots that make use of the techniques from Lesson 5.</p>
+
+<div><pre><code class="language-r"># scatter/line plot of GDP and education level of population, male and female
+library(openxlsx)
+library(tidyr)
+
+literacy_total &lt;- read.xlsx(&#39;/Users/ndvo/Dropbox/udacity-data-science-master/p4/ps5/indicator SE_ADT_LITR_ZS.xlsx&#39;, rowNames = TRUE)
+literacy_total %&gt;% head
+literacy_total %&gt;% str
+literacy_total &lt;- mutate(literacy_total, country = rownames(literacy_total))
+literacy_total &lt;- gather(literacy_total, year, &quot;literacy.total&quot;, 1:(length(literacy_total)-1), convert=TRUE)
+literacy_total &lt;- arrange(literacy_total, country, year)
+literacy_total &lt;- subset(literacy_total, !is.na(literacy_total$literacy.total))
+literacy_total %&gt;% head
+literacy_total %&gt;% str</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-08-19.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-09-11.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-08-35.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-08-51.png" alt="image"></p>
+
+<div><pre><code class="language-r">literacy_male = read.xlsx(&#39;/Users/ndvo/Dropbox/udacity-data-science-master/p4/ps5/indicator SE_ADT_LITR_MA_ZS.xlsx&#39;, rowNames = TRUE)
+literacy_male %&gt;% head
+literacy_male %&gt;% str
+literacy_male &lt;- mutate(literacy_male, country = rownames(literacy_male))
+literacy_male &lt;- gather(literacy_male, year, &quot;literacy.male&quot;, 1:(length(literacy_male)-1), convert=TRUE)
+literacy_male &lt;- arrange(literacy_male, country, year)
+literacy_male &lt;- subset(literacy_male, !is.na(literacy_male$literacy.male))
+literacy_male %&gt;% head
+literacy_male %&gt;% str</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-10-17.png" alt="image"></p>
+
+<div><pre><code class="language-r">literacy_female = read.xlsx(&#39;/Users/ndvo/Dropbox/udacity-data-science-master/p4/ps5/indicator SE_ADT_LITR_FE_ZS.xlsx&#39;, rowNames = TRUE)
+literacy_female %&gt;% head
+literacy_female %&gt;% str
+literacy_female &lt;- mutate(literacy_female, country = rownames(literacy_female))
+literacy_female &lt;- gather(literacy_female, year, &quot;literacy.female&quot;, 1:(length(literacy_female)-1), convert=TRUE)
+literacy_female &lt;- arrange(literacy_female, country, year)
+literacy_female &lt;- subset(literacy_female, !is.na(literacy_female$literacy.female))
+literacy_female %&gt;% head
+literacy_female %&gt;% str</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-11-08.png" alt="image"></p>
+
+<div><pre><code class="language-r">income &lt;- read.xlsx(&#39;/Users/ndvo/Dropbox/udacity-data-science-master/p4/ps5/indicator gapminder gdp_per_capita_ppp.xlsx&#39;, rowNames = TRUE, rows=1:260)
+income %&gt;% head
+income %&gt;% str
+income &lt;- mutate(income, country=rownames(income))
+income &lt;- gather(income, year, &quot;income&quot;, 1:(length(income)-1), convert = TRUE)
+income &lt;- arrange(income, country, year)
+income %&gt;% head
+income %&gt;% str</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-11-51.png" alt="image"></p>
+
+<div><pre><code class="language-r">lit_inc &lt;- inner_join(income, literacy_total, by = c(&quot;country&quot;, &quot;year&quot;))
+lit_inc &lt;- inner_join(lit_inc, literacy_male, by = c(&quot;country&quot;, &quot;year&quot;))
+lit_inc &lt;- inner_join(lit_inc, literacy_female, by = c(&quot;country&quot;, &quot;year&quot;))
+lit_inc$country.fact = factor(lit_inc$country)
+lit_inc %&gt;% head
+lit_inc %&gt;% str
+</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-13-17.png" alt="image"></p>
+
+<div><pre><code class="language-r">lit_inc2 &lt;- gather(lit_inc, &quot;group&quot;, &quot;literacy&quot;, 4:6)
+lit_inc2$group.fact = factor(lit_inc2$group)
+lit_inc2 %&gt;% head
+lit_inc2 %&gt;% str</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-14-30.png" alt="image"></p>
+
+<div><pre><code class="language-r">lit_inc2 %&gt;%
+    ggplot(aes(x = round(income/2000)*2000, y = literacy), data = .) +
+        geom_line(aes(color = group.fact), stat = &#39;summary&#39;, fun.y = mean) +
+        scale_x_log10() +
+        theme(text = element_text(face= &quot;bold&quot;,size = 20))</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-16-33.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>no matter how high the income and literacy rate, % of literacy among male is higher than among female.
+Larget income only reduces the difference, but the difference remains</li>
+</ul>
+
+<div><pre><code class="language-r">set.seed(4000)
+sample.countries &lt;- sample(levels(lit_inc$country.fact), 16)
+
+lit_inc %&gt;%
+subset(country %in% sample.countries) %&gt;%
+    ggplot(aes(x = literacy.total, y = income, color = country.fact), data = .) +
+      geom_point(size = 3) +
+      scale_y_log10() +
+      facet_wrap(~ country.fact)+
+      theme(text = element_text(face= &quot;bold&quot;,size = 18)) +
+      guides(color = FALSE)</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-20_16-30-36.png" alt="image"></p>
+
+<p>Observations:</p>
+
+<ul>
+<li>literacy is required for any significant increase in income.
+Only countries with high literacy rate managed to increase their literacy rates.</li>
+<li>Bahrain contradicts the statements. Apparently, large oil reserves == high literacy</li>
+</ul>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+Prism.languages.r={comment:/#.*/,string:/(['"])(?:\\?.)*?\1/,"percent-operator":{pattern:/%[^%\s]*%/,alias:"operator"},"boolean":/\b(?:TRUE|FALSE)\b/,ellipsis:/\.\.(?:\.|\d+)/,number:[/\b(?:NaN|Inf)\b/,/\b(?:0x[\dA-Fa-f]+(?:\.\d*)?|\d*\.?\d+)(?:[EePp][+-]?\d+)?[iL]?\b/],keyword:/\b(?:if|else|repeat|while|function|for|in|next|break|NULL|NA|NA_integer_|NA_real_|NA_complex_|NA_character_)\b/,operator:/->?>?|<(?:=|<?-)?|[>=!]=?|::?|&&?|\|\|?|[+*\/^$@~]/,punctuation:/[(){}\[\],;]/};
+</script>
+
+<script type="text/javascript">
+!function(){if("undefined"!=typeof self&&self.Prism&&self.document){var e={html:"HTML",xml:"XML",svg:"SVG",mathml:"MathML",css:"CSS",clike:"C-like",javascript:"JavaScript",abap:"ABAP",actionscript:"ActionScript",apacheconf:"Apache Configuration",apl:"APL",applescript:"AppleScript",asciidoc:"AsciiDoc",aspnet:"ASP.NET (C#)",autoit:"AutoIt",autohotkey:"AutoHotkey",basic:"BASIC",csharp:"C#",cpp:"C++",coffeescript:"CoffeeScript","css-extras":"CSS Extras",fsharp:"F#",glsl:"GLSL",http:"HTTP",inform7:"Inform 7",json:"JSON",latex:"LaTeX",lolcode:"LOLCODE",matlab:"MATLAB",mel:"MEL",nasm:"NASM",nginx:"nginx",nsis:"NSIS",objectivec:"Objective-C",ocaml:"OCaml",parigp:"PARI/GP",php:"PHP","php-extras":"PHP Extras",powershell:"PowerShell",jsx:"React JSX",rest:"reST (reStructuredText)",sas:"SAS",sass:"Sass (Sass)",scss:"Sass (Scss)",sql:"SQL",typescript:"TypeScript",vhdl:"VHDL",vim:"vim",wiki:"Wiki markup",yaml:"YAML"};Prism.hooks.add("before-highlight",function(s){var a=s.element.parentNode;if(a&&/pre/i.test(a.nodeName)){var t,i,r=a.getAttribute("data-language")||e[s.language]||s.language.substring(0,1).toUpperCase()+s.language.substring(1),l=a.previousSibling;l&&/\s*\bprism-show-language\b\s*/.test(l.className)&&l.firstChild&&/\s*\bprism-show-language-label\b\s*/.test(l.firstChild.className)?i=l.firstChild:(t=document.createElement("div"),i=document.createElement("div"),i.className="prism-show-language-label",t.className="prism-show-language",t.appendChild(i),a.parentNode.insertBefore(t,a)),i.innerHTML=r}})}}();
+</script>
+
+<script type="text/x-mathjax-config">
+if (typeof MathJaxListener !== 'undefined') {
+  MathJax.Hub.Register.StartupHook('End', function () {
+    MathJaxListener.invokeCallbackForKey_('End');
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>
