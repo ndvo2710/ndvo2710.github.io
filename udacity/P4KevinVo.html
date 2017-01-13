@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<title>Exploring LOAN DATA from Prosper</title>
+
+
+<style type="text/css">
+/*
+   This document has been created with Marked.app <http://marked2app.com>
+   Please leave this notice in place, along with any additional credits below.
+   ---------------------------------------------------------------
+   Title: Kult
+   Author: Peter Sziebig - @bigpe
+   Description: Easy to read
+*/
+
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 300;
+    src: local("Ubuntu Light"), local("Ubuntu-Light"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/WtcvfJHWXKxx4x0kuS1kobO3LdcAZYWl9Si6vvxL-qU.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Ubuntu"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/CGXpU_uR_FUfdeyCjAWgZ-vvDin1pK8aKteLpeZ5c0A.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 500;
+    src: local("Ubuntu Medium"), local("Ubuntu-Medium"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/gMhvhm-nVj1086DvGgmzB7O3LdcAZYWl9Si6vvxL-qU.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 700;
+    src: local("Ubuntu Bold"), local("Ubuntu-Bold"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/nsLtvfQoT-rVwGTHHnkeJrO3LdcAZYWl9Si6vvxL-qU.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: italic;
+    font-weight: 300;
+    src: local("Ubuntu Light Italic"), local("Ubuntu-LightItalic"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/DZ_YjBPqZ88vcZCcIXm6VqfTCPadK0KLfdEfFtGWCYw.woff") format("woff");
+}
+
+
+
+html {
+    font-size: 100%;
+}
+html, button, input, select, textarea {
+    font-family: sans-serif;
+}
+
+html, body, button, input, select, textarea {
+    color: #57534A;
+    font-family: "Ubuntu","Myriad Pro","Myriad",sans-serif;
+    font-size: 18px;
+	font-weight: 300;
+}
+
+body{
+    margin: 0 auto;
+    padding-top: 20px;
+    background-color: #FFFFFF;
+}
+
+body, textarea {
+    line-height: 1.4;
+}
+
+
+body:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+body {
+    padding-left: 6rem;
+    padding-right: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 42rem;
+    display: block;
+}
+
+
+
+h1, h2, h3, dt {
+    color: #423F37;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+h2, .article-list .article-title {
+    font-size: 1.5em;
+    margin: 0.83em 0;
+}
+h3, dt {
+    font-size: 1.17em;
+    margin: 1em 0;
+}
+h4 {
+    font-size: 1em;
+    margin: 1.33em 0;
+}
+h5 {
+    font-size: 0.83em;
+    margin: 1.67em 0;
+}
+h6 {
+    font-size: 0.75em;
+    margin: 2.33em 0;
+}
+
+
+a {
+    color: #8DB359;
+    cursor: pointer;
+    outline: 0 none;
+    text-decoration: underline;
+}
+
+a:hover {
+    outline: 0 none;
+    color: #739544;
+}
+
+
+p, pre {
+    margin: 1em 0;
+}
+code, kbd, pre, samp {
+    font-family: monospace,serif;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+
+}
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+pre {
+    background-color: #F8F5F0;
+    font-size: 0.7rem;
+    overflow-x: auto;
+    padding: 1.3rem;
+    position: relative;
+    white-space: pre;
+    word-wrap: normal;
+}
+pre, code, kbd, samp {
+    margin: 0;
+}
+code, kbd, pre, samp {
+    font-family: monospace,serif;
+}
+
+code {
+    color: #423F37;
+}
+
+
+aside {
+    display: block;
+    float: right;
+    width: 390px;
+}
+
+
+b, strong {
+    font-weight: bold;
+    color: #423F37;
+    font-weight: 700;
+}
+
+blockquote {
+    color: #423F37;
+    font-size: 1.25em;
+    font-weight: 700;
+	margin: 1em 40px;
+}
+
+blockquote {
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+
+figure {
+	margin-left: -4.5rem;
+    margin-right: -4.5rem;
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+
+
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color -moz-use-text-color #ECE6DA;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 1px;
+    margin: 3em 6em;
+}
+
+
+img {
+    max-width: 100%;
+    display: block;
+    border: 0 none;
+}
+
+
+ol > li:before {
+    color: #423F37;
+    content: counter(ol, decimal) ".";
+    counter-increment: ol;
+    font-weight: 700;
+    margin-right: 0.333em;
+    position: absolute;
+    right: 100%;
+}
+
+ul > li:before {
+    background-color: #423F37;
+    border-radius: 14px 14px 14px 14px;
+    content: "";
+    height: 6px;
+    margin-right: 0.333em;
+    margin-top: 0.55em;
+    position: absolute;
+    right: 100%;
+    width: 6px;
+}
+
+ol, ul, dl {
+    margin-left: 2rem;
+    padding: 0;
+}
+ol {
+    counter-reset: ol;
+}
+li + li, dd + dt {
+    margin-top: 0.5em;
+}
+
+ul > li {
+    position: relative;
+}
+
+ol > li {
+    position: relative;
+}
+li {
+    list-style: none outside none;
+}
+
+
+figure > figcaption {
+    margin-top: 0.5em;
+}
+small, dd, figcaption {
+    color: #A19C91;
+    display: block;
+    font-size: 0.8rem;
+    font-style: italic;
+    line-height: 1.2;
+}
+
+
+tbody{display:table-row-group}
+tfoot{display:table-footer-group}
+table{margin-bottom:2em;font-size: 0.8em;padding:0;border-collapse:collapse;-webkit-box-shadow:1px 1px 2px rgba(0,0,0,.35);width:80%;margin:0 auto 2em auto}
+table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left}
+table th{
+padding-top:9px;!important;text-transform:uppercase;vertical-align:middle}
+table td{vertical-align:top;border-top:1px solid #ddd;}
+table tbody th{border-top:1px solid #ddd;vertical-align:top}
+table{border:1px solid #ddd;border-collapse:separate;*border-collapse:collapse;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px}
+table th+th,table td+td,table th+td{border-left:1px solid #ddd}
+table thead tr:first-child th:first-child,table tbody tr:first-child td:first-child{-webkit-border-radius:4px 0 0 0;-moz-border-radius:4px 0 0 0;border-radius:4px 0 0 0}
+table thead tr:first-child th:last-child,table tbody tr:first-child td:last-child{-webkit-border-radius:0 4px 0 0;-moz-border-radius:0 4px 0 0;border-radius:0 4px 0 0}
+table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px}
+table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0}
+tbody tr:nth-child(odd){background-color:rgba(0,0,0,0.03)}
+
+caption{display:table-caption;font-weight:300;font-size:1.3em;text-transform:uppercase;letter-spacing:2px;word-spacing:.2em;background:rgba(0,0,0,.75);color:#EEE;padding:4px;-webkit-border-radius:4px;margin:4px 0;-webkit-box-shadow:2px 2px 2px rgba(0,0,0,.35)}
+
+/* grey out placeholders */
+:-moz-placeholder {
+  color: #bfbfbf;
+}
+::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+
+
+.article-date {
+    color: #C7C2B8;
+    display: block;
+    font-size: 0.8rem;
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+div.prism-show-language {
+	position: relative;
+}
+
+div.prism-show-language > div.prism-show-language-label {
+	color: black;
+	background-color: #CFCFCF;
+	display: inline-block;
+	position: absolute;
+	bottom: auto;
+	left: auto;
+	top: 0;
+	right: 0;
+	width: auto;
+	height: auto;
+	font-size: 0.9em;
+	border-radius: 0 0 0 5px;
+	padding: 0 0.5em;
+	text-shadow: none;
+	z-index: 1;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-transform: none;
+	-moz-transform: none;
+	-ms-transform: none;
+	-o-transform: none;
+	transform: none;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Exploring Loan Data from Prosper</h1>
+
+<h3 id="toc_1">By <a href="http://kevinvo.xyz">Kevin Vo</a></h3>
+
+<h2 id="toc_2">I. Dataset:</h2>
+
+<p><strong>Based on Prosper website:</strong> <em>Prosper is America’s first marketplace lending platform, with over $7 billion in funded loans. Prosper allows people to invest in each other in a way that is financially and socially rewarding. On Prosper, borrowers list loan requests between $2,000 and $35,000 and individual investors invest as little as $25 in each loan listing they select. Prosper handles the servicing of the loan on behalf of the matched borrowers and investors.</em></p>
+
+<p><strong>Data Set</strong> contains information about Prosper loans:</p>
+
+<div><pre><code class="language-r">&gt; loan %&gt;% dim
+[1] 113937     82</code></pre></div>
+
+<ul>
+<li>There are 113937 different loans which are categorized with 82 different variables.</li>
+</ul>
+
+<div><pre><code class="language-r">&gt; loan %&gt;% str
+&#39;data.frame&#39;:   113937 obs. of  82 variables:
+ $ ListingKey                         : Factor w/ 113066 levels &quot;00003546482094282EF90E5&quot;,..: 7180 7193 6647 6669 6686 6689 6699 6706 6687 6687 ...
+ $ ListingNumber                      : int  193129 1209647 81716 658116 909464 1074836 750899 768193 1023355 1023355 ...
+ $ ListingCreationDate                : Factor w/ 113064 levels &quot;2005-11-09 20:44:28.847000000&quot;,..: 14184 111894 6429 64760 85967 100310 72556 74019 97834 97834 ...
+ $ CreditGrade                        : Ord.factor w/ 9 levels &quot;&quot;&lt;&quot;NC&quot;&lt;&quot;HR&quot;&lt;&quot;E&quot;&lt;..: 6 1 3 1 1 1 1 1 1 1 ...
+ $ Term                               : int  36 36 36 36 36 60 36 36 36 36 ...
+ $ LoanStatus                         : Factor w/ 12 levels &quot;Cancelled&quot;,&quot;Chargedoff&quot;,..: 3 4 3 4 4 4 4 4 4 4 ...
+ $ ClosedDate                         : Factor w/ 2803 levels &quot;&quot;,&quot;2005-11-25 00:00:00&quot;,..: 1138 1 1263 1 1 1 1 1 1 1 ...
+ $ BorrowerAPR                        : num  0.165 0.12 0.283 0.125 0.246 ...
+ $ BorrowerRate                       : num  0.158 0.092 0.275 0.0974 0.2085 ...
+ $ LenderYield                        : num  0.138 0.082 0.24 0.0874 0.1985 ...
+ $ EstimatedEffectiveYield            : num  NA 0.0796 NA 0.0849 0.1832 ...
+ $ EstimatedLoss                      : num  NA 0.0249 NA 0.0249 0.0925 ...
+ $ EstimatedReturn                    : num  NA 0.0547 NA 0.06 0.0907 ...
+ $ ProsperRating..numeric.            : int  NA 6 NA 6 3 5 2 4 7 7 ...
+ $ ProsperRating..Alpha.              : Factor w/ 8 levels &quot;&quot;,&quot;A&quot;,&quot;AA&quot;,&quot;B&quot;,..: 1 2 1 2 6 4 7 5 3 3 ...
+ $ ProsperScore                       : num  NA 7 NA 9 4 10 2 4 9 11 ...
+ $ ListingCategory..numeric.          : int  0 2 0 16 2 1 1 2 7 7 ...
+ $ BorrowerState                      : Factor w/ 52 levels &quot;&quot;,&quot;AK&quot;,&quot;AL&quot;,&quot;AR&quot;,..: 7 7 12 12 25 34 18 6 16 16 ...
+ $ Occupation                         : Factor w/ 68 levels &quot;&quot;,&quot;Accountant/CPA&quot;,..: 37 43 37 52 21 43 50 29 24 24 ...
+ $ EmploymentStatus                   : Factor w/ 9 levels &quot;&quot;,&quot;Employed&quot;,..: 9 2 4 2 2 2 2 2 2 2 ...
+ $ EmploymentStatusDuration           : int  2 44 NA 113 44 82 172 103 269 269 ...
+ $ IsBorrowerHomeowner                : Factor w/ 2 levels &quot;False&quot;,&quot;True&quot;: 2 1 1 2 2 2 1 1 2 2 ...
+ $ CurrentlyInGroup                   : Factor w/ 2 levels &quot;False&quot;,&quot;True&quot;: 2 1 2 1 1 1 1 1 1 1 ...
+ $ GroupKey                           : Factor w/ 707 levels &quot;&quot;,&quot;00343376901312423168731&quot;,..: 1 1 335 1 1 1 1 1 1 1 ...
+ $ DateCreditPulled                   : Factor w/ 112992 levels &quot;2005-11-09 00:30:04.487000000&quot;,..: 14347 111883 6446 64724 85857 100382 72500 73937 97888 97888 ...
+ $ CreditScoreRangeLower              : int  640 680 480 800 680 740 680 700 820 820 ...
+ $ CreditScoreRangeUpper              : int  659 699 499 819 699 759 699 719 839 839 ...
+ $ FirstRecordedCreditLine            : Factor w/ 11586 levels &quot;&quot;,&quot;1947-08-24 00:00:00&quot;,..: 8639 6617 8927 2247 9498 497 8265 7685 5543 5543 ...
+ $ CurrentCreditLines                 : int  5 14 NA 5 19 21 10 6 17 17 ...
+ $ OpenCreditLines                    : int  4 14 NA 5 19 17 7 6 16 16 ...
+ $ TotalCreditLinespast7years         : int  12 29 3 29 49 49 20 10 32 32 ...
+ $ OpenRevolvingAccounts              : int  1 13 0 7 6 13 6 5 12 12 ...
+ $ OpenRevolvingMonthlyPayment        : num  24 389 0 115 220 1410 214 101 219 219 ...
+ $ InquiriesLast6Months               : int  3 3 0 0 1 0 0 3 1 1 ...
+ $ TotalInquiries                     : num  3 5 1 1 9 2 0 16 6 6 ...
+ $ CurrentDelinquencies               : int  2 0 1 4 0 0 0 0 0 0 ...
+ $ AmountDelinquent                   : num  472 0 NA 10056 0 ...
+ $ DelinquenciesLast7Years            : int  4 0 0 14 0 0 0 0 0 0 ...
+ $ PublicRecordsLast10Years           : int  0 1 0 0 0 0 0 1 0 0 ...
+ $ PublicRecordsLast12Months          : int  0 0 NA 0 0 0 0 0 0 0 ...
+ $ RevolvingCreditBalance             : num  0 3989 NA 1444 6193 ...
+ $ BankcardUtilization                : num  0 0.21 NA 0.04 0.81 0.39 0.72 0.13 0.11 0.11 ...
+ $ AvailableBankcardCredit            : num  1500 10266 NA 30754 695 ...
+ $ TotalTrades                        : num  11 29 NA 26 39 47 16 10 29 29 ...
+ $ TradesNeverDelinquent..percentage. : num  0.81 1 NA 0.76 0.95 1 0.68 0.8 1 1 ...
+ $ TradesOpenedLast6Months            : num  0 2 NA 0 2 0 0 0 1 1 ...
+ $ DebtToIncomeRatio                  : num  0.17 0.18 0.06 0.15 0.26 0.36 0.27 0.24 0.25 0.25 ...
+ $ IncomeRange                        : Ord.factor w/ 8 levels &quot;Not displayed&quot;&lt;..: 5 6 1 5 8 8 5 5 5 5 ...
+ $ IncomeVerifiable                   : Factor w/ 2 levels &quot;False&quot;,&quot;True&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+ $ StatedMonthlyIncome                : num  3083 6125 2083 2875 9583 ...
+ $ LoanKey                            : Factor w/ 113066 levels &quot;00003683605746079487FF7&quot;,..: 100337 69837 46303 70776 71387 86505 91250 5425 908 908 ...
+ $ TotalProsperLoans                  : int  NA NA NA NA 1 NA NA NA NA NA ...
+ $ TotalProsperPaymentsBilled         : int  NA NA NA NA 11 NA NA NA NA NA ...
+ $ OnTimeProsperPayments              : int  NA NA NA NA 11 NA NA NA NA NA ...
+ $ ProsperPaymentsLessThanOneMonthLate: int  NA NA NA NA 0 NA NA NA NA NA ...
+ $ ProsperPaymentsOneMonthPlusLate    : int  NA NA NA NA 0 NA NA NA NA NA ...
+ $ ProsperPrincipalBorrowed           : num  NA NA NA NA 11000 NA NA NA NA NA ...
+ $ ProsperPrincipalOutstanding        : num  NA NA NA NA 9948 ...
+ $ ScorexChangeAtTimeOfListing        : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ LoanCurrentDaysDelinquent          : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ LoanFirstDefaultedCycleNumber      : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ LoanMonthsSinceOrigination         : int  78 0 86 16 6 3 11 10 3 3 ...
+ $ LoanNumber                         : int  19141 134815 6466 77296 102670 123257 88353 90051 121268 121268 ...
+ $ LoanOriginalAmount                 : int  9425 10000 3001 10000 15000 15000 3000 10000 10000 10000 ...
+ $ LoanOriginationDate                : Factor w/ 1873 levels &quot;2005-11-15 00:00:00&quot;,..: 426 1866 260 1535 1757 1821 1649 1666 1813 1813 ...
+ $ LoanOriginationQuarter             : Factor w/ 33 levels &quot;Q1 2006&quot;,&quot;Q1 2007&quot;,..: 18 8 2 32 24 33 16 16 33 33 ...
+ $ MemberKey                          : Factor w/ 90831 levels &quot;00003397697413387CAF966&quot;,..: 11071 10302 33781 54939 19465 48037 60448 40951 26129 26129 ...
+ $ MonthlyLoanPayment                 : num  330 319 123 321 564 ...
+ $ LP_CustomerPayments                : num  11396 0 4187 5143 2820 ...
+ $ LP_CustomerPrincipalPayments       : num  9425 0 3001 4091 1563 ...
+ $ LP_InterestandFees                 : num  1971 0 1186 1052 1257 ...
+ $ LP_ServiceFees                     : num  -133.2 0 -24.2 -108 -60.3 ...
+ $ LP_CollectionFees                  : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ LP_GrossPrincipalLoss              : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ LP_NetPrincipalLoss                : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ LP_NonPrincipalRecoverypayments    : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ PercentFunded                      : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ Recommendations                    : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ InvestmentFromFriendsCount         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ InvestmentFromFriendsAmount        : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ Investors                          : int  258 1 41 158 20 1 1 1 1 1 ...
+ $ ListingCategory.factor             : Ord.factor w/ 21 levels &quot;Not Available&quot;&lt;..: 1 3 1 17 3 2 2 3 8 8 ...</code></pre></div>
+
+<h2 id="toc_3">II-A. Univariate Plot Session:</h2>
+
+<h3 id="toc_4">1. Original Loan:</h3>
+
+<ul>
+<li><strong>LoanOriginalAmount</strong> </li>
+</ul>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-02_18-10-38.png" alt="image"> <strong><em><mark>[Figure 1]</mark></em></strong></p>
+
+<div><pre><code class="language-r">&gt; loan $LoanOriginalAmount %&gt;% summary
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+   1000    4000    6500    8337   12000   35000</code></pre></div>
+
+<ul>
+<li><strong>Loan Origination Quarter</strong> </li>
+</ul>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-26_18-36-00.png" alt="image"> <strong><em><mark>[Figure 2]</mark></em></strong></p>
+
+<ul>
+<li><strong>Loan Term</strong></li>
+</ul>
+
+<p><code>The length of the loan expressed in months.</code></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-25_23-59-54.png" alt="image"> <strong><em><mark>[Figure 3]</mark></em></strong></p>
+
+<ul>
+<li><strong>Loan Status</strong>:</li>
+</ul>
+
+<p><code>The current status of the loan: Cancelled,  Chargedoff, Completed, Current, Defaulted, FinalPaymentInProgress, PastDue. The PastDue status will be accompanied by a delinquency bucket.</code></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-26_00-05-16.png" alt="image"> <strong><em><mark>[Figure 4]</mark></em></strong></p>
+
+<h3 id="toc_5">2. Interest Rate:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-03_00-57-51.png" alt="image"> <strong><em><mark>[Figure 5]</mark></em></strong></p>
+
+<div><pre><code class="language-r">&gt; loan[,c(&quot;LenderYield&quot;, &quot;EstimatedEffectiveYield&quot;, &quot;BorrowerAPR&quot;,&quot;BorrowerRate&quot;)] %&gt;% summary
+
+  LenderYield      EstimatedEffectiveYield  BorrowerAPR       BorrowerRate
+ Min.   :-0.0100   Min.   :-0.183          Min.   :0.00653   Min.   :0.0000
+ 1st Qu.: 0.1242   1st Qu.: 0.116          1st Qu.:0.15629   1st Qu.:0.1340
+ Median : 0.1730   Median : 0.162          Median :0.20976   Median :0.1840
+ Mean   : 0.1827   Mean   : 0.169          Mean   :0.21883   Mean   :0.1928
+ 3rd Qu.: 0.2400   3rd Qu.: 0.224          3rd Qu.:0.28381   3rd Qu.:0.2500
+ Max.   : 0.4925   Max.   : 0.320          Max.   :0.51229   Max.   :0.4975
+                   NA&#39;s   :29084           NA&#39;s   :25
+</code></pre></div>
+
+<h3 id="toc_6">3. Loan Assessment By Credit &amp; Rating:</h3>
+
+<ul>
+<li><strong>Credit Grade</strong>:</li>
+</ul>
+
+<p><code>The Credit rating that was assigned at the time the listing went live. Applicable for listings pre-2009 period and will only be populated for those listings.</code></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-25_23-22-04.png" alt="image"> <strong><em><mark>[Figure 6]</mark></em></strong></p>
+
+<p>To generate a more meaningful chart, I have to reorganize the levels of CreditGrade in terms of credit risk rating.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-03_14-06-23.png" alt="image"> <strong><em><mark>[Figure 7]</mark></em></strong></p>
+
+<ul>
+<li><strong>Prosper Rating</strong>:</li>
+</ul>
+
+<p><code>The  Prosper Rating assigned at the time the listing was created: 0 - N/A, 1 - HR, 2 - E, 3 - D, 4 - C, 5 - B, 6 - A, 7 - AA.  Applicable for loans originated after July 2009.</code></p>
+
+<div><pre><code class="language-r">&gt; loan$ProsperRating..Alpha. %&gt;% table
+.
+          A    AA     B     C     D     E    HR
+29084 14551  5372 15581 18345 14274  9795  6935</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-03_14-29-29.png" alt="image"> <strong><em><mark>[Figure 8]</mark></em></strong></p>
+
+<h3 id="toc_7">4. Loan Assessment By Income &amp; Asset:</h3>
+
+<ul>
+<li><strong>Income Factor</strong>:</li>
+</ul>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-03_14-54-33.png" alt="image"> <strong><em><mark>[Figure 9]</mark></em></strong></p>
+
+<ul>
+<li><strong>Homeowner Factor</strong>:</li>
+</ul>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-26_18-33-54.png" alt="image"> <strong><em><mark>[Figure 10]</mark></em></strong></p>
+
+<h3 id="toc_8">5. Other Information related to Loan:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-26_18-23-25.png" alt="image"> <strong><em><mark>[Figure 11]</mark></em></strong></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-26_18-26-18.png" alt="image"> <strong><em><mark>[Figure 12]</mark></em></strong></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-26_18-36-38.png" alt="image"> <strong><em><mark>[Figure 13]</mark></em></strong></p>
+
+<p>Notice that:</p>
+
+<ul>
+<li>Most loans are made from people in big states.</li>
+<li>Prosper need to improve about the quality of the Occupation data because two highgest percentage of loan makers are listed as Other and Professional. And we cannot know what they exactly do for a living.</li>
+<li>It seems that most of the borrowers have problem with their debts since the purpose of 51.2% of borrowers is debt consolidation.</li>
+</ul>
+
+<h2 id="toc_9">II-B. Univariate Analysis</h2>
+
+<h3 id="toc_10">What is the structure of your dataset?</h3>
+
+<p>The dataset contains 113937 observations. Each observation is described by 82 variables.</p>
+
+<p>I choose with 17 features out of 81, and classify them into 4 groups:</p>
+
+<ul>
+<li><strong>Original Loan</strong>: LoanOriginalAmount,LoanOriginationQuarter, Term, LoanStatus</li>
+<li><strong>Interest Rate</strong>: LenderYield, EstimatedEffectiveYield, BorrowerAPR, BorrowerRate</li>
+<li><strong>Rating or Loan Assessment</strong>: Credit Grade, Prosper Rating, EmploymentStatus, IncomeRange, IsBorrowerHomeowner.</li>
+<li><strong>Supporting Variables</strong>: BorrowerState, Occupation, ListingCategory, EstimatedReturn.</li>
+</ul>
+
+<h3 id="toc_11">What is/are the main feature(s) of interest in your dataset?</h3>
+
+<p>My main interest in this dataset is LenderYield which is the lender yield on the loan because I want to analyze this dataset at a glance of an investor. So there are some questions that I try to answer:</p>
+
+<ul>
+<li>Which are factors that influence or have relationship with LenderYield ?</li>
+<li>Is there any risk of investing money?</li>
+<li>Which is a good strategy of investing money into Prosper Loan Platform?</li>
+</ul>
+
+<h3 id="toc_12">What other features in the dataset do you think will help support your investigation into your feature(s) of interest?</h3>
+
+<ul>
+<li><p><strong><u>Original Loan:</u></strong> </p>
+
+<ul>
+<li><strong>LoanOriginalAmount</strong> tells us the distribution of all the amounts of loan. We can see that most of the loans are under $10000. This density plot shows the frequency of the loan amount are peaked at multiple of $5000. <strong><em><mark>[Figure 1]</mark></em></strong></li>
+<li><strong>Loan Origination Quarter</strong> tells us which quarter has more loan. And how prosper operates each year. <strong><em><mark>[Figure 2]</mark></em></strong></li>
+<li><strong>Loan Term</strong> indicates that majority of loan terms are 36-months. Only a small fraction of loans are 12-months loans. <strong><em><mark>[Figure 3]</mark></em></strong></li>
+<li><strong>Loan Status</strong> : Defaulted and Chargedoff are accounted for nearly 15% of the number of loans. It means the risk of investing in the bad loan is pretty high. Also, I believe this variable provide a lot of information about the loan. Especially, I would like to focus on <strong><q>Chargedoff</q></strong>, <strong><q>Defaulted</q></strong> and <strong><q>Completed</q></strong> because it tells you how past loans performed. <strong><em><mark>[Figure 4]</mark></em></strong></li>
+</ul></li>
+<li><p><strong><u>Interest Rate:</u></strong> We cannot find the specific interest rate in the dataset. However, I believe Lender Yield, Estimated Effective Yield, Borrower APR and Borrower Rate can represent as the interest rate. Even though they are used for different purpose, their distribution are nigh identical (Based on <strong><em><mark>[Figure 5]</mark></em></strong>) =&gt; My question is: Are they correlated among each other?</p></li>
+<li><p><strong><u>Loan Assessment/ Loan Rating:</u></strong> </p>
+
+<p>a) <strong>By Credit &amp; Rating:</strong></p>
+
+<ul>
+<li>Since <strong>Credit Grade</strong> Rating were used before 2009, Credit Grade are not applied to 74.6% of current loan. <strong><em><mark>[Figure 6 &amp; 7]</mark></em></strong></li>
+<li>We can see that <strong>Prosper Rating Numeric</strong> and <strong>Prosper Rating Alpha</strong> are similar. Three most common loans are A, B and C. <strong><em><mark>[Figure 8]</mark></em></strong></li>
+</ul>
+
+<p>b) <strong>By Income &amp; Asset:</strong></p>
+
+<ul>
+<li><strong>Income Factor</strong>: Employed and full-time tend to borrow more than the rest. Among those employed people who have income ranging from $25000 to $75000 take out more loans. And most of them have proof for their income. <strong><em><mark>[Figure 9]</mark></em></strong></li>
+<li>Half of the loans are made by <strong>homeowners</strong>. <strong><em><mark>[Figure 10]</mark></em></strong></li>
+</ul></li>
+</ul>
+
+<h3 id="toc_13">Did you create any new variables from existing variables in the dataset?</h3>
+
+<p>I did not create any new variable. However, I have to reorder levels of CreditGrade and ProsperRating..Alpha. in term of risk rating.</p>
+
+<h3 id="toc_14">Of the features you investigated, were there any unusual distributions? Did you perform any operations on the data to tidy, adjust, or change the form of the data? If so, why did you do this?</h3>
+
+<ul>
+<li><p>One of interesting observation is the multi-modal distribtuion of LoanOriginal Amount. It seems that Loans are made in the multiple of $5000.</p></li>
+<li><p>Since I have used alot of bar plots in univariate plot session, I have created a function as called as draw<u>bar</u>plot. In this function, it has already clean the data such as removing NA and tidy them by generating factors for categorical variables.</p></li>
+</ul>
+
+<h2 id="toc_15">III-A. Bivariate Plot Session:</h2>
+
+<h3 id="toc_16">1. Loan Status:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-03_16-47-20.png" alt="image"> <strong><em><mark>[Figure 14]</mark></em></strong></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-03_22-40-44.png" alt="image"> <strong><em><mark>[Figure 15]</mark></em></strong></p>
+
+<h3 id="toc_17">2. Interest Rate</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-03_17-36-57.png" alt="image"> <strong><em><mark>[Figure 16]</mark></em></strong></p>
+
+<div><pre><code class="language-r">&gt; loan[,c(&quot;LenderYield&quot;, &quot;EstimatedEffectiveYield&quot;, &quot;BorrowerAPR&quot;,&quot;BorrowerRate&quot;)] %&gt;%
+subset(!is.na(LenderYield) &amp; !is.na(EstimatedEffectiveYield) &amp;
+       !is.na(BorrowerAPR) &amp; !is.na(BorrowerRate)) %&gt;% cor
+       
+                        LenderYield EstimatedEffectiveYield BorrowerAPR BorrowerRate
+LenderYield               1.0000000               0.8953425   0.9933345    0.9999958
+EstimatedEffectiveYield   0.8953425               1.0000000   0.8956348    0.8952825
+BorrowerAPR               0.9933345               0.8956348   1.0000000    0.9933333
+BorrowerRate              0.9999958               0.8952825   0.9933333    1.0000000</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-03_21-08-55.png" alt="image"> <strong><em><mark>[Figure 17]</mark></em></strong></p>
+
+<h3 id="toc_18">3. Prosper Rating:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-04_06-18-25.png" alt="image"> <strong><em><mark>[Figure 18]</mark></em></strong></p>
+
+<h2 id="toc_19">III-B. Bivariate Analysis</h2>
+
+<h3 id="toc_20">Talk about some of the relationships you observed in this part of the investigation. How did the feature(s) of interest vary with other features in the dataset?</h3>
+
+<ul>
+<li><p><strong>Loan Status:</strong> I focus strongly on LoanStatus variable, especially <q>Chargedoff</q>, <q>Defaulted</q> and <q>Completed</q>. It indicates the health status of all the past loans. </p>
+
+<ul>
+<li>The proportion of <q>ChargedOff</q> loan is higher when Prosper Rating is lower whereas The proportion of <q>Completed</q> loan is lower when Prosper Rating is lower =&gt; <strong><u>It means the risk of being charged off is higher with lower rating loan.</u></strong> <strong><em><mark>[Figure 14]</mark></em></strong> However, borrowers who have higher risk take larger loans. <strong><em><mark>[Figure 15]</mark></em></strong></li>
+<li>As an investor, it is wise to ignore loans from unemployed persons. It is hard for them to repay the loan ( Based on IncomeVerifiable vs Loan Status chart). So I mainly focus on the loans of the employed. Income are splitted into 5 groups: $0-$24999, $25000-$49999, $50000-$74999, $74999-$100000, $100000+. We also see that proportion of <q>Chargedoff</q> loan is higher when the income is lower. However the difference in proportion is not large. <strong><em><mark>[Figure 14]</mark></em></strong> </li>
+<li>The proportion of <q>Chargedoff</q> loan is higher when the term of loan is higher. <strong><em><mark>[Figure 14]</mark></em></strong> However, bigger loans are made under longer loan terms. <strong><em><mark>[Figure 15]</mark></em></strong></li>
+</ul></li>
+<li><p><strong>Interest Rate:</strong></p>
+
+<ul>
+<li>Clearly, <strong>LenderYield, EstimatedEffectiveYield, BorrowerAPR, BorrowerRate</strong> are strongly positively correlated. It means we only need to analyze the behavior of one of them. And I chose LenderYield to represent as interest rate.<strong><em><mark>[Figure 16]</mark></em></strong></li>
+<li>There is a linear relationship between LenderYield and ProspeRating..numeric. And the slope of this relationship is downward. <strong><em><mark>[Figure 17]</mark></em></strong> =&gt; <strong><u>It means higher risk loans tends to yeild more.</u></strong></li>
+</ul></li>
+<li><p><strong>Prosper Rating</strong>: There is a linear trend between Prosper Rating and</p>
+
+<ul>
+<li>Credit Score Lower Range</li>
+<li>Credit Score Upper Range</li>
+<li>Number of Public Inquires in the last 6 months</li>
+<li>Percentage of never-deliquent trades.</li>
+</ul></li>
+</ul>
+
+<h3 id="toc_21">Did you observe any interesting relationships between the other features (not the main feature(s) of interest)?</h3>
+
+<p>I thought Homeowner is one of the factor contributing to the difference in loan status. However, it shows that the distribution of loan status between homeowner and non-homeowner are almost similar. It means the proportion of charged loans are in-different whether the borrowers own a house or not. <strong><em><mark>[Figure 14]</mark></em></strong></p>
+
+<h3 id="toc_22">What was the strongest relationship you found?</h3>
+
+<p>The strongest relationship is between LenderYield and BorrowerRate. The correlation coefficient is nearly 1.</p>
+
+<h2 id="toc_23">IV-A. Multivariate Plots Section</h2>
+
+<p>Based on the bivariate analysis, I want to check the linear relationship between ProsperRatingNumeric and predictors such as CreditScoreRangeLower, CreditScoreRangeUpper, TradesNeverDelinquent..percentage., InquiriesLast6Months. Also I add 2 more predictors: PublicRecordsLast12Months, DebtToIncomeRatio to this model.</p>
+
+<div><pre><code class="language-r">Call:
+lm(formula = ProsperRating..numeric. ~ CreditScoreRangeLower +
+    CreditScoreRangeUpper + TradesNeverDelinquent..percentage. +
+    InquiriesLast6Months + PublicRecordsLast12Months + DebtToIncomeRatio -
+    1, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max
+-5.3206 -0.8063  0.1158  0.8861  9.3861
+
+Coefficients:
+                                    Estimate Std. Error  t value Pr(&gt;|t|)
+CreditScoreRangeLower               0.499747   0.003779  132.239  &lt; 2e-16 ***
+CreditScoreRangeUpper              -0.481626   0.003688 -130.602  &lt; 2e-16 ***
+TradesNeverDelinquent..percentage.  1.202335   0.040808   29.463  &lt; 2e-16 ***
+InquiriesLast6Months               -0.278500   0.003306  -84.235  &lt; 2e-16 ***
+PublicRecordsLast12Months          -0.154405   0.044775   -3.448 0.000564 ***
+DebtToIncomeRatio                  -0.766687   0.014584  -52.572  &lt; 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.283 on 77551 degrees of freedom
+  (36380 observations deleted due to missingness)
+Multiple R-squared:  0.9169,    Adjusted R-squared:  0.9169
+F-statistic: 1.427e+05 on 6 and 77551 DF,  p-value: &lt; 2.2e-16</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-04_11-46-53.png" alt="image"> <strong><em><mark>[Figure 19]</mark></em></strong></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-04_12-17-28.png" alt="image"> <strong><em><mark>[Figure 20]</mark></em></strong></p>
+
+<div><pre><code class="language-r">Call:
+lm(formula = LenderYield ~ factor(ProsperRating..numeric.) +
+    factor(Term) + factor(LoanStatus), data = .)
+
+Residuals:
+      Min        1Q    Median        3Q       Max
+-0.156886 -0.010819  0.000239  0.012114  0.189556
+
+Coefficients:
+                                   Estimate Std. Error  t value Pr(&gt;|t|)
+(Intercept)                       0.2714997  0.0007577  358.316   &lt;2e-16 ***
+factor(ProsperRating..numeric.)2 -0.0126750  0.0005205  -24.352   &lt;2e-16 ***
+factor(ProsperRating..numeric.)3 -0.0643999  0.0004772 -134.955   &lt;2e-16 ***
+factor(ProsperRating..numeric.)4 -0.1175471  0.0005344 -219.966   &lt;2e-16 ***
+factor(ProsperRating..numeric.)5 -0.1617421  0.0005506 -293.737   &lt;2e-16 ***
+factor(ProsperRating..numeric.)6 -0.2097962  0.0005376 -390.248   &lt;2e-16 ***
+factor(ProsperRating..numeric.)7 -0.2356068  0.0006597 -357.161   &lt;2e-16 ***
+factor(Term)36                    0.0406862  0.0006017   67.615   &lt;2e-16 ***
+factor(Term)60                    0.0635214  0.0006921   91.775   &lt;2e-16 ***
+factor(LoanStatus)Completed      -0.0047244  0.0003593  -13.149   &lt;2e-16 ***
+factor(LoanStatus)Defaulted       0.0008353  0.0007717    1.082    0.279
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.02244 on 25994 degrees of freedom
+  (29079 observations deleted due to missingness)
+Multiple R-squared:  0.929, Adjusted R-squared:  0.9289
+F-statistic: 3.4e+04 on 10 and 25994 DF,  p-value: &lt; 2.2e-16
+
+###############################################################################
+
+Analysis of Variance Table
+
+Response: LenderYield
+                                   Df  Sum Sq Mean Sq  F value    Pr(&gt;F)
+factor(ProsperRating..numeric.)     6 166.464 27.7440 55111.56 &lt; 2.2e-16 ***
+factor(Term)                        2   4.578  2.2889  4546.72 &lt; 2.2e-16 ***
+factor(LoanStatus)                  2   0.105  0.0525   104.32 &lt; 2.2e-16 ***
+Residuals                       25994  13.086  0.0005
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</code></pre></div>
+
+<h2 id="toc_24">IV-B. Multivariate Analysis</h2>
+
+<h3 id="toc_25">Talk about some of the relationships you observed in this part of the investigation. Were there features that strengthened each other in terms of looking at your feature(s) of interest?</h3>
+
+<ul>
+<li><p>Based on the coefficient table and QQ-Plot <strong><em><mark>[Figure 19]</mark></em></strong>, it shows that there is a strong linear relationship and goodness of fit of the model between Prosper Rating and following predictors:</p>
+
+<ul>
+<li>Credit Scores Range (Lower and Upper): It means that Prosper carefully review credit score of the borrowers and add credit scores into their rating assessment.</li>
+<li>Deliquency status: borrowers who take good care of their payment history will be assess as less risk and high rating.</li>
+<li>The number of public records on the borrower&rsquo;s credit report. Public records include bankruptcies, liens and judgments.</li>
+<li>the ratio between borrowers&#39; debt and income.</li>
+</ul></li>
+<li><p>For each loan term, there is linear relationship between Prosper Rating and LoanStatus.</p></li>
+</ul>
+
+<h3 id="toc_26">Were there any interesting or surprising interactions between features?</h3>
+
+<p>Since we have the relationship betwen Prosper Rating and other predictors, we can save time upon analyzing loans by looking at Prosper Rating. Prosper Rating is a good measure of risk. </p>
+
+<h2 id="toc_27">V. Final Plots and Summary</h2>
+
+<h3 id="toc_28">Plot One</h3>
+
+<p>At the begining, we have too many variables. Now, we can narrow down to the most three important variables: LoanStatus, ProsperRating(Numeric) and LenderYield.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-04_12-10-39.png" alt="image"> <strong><em><mark>[Figure 21]</mark></em></strong></p>
+
+<h3 id="toc_29">Description One</h3>
+
+<p>The above plot shows that higher risk loans yield more. As an investor, I think the yield for Prosper Rating 7 (AA-lowest risk) is too low. If we invest in these loan, the average yielding is about 6% to 7% annually. So we should focus on loans with rating 4, 5(which is C and B) since the risk of being charged off is less than 25% but the yielding is about 15% to 20%. It means instead of investing in a large amount of money into 1 loan, we limit our risk by divesify into different small loans with rating B and C, the expected return rate could be about 16% to 18%.</p>
+
+<h3 id="toc_30">Plot Two</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-01-04_16-40-04.png" alt="image"> <strong><em><mark>[Figure 22]</mark></em></strong></p>
+
+<h3 id="toc_31">Description Two</h3>
+
+<p>I have created ListingYear variable to see whether the risk of bad loans are gradually exposure when the lending platform is more mature. And this is proven by the above plot. We can see that in 2009 and 2010, the number of blue dots are still noticable, but the risk of blue dots are dissolved by time when the number of loans increases.</p>
+
+<h3 id="toc_32">Plot Three</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-12-26_18-36-00.png" alt="image"> <strong><em><mark>[Figure 23]</mark></em></strong></p>
+
+<h3 id="toc_33">Description Three</h3>
+
+<p>There are some risks that cannot be accounted for in this dataset are the health of our economy and business management of Prosper:</p>
+
+<ul>
+<li>If the economy went bad, the number of bad loans would increase.</li>
+<li>Because loan terms create some barriers to liquidity of the loans for investors. If Prosper poorly managed their business and cannot compete with other competitors, the risk of its bankcruptcy is still there, but we cannot control it.</li>
+</ul>
+
+<p>Therefore the plot above can be used as an indicator to estimate how Prosper operates. If the proportion of Prosper loans of new quarter drops compared to the same quarter of last year, we can think of stopping our investment into new loans.</p>
+
+<hr>
+
+<h1 id="toc_34">Reflection</h1>
+
+<p>The dataset of Prosper loan had nearly 114000 loans from Nov 2005 to March 2014. Over the year the number of loans has been increasing. Based on my analysis, I can conclude that Prosper Rating is reliable. It is good indicator of risks and bad loans. Also, we find out that higher risk loans tend to yield more. By March 2014, the lending platform has matured enough to exposure the risk of bad loans. In other words, if we divesify our investments, we can expect higher return with higher risk loans on average. However, there are some unaccountable risks such as economy recession or Prosper&rsquo;s pooly management. Morever, it is hard to find short term loans as 12-months with higher yeilding rate. Therefore we tend to invest to 36-months or 60-months loans.   </p>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+Prism.languages.r={comment:/#.*/,string:/(['"])(?:\\?.)*?\1/,"percent-operator":{pattern:/%[^%\s]*%/,alias:"operator"},"boolean":/\b(?:TRUE|FALSE)\b/,ellipsis:/\.\.(?:\.|\d+)/,number:[/\b(?:NaN|Inf)\b/,/\b(?:0x[\dA-Fa-f]+(?:\.\d*)?|\d*\.?\d+)(?:[EePp][+-]?\d+)?[iL]?\b/],keyword:/\b(?:if|else|repeat|while|function|for|in|next|break|NULL|NA|NA_integer_|NA_real_|NA_complex_|NA_character_)\b/,operator:/->?>?|<(?:=|<?-)?|[>=!]=?|::?|&&?|\|\|?|[+*\/^$@~]/,punctuation:/[(){}\[\],;]/};
+</script>
+
+<script type="text/javascript">
+!function(){if("undefined"!=typeof self&&self.Prism&&self.document){var e={html:"HTML",xml:"XML",svg:"SVG",mathml:"MathML",css:"CSS",clike:"C-like",javascript:"JavaScript",abap:"ABAP",actionscript:"ActionScript",apacheconf:"Apache Configuration",apl:"APL",applescript:"AppleScript",asciidoc:"AsciiDoc",aspnet:"ASP.NET (C#)",autoit:"AutoIt",autohotkey:"AutoHotkey",basic:"BASIC",csharp:"C#",cpp:"C++",coffeescript:"CoffeeScript","css-extras":"CSS Extras",fsharp:"F#",glsl:"GLSL",http:"HTTP",inform7:"Inform 7",json:"JSON",latex:"LaTeX",lolcode:"LOLCODE",matlab:"MATLAB",mel:"MEL",nasm:"NASM",nginx:"nginx",nsis:"NSIS",objectivec:"Objective-C",ocaml:"OCaml",parigp:"PARI/GP",php:"PHP","php-extras":"PHP Extras",powershell:"PowerShell",jsx:"React JSX",rest:"reST (reStructuredText)",sas:"SAS",sass:"Sass (Sass)",scss:"Sass (Scss)",sql:"SQL",typescript:"TypeScript",vhdl:"VHDL",vim:"vim",wiki:"Wiki markup",yaml:"YAML"};Prism.hooks.add("before-highlight",function(s){var a=s.element.parentNode;if(a&&/pre/i.test(a.nodeName)){var t,i,r=a.getAttribute("data-language")||e[s.language]||s.language.substring(0,1).toUpperCase()+s.language.substring(1),l=a.previousSibling;l&&/\s*\bprism-show-language\b\s*/.test(l.className)&&l.firstChild&&/\s*\bprism-show-language-label\b\s*/.test(l.firstChild.className)?i=l.firstChild:(t=document.createElement("div"),i=document.createElement("div"),i.className="prism-show-language-label",t.className="prism-show-language",t.appendChild(i),a.parentNode.insertBefore(t,a)),i.innerHTML=r}})}}();
+</script>
+
+<script type="text/x-mathjax-config">
+if (typeof MathJaxListener !== 'undefined') {
+  MathJax.Hub.Register.StartupHook('End', function () {
+    MathJaxListener.invokeCallbackForKey_('End');
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>

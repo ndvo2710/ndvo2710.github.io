@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<title>SQL_Interviews</title>
+
+
+<style type="text/css">
+/*
+   This document has been created with Marked.app <http://marked2app.com>
+   Please leave this notice in place, along with any additional credits below.
+   ---------------------------------------------------------------
+   Title: Kult
+   Author: Peter Sziebig - @bigpe
+   Description: Easy to read
+*/
+
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 300;
+    src: local("Ubuntu Light"), local("Ubuntu-Light"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/WtcvfJHWXKxx4x0kuS1kobO3LdcAZYWl9Si6vvxL-qU.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Ubuntu"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/CGXpU_uR_FUfdeyCjAWgZ-vvDin1pK8aKteLpeZ5c0A.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 500;
+    src: local("Ubuntu Medium"), local("Ubuntu-Medium"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/gMhvhm-nVj1086DvGgmzB7O3LdcAZYWl9Si6vvxL-qU.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 700;
+    src: local("Ubuntu Bold"), local("Ubuntu-Bold"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/nsLtvfQoT-rVwGTHHnkeJrO3LdcAZYWl9Si6vvxL-qU.woff") format("woff");
+}
+@font-face {
+    font-family: "Ubuntu";
+    font-style: italic;
+    font-weight: 300;
+    src: local("Ubuntu Light Italic"), local("Ubuntu-LightItalic"), url("http://themes.googleusercontent.com/static/fonts/ubuntu/v4/DZ_YjBPqZ88vcZCcIXm6VqfTCPadK0KLfdEfFtGWCYw.woff") format("woff");
+}
+
+
+
+html {
+    font-size: 100%;
+}
+html, button, input, select, textarea {
+    font-family: sans-serif;
+}
+
+html, body, button, input, select, textarea {
+    color: #57534A;
+    font-family: "Ubuntu","Myriad Pro","Myriad",sans-serif;
+    font-size: 18px;
+	font-weight: 300;
+}
+
+body{
+    margin: 0 auto;
+    padding-top: 20px;
+    background-color: #FFFFFF;
+}
+
+body, textarea {
+    line-height: 1.4;
+}
+
+
+body:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+body {
+    padding-left: 6rem;
+    padding-right: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 42rem;
+    display: block;
+}
+
+
+
+h1, h2, h3, dt {
+    color: #423F37;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+h2, .article-list .article-title {
+    font-size: 1.5em;
+    margin: 0.83em 0;
+}
+h3, dt {
+    font-size: 1.17em;
+    margin: 1em 0;
+}
+h4 {
+    font-size: 1em;
+    margin: 1.33em 0;
+}
+h5 {
+    font-size: 0.83em;
+    margin: 1.67em 0;
+}
+h6 {
+    font-size: 0.75em;
+    margin: 2.33em 0;
+}
+
+
+a {
+    color: #8DB359;
+    cursor: pointer;
+    outline: 0 none;
+    text-decoration: underline;
+}
+
+a:hover {
+    outline: 0 none;
+    color: #739544;
+}
+
+
+p, pre {
+    margin: 1em 0;
+}
+code, kbd, pre, samp {
+    font-family: monospace,serif;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+
+}
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+pre {
+    background-color: #F8F5F0;
+    font-size: 0.7rem;
+    overflow-x: auto;
+    padding: 1.3rem;
+    position: relative;
+    white-space: pre;
+    word-wrap: normal;
+}
+pre, code, kbd, samp {
+    margin: 0;
+}
+code, kbd, pre, samp {
+    font-family: monospace,serif;
+}
+
+code {
+    color: #423F37;
+}
+
+
+aside {
+    display: block;
+    float: right;
+    width: 390px;
+}
+
+
+b, strong {
+    font-weight: bold;
+    color: #423F37;
+    font-weight: 700;
+}
+
+blockquote {
+    color: #423F37;
+    font-size: 1.25em;
+    font-weight: 700;
+	margin: 1em 40px;
+}
+
+blockquote {
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+
+figure {
+	margin-left: -4.5rem;
+    margin-right: -4.5rem;
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+
+
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color -moz-use-text-color #ECE6DA;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 1px;
+    margin: 3em 6em;
+}
+
+
+img {
+    max-width: 100%;
+    display: block;
+    border: 0 none;
+}
+
+
+ol > li:before {
+    color: #423F37;
+    content: counter(ol, decimal) ".";
+    counter-increment: ol;
+    font-weight: 700;
+    margin-right: 0.333em;
+    position: absolute;
+    right: 100%;
+}
+
+ul > li:before {
+    background-color: #423F37;
+    border-radius: 14px 14px 14px 14px;
+    content: "";
+    height: 6px;
+    margin-right: 0.333em;
+    margin-top: 0.55em;
+    position: absolute;
+    right: 100%;
+    width: 6px;
+}
+
+ol, ul, dl {
+    margin-left: 2rem;
+    padding: 0;
+}
+ol {
+    counter-reset: ol;
+}
+li + li, dd + dt {
+    margin-top: 0.5em;
+}
+
+ul > li {
+    position: relative;
+}
+
+ol > li {
+    position: relative;
+}
+li {
+    list-style: none outside none;
+}
+
+
+figure > figcaption {
+    margin-top: 0.5em;
+}
+small, dd, figcaption {
+    color: #A19C91;
+    display: block;
+    font-size: 0.8rem;
+    font-style: italic;
+    line-height: 1.2;
+}
+
+
+tbody{display:table-row-group}
+tfoot{display:table-footer-group}
+table{margin-bottom:2em;font-size: 0.8em;padding:0;border-collapse:collapse;-webkit-box-shadow:1px 1px 2px rgba(0,0,0,.35);width:80%;margin:0 auto 2em auto}
+table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left}
+table th{
+padding-top:9px;!important;text-transform:uppercase;vertical-align:middle}
+table td{vertical-align:top;border-top:1px solid #ddd;}
+table tbody th{border-top:1px solid #ddd;vertical-align:top}
+table{border:1px solid #ddd;border-collapse:separate;*border-collapse:collapse;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px}
+table th+th,table td+td,table th+td{border-left:1px solid #ddd}
+table thead tr:first-child th:first-child,table tbody tr:first-child td:first-child{-webkit-border-radius:4px 0 0 0;-moz-border-radius:4px 0 0 0;border-radius:4px 0 0 0}
+table thead tr:first-child th:last-child,table tbody tr:first-child td:last-child{-webkit-border-radius:0 4px 0 0;-moz-border-radius:0 4px 0 0;border-radius:0 4px 0 0}
+table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px}
+table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0}
+tbody tr:nth-child(odd){background-color:rgba(0,0,0,0.03)}
+
+caption{display:table-caption;font-weight:300;font-size:1.3em;text-transform:uppercase;letter-spacing:2px;word-spacing:.2em;background:rgba(0,0,0,.75);color:#EEE;padding:4px;-webkit-border-radius:4px;margin:4px 0;-webkit-box-shadow:2px 2px 2px rgba(0,0,0,.35)}
+
+/* grey out placeholders */
+:-moz-placeholder {
+  color: #bfbfbf;
+}
+::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+
+
+.article-date {
+    color: #C7C2B8;
+    display: block;
+    font-size: 0.8rem;
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+div.prism-show-language {
+	position: relative;
+}
+
+div.prism-show-language > div.prism-show-language-label {
+	color: black;
+	background-color: #CFCFCF;
+	display: inline-block;
+	position: absolute;
+	bottom: auto;
+	left: auto;
+	top: 0;
+	right: 0;
+	width: auto;
+	height: auto;
+	font-size: 0.9em;
+	border-radius: 0 0 0 5px;
+	padding: 0 0.5em;
+	text-shadow: none;
+	z-index: 1;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-transform: none;
+	-moz-transform: none;
+	-ms-transform: none;
+	-o-transform: none;
+	transform: none;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">SELECT</h1>
+
+<h3 id="toc_1">Question 1:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-28-51.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT *
+FROM CITY
+WHERE POPULATION &gt; 100000 AND COUNTRYCODE = &#39;USA&#39;</code></pre></div>
+
+<h3 id="toc_2">Question 2:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-38-27.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT NAME
+FROM CITY
+WHERE POPULATION &gt; 120000 AND COUNTRYCODE = &#39;USA&#39;</code></pre></div>
+
+<h3 id="toc_3">Question 3:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-39-54.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT *
+FROM CITY</code></pre></div>
+
+<h3 id="toc_4">Question 4:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-40-30.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT *
+FROM CITY
+WHERE ID = &#39;1661&#39;</code></pre></div>
+
+<h3 id="toc_5">Question 5:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-41-01.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT *
+FROM CITY
+WHERE COUNTRYCODE = &#39;JPN&#39;</code></pre></div>
+
+<h3 id="toc_6">Question 6:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-41-51.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT NAME
+FROM CITY
+WHERE COUNTRYCODE = &#39;JPN&#39;</code></pre></div>
+
+<h3 id="toc_7">Question 7:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-42-37.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT CITY, STATE
+FROM STATION</code></pre></div>
+
+<h3 id="toc_8">Question 8:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-43-02.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT DISTINCT CITY
+FROM STATION
+WHERE (ID%2 = 0)
+</code></pre></div>
+
+<h3 id="toc_9">Question 9:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-43-50.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT COUNT(CITY) - COUNT(DISTINCT CITY)
+FROM STATION</code></pre></div>
+
+<h3 id="toc_10">Question 10:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-44-18.png" alt="image"></p>
+
+<div><pre><code class="language-sql">(SELECT CITY ,LENGTH(CITY)
+FROM STATION
+WHERE 
+       LENGTH(CITY) = (SELECT MIN(LENGTH(CITY)) FROM STATION)
+ORDER BY CITY
+LIMIT 1)
+UNION
+(SELECT CITY, LENGTH(CITY)
+FROM STATION
+WHERE
+       LENGTH(CITY) = (SELECT MAX(LENGTH(CITY)) FROM STATION)
+ORDER BY CITY
+LIMIT 1)</code></pre></div>
+
+<h3 id="toc_11">Question 11:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-46-05.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT DISTINCT CITY
+FROM STATION
+WHERE LEFT(CITY,1) IN (&#39;a&#39;,&#39;e&#39;,&#39;i&#39;,&#39;o&#39;,&#39;u&#39;)</code></pre></div>
+
+<h3 id="toc_12">Question 12:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-46-29.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT DISTINCT CITY
+FROM STATION
+WHERE RIGHT(CITY,1) IN(&#39;u&#39;,&#39;e&#39;,&#39;o&#39;,&#39;a&#39;,&#39;i&#39;)</code></pre></div>
+
+<h3 id="toc_13">Question 13:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-46-53.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT CITY
+FROM STATION
+WHERE (LEFT(CITY,1) IN(&#39;a&#39;,&#39;e&#39;,&#39;o&#39;,&#39;u&#39;,&#39;i&#39;)) AND (RIGHT(CITY,1) IN(&#39;a&#39;,&#39;e&#39;,&#39;o&#39;,&#39;u&#39;,&#39;i&#39;))</code></pre></div>
+
+<h3 id="toc_14">Question 14:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-47-15.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT DISTINCT CITY
+FROM STATION
+WHERE  NOT (LEFT(CITY,1) IN(&#39;a&#39;,&#39;e&#39;,&#39;o&#39;,&#39;u&#39;,&#39;i&#39;))</code></pre></div>
+
+<h3 id="toc_15">Question 15:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-47-41.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT DISTINCT CITY
+FROM STATION
+WHERE  NOT (RIGHT(CITY,1) IN(&#39;a&#39;,&#39;e&#39;,&#39;o&#39;,&#39;u&#39;,&#39;i&#39;))</code></pre></div>
+
+<h3 id="toc_16">Question 16:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-48-29.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT DISTINCT CITY
+FROM STATION
+WHERE NOT(LEFT(CITY,1) IN(&#39;a&#39;,&#39;e&#39;,&#39;o&#39;,&#39;u&#39;,&#39;i&#39;)) OR  NOT(RIGHT(CITY,1) IN(&#39;a&#39;,&#39;e&#39;,&#39;o&#39;,&#39;u&#39;,&#39;i&#39;))</code></pre></div>
+
+<h3 id="toc_17">Question 17:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-48-52.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT DISTINCT CITY
+FROM STATION
+WHERE
+    NOT (LEFT(CITY,1) IN(&#39;a&#39;,&#39;e&#39;,&#39;o&#39;,&#39;u&#39;,&#39;i&#39;))
+    AND
+    NOT (RIGHT(CITY,1) IN(&#39;a&#39;,&#39;e&#39;,&#39;o&#39;,&#39;u&#39;,&#39;i&#39;))</code></pre></div>
+
+<h3 id="toc_18">Question 18:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-49-18.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT NAME
+FROM STUDENTS
+WHERE MARKS &gt; 75
+ORDER BY RIGHT(NAME,3), ID ASC</code></pre></div>
+
+<h3 id="toc_19">Question 19:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-49-56.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select name from Employee
+order by name asc</code></pre></div>
+
+<h3 id="toc_20">Question 20:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_00-50-47.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select name from Employee
+where salary &gt; 2000 and
+        months &lt; 10
+order by employee_id asc</code></pre></div>
+
+<h1 id="toc_21">ADVANCE SELECT</h1>
+
+<h3 id="toc_22">Question 1: (Type of Triangle)</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_15-44-42.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_15-45-01.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select  
+    case when (A + B &lt;= C) or (A + C &lt;= B) or (B + C &lt;= A) then &#39;Not A Triangle&#39;
+         when (A = B) and (B = C) then &#39;Equilateral&#39;
+         when ((A = B) and (A != C))
+              or ((A = C) and (A != B)) 
+              or ((B = C) and (B != A)) then &#39;Isosceles&#39;
+         when (A != B) and (B != C) and (A != C) then &#39;Scalene&#39;
+    end
+from TRIANGLES</code></pre></div>
+
+<p><a href="https://community.modeanalytics.com/sql/tutorial/sql-case/">Reference 1</a></p>
+
+<p><a href="https://www.techonthenet.com/sql_server/functions/case.php">Reference 2</a></p>
+
+<h3 id="toc_23">Question 2:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_23-05-22.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_23-05-51.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-13_23-06-05.png" alt="image"></p>
+
+<div><pre><code class="language-sql">(SELECT CONCAT(NAME,&#39;(&#39;,LEFT(OCCUPATION,1),&#39;)&#39;)
+FROM OCCUPATIONS
+ORDER BY NAME);
+(SELECT CONCAT(&#39;There are total &#39;,COUNT(NAME),&#39; &#39;,LCASE(OCCUPATION),&#39;s.&#39;)
+FROM OCCUPATIONS
+GROUP BY OCCUPATION
+ORDER BY COUNT(NAME) ASC, OCCUPATION);</code></pre></div>
+
+<div><pre><code class="language-sql">(SELECT CONCAT(NAME,&#39;(&#39;,LEFT(OCCUPATION,1),&#39;)&#39;)
+FROM OCCUPATIONS
+ORDER BY NAME ASC LIMIT 1000)
+UNION
+(SELECT CONCAT(&#39;There are total &#39;,COUNT(NAME),&#39; &#39;,LCASE(OCCUPATION),&#39;s.&#39;)
+FROM OCCUPATIONS
+GROUP BY OCCUPATION
+ORDER BY COUNT(NAME) ASC, OCCUPATION ASC LIMIT 100)</code></pre></div>
+
+<h3 id="toc_24">Question 3: (Transpose Table)</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-14_00-29-15.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-14_00-29-43.png" alt="image"></p>
+
+<div><pre><code class="language-sql">set @r1=0, @r2=0, @r3=0, @r4=0;
+select min(Doctor), min(Professor), min(Singer), min(Actor)
+from(
+  select case when Occupation=&#39;Doctor&#39; then (@r1:=@r1+1)
+            when Occupation=&#39;Professor&#39; then (@r2:=@r2+1)
+            when Occupation=&#39;Singer&#39; then (@r3:=@r3+1)
+            when Occupation=&#39;Actor&#39; then (@r4:=@r4+1) end as RowNumber,
+    case when Occupation=&#39;Doctor&#39; then Name end as Doctor,
+    case when Occupation=&#39;Professor&#39; then Name end as Professor,
+    case when Occupation=&#39;Singer&#39; then Name end as Singer,
+    case when Occupation=&#39;Actor&#39; then Name end as Actor
+  from OCCUPATIONS
+  order by Name
+) as Temp
+group by RowNumber</code></pre></div>
+
+<h3 id="toc_25">Question 4:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-14_19-28-23.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-14_19-28-48.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select N, case when P is NULL then &#39;Root&#39;
+               when N IN (select P from BST) then &#39;Inner&#39;
+               else &#39;Leaf&#39;
+        end
+from BST
+order by N</code></pre></div>
+
+<h3 id="toc_26">Question 5:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-15_00-15-26.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-15_00-16-14.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-15_00-16-50.png" alt="image"></p>
+
+<div><pre><code class="language-sql"></code></pre></div>
+
+<h1 id="toc_27">AGGREGATION:</h1>
+
+<h3 id="toc_28">Question 1:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_13-35-54.png" alt="image"></p>
+
+<p>Create Input Table:</p>
+
+<div><pre><code class="language-sql">create table CITY(
+id int,
+name varchar(17),
+countrycode varchar(3),
+district varchar(20),
+population int,
+primary key (id)
+);
+
+
+Insert Into CITY (id, name, countrycode, district, population)
+Values (6,&#39;Rotterdam&#39;,&#39;NLD&#39;,&#39;Zuid-Holland&#39;,593321),
+(3878,&#39;Scottsdale&#39;,&#39;USA&#39;,&#39;Arizona&#39;,202705),
+(3965,&#39;Corona&#39;,&#39;USA&#39;,&#39;California&#39;,124966),
+(3973,&#39;Concord&#39;,&#39;USA&#39;,&#39;California&#39;,121780),
+(3977,&#39;Cedar Rapids&#39;,&#39;USA&#39;,&#39;Iowa&#39;,120758),
+(3982,&#39;Coral Springs&#39;,&#39;USA&#39;,&#39;Florida&#39;,117549),
+(4054,&#39;Fairfield&#39;,&#39;USA&#39;,&#39;California&#39;,92256),
+(4058,&#39;Boulder&#39;,&#39;USA&#39;,&#39;Colorado&#39;,91238),
+(4061,&#39;Fall River&#39;,&#39;USA&#39;,&#39;Massachusetts&#39;,90555);</code></pre></div>
+
+<p>Answer:</p>
+
+<div><pre><code class="language-sql">select count(name) from CITY
+where population &gt; 100000</code></pre></div>
+
+<h3 id="toc_29">Question 2:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_14-38-09.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select sum(population) from CITY
+where district = &#39;California&#39;</code></pre></div>
+
+<h3 id="toc_30">Question 3:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_14-41-32.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select avg(population) from CITY
+where district = &#39;California&#39;</code></pre></div>
+
+<h3 id="toc_31">Question 4:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_14-44-19.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select round(avg(population)) from CITY</code></pre></div>
+
+<h3 id="toc_32">Question 5:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-16_14-47-09.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select sum(population) from CITY
+where countrycode = &#39;JPN&#39;</code></pre></div>
+
+<h3 id="toc_33">Question 6:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-17_02-05-47.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select max(population) - min(population) from CITY</code></pre></div>
+
+<h3 id="toc_34">Question 7:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-17_02-13-07.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-17_02-13-39.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select round(avg(salary)) - round(avg(replace(salary,&#39;0&#39;,&#39;&#39;))) from employees</code></pre></div>
+
+<h3 id="toc_35">Question 8:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-17_16-16-17.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-17_16-16-34.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-17_16-16-49.png" alt="image"></p>
+
+<p>For more literal code:</p>
+
+<div><pre><code class="language-sql">select salary*months as earnings, count(*) from employee
+group by earnings
+order by earnings desc limit 1;</code></pre></div>
+
+<p>For more lazy:</p>
+
+<div><pre><code class="language-sql">select salary*months as earnings, count(*) from employee
+group by 1
+order by 1 desc limit 1</code></pre></div>
+
+<p>To use WHERE:</p>
+
+<div><pre><code class="language-sql">select salary*months, count(*) from employee
+where salary*months = (select max(salary*months) from employee)</code></pre></div>
+
+<h3 id="toc_36">Question 9:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-18_23-49-31.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select round(sum(lat_n),2),&#39; &#39;, round(sum(long_w),2) from STATION</code></pre></div>
+
+<h3 id="toc_37">Question 10:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-19_00-04-44.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select round(sum(lat_n),4) from STATION
+where lat_n &gt; 38.7880 and lat_n &lt; 137.2345</code></pre></div>
+
+<h3 id="toc_38">Question 11:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-19_00-15-05.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select round(max(lat_n),4) from STATION
+where lat_n &lt; 137.2345;</code></pre></div>
+
+<h3 id="toc_39">Question 12:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-19_00-19-52.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select round(long_w,4) from STATION
+where lat_n = (select max(lat_n) from STATION where lat_n &lt; 137.2345)</code></pre></div>
+
+<p>or</p>
+
+<div><pre><code class="language-sql">select round(long_w,4) from STATION
+where lat_n &lt; 137.2345
+order by lat_n desc limit 1</code></pre></div>
+
+<h3 id="toc_40">Question 13:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-19_01-13-42.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select round(min(lat_n),4) from STATION
+where lat_n &gt; 38.7780</code></pre></div>
+
+<h3 id="toc_41">Question 14:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-19_01-17-49.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select round(long_w,4) from STATION
+where lat_n = (select min(lat_n) from STATION where lat_n &gt; 38.7780)</code></pre></div>
+
+<h3 id="toc_42">Question 15:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-19_01-19-43.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select round(abs(min(lat_n) - min(long_w))+abs(max(lat_n)-max(long_w)),4) from STATION</code></pre></div>
+
+<h3 id="toc_43">Question 16:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-19_01-33-39.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select round(sqrt(power(min(lat_n) - min(long_w),2) + power(max(lat_n)-max(long_w),2)),4) from STATION</code></pre></div>
+
+<h3 id="toc_44">Question 17:</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-19_01-42-22.png" alt="image"></p>
+
+<p>Solution 1:</p>
+
+<div><pre><code class="language-sql">SELECT round(x.lat_n,4) from station x, station y
+GROUP BY x.lat_n
+HAVING SUM(SIGN(1-SIGN(y.lat_n-x.lat_n))) = (COUNT(*)+1)/2</code></pre></div>
+
+<p>Solution 2:</p>
+
+<div><pre><code class="language-sql">set @row_num = 0;
+select round(k.lat_n,4) from
+    (select @row_num := @row_num + 1 as row_index, p.lat_n from
+        (select lat_n from station order by lat_n) as p
+        having row_index = (select round((COUNT(*)+1)/2) from station)) as k;</code></pre></div>
+
+<h1 id="toc_45">BASIC JOIN:</h1>
+
+<h3 id="toc_46">Question 1 :</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_00-00-12.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_00-00-27.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select sum(city.population) from city
+inner join country on city.countrycode = country.code
+where country.continent = &#39;Asia&#39;</code></pre></div>
+
+<h3 id="toc_47">Question 2 :</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_01-35-55.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_01-36-07.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select city.name from city
+inner join country on city.countrycode = country.code
+where country.continent = &#39;Africa&#39;</code></pre></div>
+
+<h3 id="toc_48">Question 3 :</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_01-54-04.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_01-54-16.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select country.continent, round(avg(city.population)-0.5) from city
+inner join country on city.countrycode = country.code
+group by country.continent</code></pre></div>
+
+<h3 id="toc_49">Question 4 :</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_02-17-42.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_02-18-16.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_02-19-23.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select
+    if(grades.grade &lt; 8, &#39;NULL&#39;, students.name),
+    grades.grade,
+    students.marks
+from students
+inner join grades 
+    on students.marks &gt;= grades.min_mark and students.marks &lt;= grades.max_mark
+order by grades.grade desc, students.name asc, students.marks asc</code></pre></div>
+
+<h3 id="toc_50">Question 5 :</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_03-06-35.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_03-07-08.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_03-07-29.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_03-08-03.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_03-08-22.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-21_03-08-49.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-23_10-02-52.png" alt="image"></p>
+
+<div><pre><code class="language-sql">select m.hacker_id, m.name from(
+    select p.hacker_id, p.name, count(case when 
+                                p.score = p.full_score then 1 else NULL end) as count_codition from
+        (select submissions.hacker_id, hackers.name, submissions.challenge_id,
+            challenges.difficulty_level, submissions.score as score,
+            difficulty.score as full_score
+        from submissions
+            inner join challenges
+                on submissions.challenge_id = challenges.challenge_id
+            inner join difficulty
+                on challenges.difficulty_level = difficulty.difficulty_level
+            inner join hackers
+                on  submissions.hacker_id = hackers.hacker_id) as p
+    group by p.hacker_id) as m
+where m.count_codition &gt; 1
+order by m.count_codition desc, m.hacker_id asc </code></pre></div>
+
+<h3 id="toc_51">Question 6 :</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-27_01-18-43.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-27_01-20-49.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-27_01-21-02.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-27_01-21-22.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-27_01-21-37.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-27_01-21-50.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-27_01-22-03.png" alt="image"></p>
+
+<div><pre><code class="language-sql">QUESTION-SUMMARY:</code></pre></div>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-28_00-54-58.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-28_00-55-49.png" alt="image"></p>
+
+<div><pre><code class="language-sql">SELECT W.id, P.age, W.coins_needed, W.power
+FROM Wands W
+JOIN Wands_Property P USING (code)
+JOIN
+    (SELECT W.power, MIN(W.coins_needed) AS min_coins,P.age
+    FROM Wands W
+    JOIN Wands_Property P USING(code)
+    WHERE P.is_evil = 0
+    GROUP BY W.power,P.age) AS mins
+    ON W.power = mins.power AND W.coins_needed = mins.min_coins AND P.age=mins.age
+WHERE p.is_evil=0
+ORDER BY W.power DESC, P.age DESC</code></pre></div>
+
+<h3 id="toc_52">Question 7 :</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-28_00-56-57.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-28_00-57-08.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-28_00-57-22.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-28_00-57-40.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-28_00-58-00.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-28_00-58-10.png" alt="image"></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-28_00-58-29.png" alt="image"></p>
+
+<p><b><u>Summary:</u></b></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/27868566/shots/shot_2016-09-29_02-22-54.png" alt="image"></p>
+
+<p><b>Solution 1:</b></p>
+
+<div><pre><code class="language-sql">select hackers.hacker_id, hackers.name, new_challenges.challenges_created
+from hackers
+join
+    (select c.hacker_id, c.challenges_created
+    from
+        (select challenges.hacker_id, count(challenges.challenge_id) as challenges_created
+        from challenges
+        group by challenges.hacker_id) as c
+    left join 
+        (select m.challenges_created
+            from
+                (select t.challenges_created, count(t.challenges_created) as count_challenges_created
+                from
+                    (select count(challenge_id) as challenges_created
+                    from challenges
+                    group by hacker_id) as t
+                group by t.challenges_created) as m
+            where m.challenges_created != (select max(t.challenges_created)
+                                           from 
+                                                (select count(challenge_id) as challenges_created
+                                                from challenges
+                                                group by hacker_id) as t) 
+                 and m.count_challenges_created &gt;1) as exclude
+    on c.challenges_created = exclude.challenges_created
+    where exclude.challenges_created IS NULL) as new_challenges
+using (hacker_id)
+order by new_challenges.challenges_created desc, hackers.hacker_id</code></pre></div>
+
+<p><b>Solution 2:</b></p>
+
+<div><pre><code class="language-sql">select hackers.hacker_id, hackers.name, new_challenges.challenges_created
+from hackers
+join
+    (select c.hacker_id, c.challenges_created
+    from
+        (select challenges.hacker_id, count(challenges.challenge_id) as challenges_created
+        from challenges
+        group by challenges.hacker_id) as c
+    where not (c.challenges_created in 
+            (select m.challenges_created
+            from
+                (select t.challenges_created, count(t.challenges_created) as count_challenges_created
+                from
+                    (select count(challenge_id) as challenges_created
+                    from challenges
+                    group by hacker_id) as t
+                group by t.challenges_created) as m
+            where m.challenges_created != (select max(t.challenges_created)
+                                           from 
+                                                (select count(challenge_id) as challenges_created
+                                                from challenges
+                                                group by hacker_id) as t) 
+                 and m.count_challenges_created &gt;1))) as new_challenges
+using (hacker_id)
+order by new_challenges.challenges_created desc, hackers.hacker_id</code></pre></div>
+
+<h3 id="toc_53">Question 8 :</h3>
+
+<div><pre><code class="language-sql"></code></pre></div>
+
+<h3 id="toc_54">Question 9 :</h3>
+
+<div><pre><code class="language-sql"></code></pre></div>
+
+<h3 id="toc_55">Question 10 :</h3>
+
+<div><pre><code class="language-sql"></code></pre></div>
+
+<h3 id="toc_56">Question 11 :</h3>
+
+<div><pre><code class="language-sql"></code></pre></div>
+
+<h3 id="toc_57">Question 12 :</h3>
+
+<div><pre><code class="language-sql"></code></pre></div>
+
+<h3 id="toc_58">Question 13 :</h3>
+
+<div><pre><code class="language-sql"></code></pre></div>
+
+<h3 id="toc_59">Question 14 :</h3>
+
+<div><pre><code class="language-sql"></code></pre></div>
+
+<h3 id="toc_60">Question 15 :</h3>
+
+<div><pre><code class="language-sql"></code></pre></div>
+
+<h3 id="toc_61">Question 16:</h3>
+
+<div><pre><code class="language-sql"></code></pre></div>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+Prism.languages.sql={comment:{pattern:/(^|[^\\])(?:\/\*[\w\W]*?\*\/|(?:--|\/\/|#).*)/,lookbehind:!0},string:{pattern:/(^|[^@\\])("|')(?:\\?[\s\S])*?\2/,lookbehind:!0},variable:/@[\w.$]+|@("|'|`)(?:\\?[\s\S])+?\1/,"function":/\b(?:COUNT|SUM|AVG|MIN|MAX|FIRST|LAST|UCASE|LCASE|MID|LEN|ROUND|NOW|FORMAT)(?=\s*\()/i,keyword:/\b(?:ACTION|ADD|AFTER|ALGORITHM|ALL|ALTER|ANALYZE|ANY|APPLY|AS|ASC|AUTHORIZATION|BACKUP|BDB|BEGIN|BERKELEYDB|BIGINT|BINARY|BIT|BLOB|BOOL|BOOLEAN|BREAK|BROWSE|BTREE|BULK|BY|CALL|CASCADED?|CASE|CHAIN|CHAR VARYING|CHARACTER (?:SET|VARYING)|CHARSET|CHECK|CHECKPOINT|CLOSE|CLUSTERED|COALESCE|COLLATE|COLUMN|COLUMNS|COMMENT|COMMIT|COMMITTED|COMPUTE|CONNECT|CONSISTENT|CONSTRAINT|CONTAINS|CONTAINSTABLE|CONTINUE|CONVERT|CREATE|CROSS|CURRENT(?:_DATE|_TIME|_TIMESTAMP|_USER)?|CURSOR|DATA(?:BASES?)?|DATETIME|DBCC|DEALLOCATE|DEC|DECIMAL|DECLARE|DEFAULT|DEFINER|DELAYED|DELETE|DENY|DESC|DESCRIBE|DETERMINISTIC|DISABLE|DISCARD|DISK|DISTINCT|DISTINCTROW|DISTRIBUTED|DO|DOUBLE(?: PRECISION)?|DROP|DUMMY|DUMP(?:FILE)?|DUPLICATE KEY|ELSE|ENABLE|ENCLOSED BY|END|ENGINE|ENUM|ERRLVL|ERRORS|ESCAPE(?:D BY)?|EXCEPT|EXEC(?:UTE)?|EXISTS|EXIT|EXPLAIN|EXTENDED|FETCH|FIELDS|FILE|FILLFACTOR|FIRST|FIXED|FLOAT|FOLLOWING|FOR(?: EACH ROW)?|FORCE|FOREIGN|FREETEXT(?:TABLE)?|FROM|FULL|FUNCTION|GEOMETRY(?:COLLECTION)?|GLOBAL|GOTO|GRANT|GROUP|HANDLER|HASH|HAVING|HOLDLOCK|IDENTITY(?:_INSERT|COL)?|IF|IGNORE|IMPORT|INDEX|INFILE|INNER|INNODB|INOUT|INSERT|INT|INTEGER|INTERSECT|INTO|INVOKER|ISOLATION LEVEL|JOIN|KEYS?|KILL|LANGUAGE SQL|LAST|LEFT|LIMIT|LINENO|LINES|LINESTRING|LOAD|LOCAL|LOCK|LONG(?:BLOB|TEXT)|MATCH(?:ED)?|MEDIUM(?:BLOB|INT|TEXT)|MERGE|MIDDLEINT|MODIFIES SQL DATA|MODIFY|MULTI(?:LINESTRING|POINT|POLYGON)|NATIONAL(?: CHAR VARYING| CHARACTER(?: VARYING)?| VARCHAR)?|NATURAL|NCHAR(?: VARCHAR)?|NEXT|NO(?: SQL|CHECK|CYCLE)?|NONCLUSTERED|NULLIF|NUMERIC|OFF?|OFFSETS?|ON|OPEN(?:DATASOURCE|QUERY|ROWSET)?|OPTIMIZE|OPTION(?:ALLY)?|ORDER|OUT(?:ER|FILE)?|OVER|PARTIAL|PARTITION|PERCENT|PIVOT|PLAN|POINT|POLYGON|PRECEDING|PRECISION|PREV|PRIMARY|PRINT|PRIVILEGES|PROC(?:EDURE)?|PUBLIC|PURGE|QUICK|RAISERROR|READ(?:S SQL DATA|TEXT)?|REAL|RECONFIGURE|REFERENCES|RELEASE|RENAME|REPEATABLE|REPLICATION|REQUIRE|RESTORE|RESTRICT|RETURNS?|REVOKE|RIGHT|ROLLBACK|ROUTINE|ROW(?:COUNT|GUIDCOL|S)?|RTREE|RULE|SAVE(?:POINT)?|SCHEMA|SELECT|SERIAL(?:IZABLE)?|SESSION(?:_USER)?|SET(?:USER)?|SHARE MODE|SHOW|SHUTDOWN|SIMPLE|SMALLINT|SNAPSHOT|SOME|SONAME|START(?:ING BY)?|STATISTICS|STATUS|STRIPED|SYSTEM_USER|TABLES?|TABLESPACE|TEMP(?:ORARY|TABLE)?|TERMINATED BY|TEXT(?:SIZE)?|THEN|TIMESTAMP|TINY(?:BLOB|INT|TEXT)|TOP?|TRAN(?:SACTIONS?)?|TRIGGER|TRUNCATE|TSEQUAL|TYPES?|UNBOUNDED|UNCOMMITTED|UNDEFINED|UNION|UNIQUE|UNPIVOT|UPDATE(?:TEXT)?|USAGE|USE|USER|USING|VALUES?|VAR(?:BINARY|CHAR|CHARACTER|YING)|VIEW|WAITFOR|WARNINGS|WHEN|WHERE|WHILE|WITH(?: ROLLUP|IN)?|WORK|WRITE(?:TEXT)?)\b/i,"boolean":/\b(?:TRUE|FALSE|NULL)\b/i,number:/\b-?(?:0x)?\d*\.?[\da-f]+\b/,operator:/[-+*\/=%^~]|&&?|\|?\||!=?|<(?:=>?|<|>)?|>[>=]?|\b(?:AND|BETWEEN|IN|LIKE|NOT|OR|IS|DIV|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b/i,punctuation:/[;[\]()`,.]/};
+</script>
+
+<script type="text/javascript">
+!function(){if("undefined"!=typeof self&&self.Prism&&self.document){var e={html:"HTML",xml:"XML",svg:"SVG",mathml:"MathML",css:"CSS",clike:"C-like",javascript:"JavaScript",abap:"ABAP",actionscript:"ActionScript",apacheconf:"Apache Configuration",apl:"APL",applescript:"AppleScript",asciidoc:"AsciiDoc",aspnet:"ASP.NET (C#)",autoit:"AutoIt",autohotkey:"AutoHotkey",basic:"BASIC",csharp:"C#",cpp:"C++",coffeescript:"CoffeeScript","css-extras":"CSS Extras",fsharp:"F#",glsl:"GLSL",http:"HTTP",inform7:"Inform 7",json:"JSON",latex:"LaTeX",lolcode:"LOLCODE",matlab:"MATLAB",mel:"MEL",nasm:"NASM",nginx:"nginx",nsis:"NSIS",objectivec:"Objective-C",ocaml:"OCaml",parigp:"PARI/GP",php:"PHP","php-extras":"PHP Extras",powershell:"PowerShell",jsx:"React JSX",rest:"reST (reStructuredText)",sas:"SAS",sass:"Sass (Sass)",scss:"Sass (Scss)",sql:"SQL",typescript:"TypeScript",vhdl:"VHDL",vim:"vim",wiki:"Wiki markup",yaml:"YAML"};Prism.hooks.add("before-highlight",function(s){var a=s.element.parentNode;if(a&&/pre/i.test(a.nodeName)){var t,i,r=a.getAttribute("data-language")||e[s.language]||s.language.substring(0,1).toUpperCase()+s.language.substring(1),l=a.previousSibling;l&&/\s*\bprism-show-language\b\s*/.test(l.className)&&l.firstChild&&/\s*\bprism-show-language-label\b\s*/.test(l.firstChild.className)?i=l.firstChild:(t=document.createElement("div"),i=document.createElement("div"),i.className="prism-show-language-label",t.className="prism-show-language",t.appendChild(i),a.parentNode.insertBefore(t,a)),i.innerHTML=r}})}}();
+</script>
+
+<script type="text/x-mathjax-config">
+if (typeof MathJaxListener !== 'undefined') {
+  MathJax.Hub.Register.StartupHook('End', function () {
+    MathJaxListener.invokeCallbackForKey_('End');
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>
