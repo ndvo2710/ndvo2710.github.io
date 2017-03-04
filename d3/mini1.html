@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+      h2 {
+        text-align: center;
+      }
+
+      .dimple-low {
+        fill: #2c3e50;
+        stroke: #2c3e50;
+      }
+
+      svg {
+        background-color: firebrick;
+        font-weight: bold;
+        opacity : 1;
+      }
+  </style>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+    <script type="text/javascript">
+      function draw(data) {
+
+      /*
+        D3.js setup code
+      */
+
+          "use strict";
+          var margin = 75,
+              width = 1200 - margin,
+              height = 600 - margin;
+
+
+          d3.select('body')
+            .append('div')
+            .attr('id','original-chart');
+
+          d3.select("div#original-chart")
+            .append("svg")
+            .attr("width", width + margin)
+            .attr("height", height + 300 + margin)
+            .append("image")
+            .attr("xlink:href","https://dl.dropboxusercontent.com/u/27868566/shots/shot_2017-03-03_07-23-53.png")
+            .attr("x", "0")
+            .attr("y", "0");
+
+          d3.select("body")
+            .append("h1")
+            .text("New Chart:");
+          d3.select('body')
+            .append('div')
+            .attr('id','banner');
+
+          d3.select("div#banner")
+            .append("svg")
+              .attr("width", width + margin)
+              .attr("height", height - 500 + margin)
+              .append("rect")
+              .attr("x", "8px")
+              .attr("y", "8px")
+              .attr("width", "100%")
+              .attr("height", "100%")
+              .attr("fill", "firebrick");
+
+          d3.select("div#banner")
+            .select("svg")
+              .append('text')
+              .attr({
+                      x: 200,
+                      y: 78
+                    })
+              .text('Top 10 Salaries at GOOGLE ')
+              .attr("font-family", "sans-serif")
+              .attr("font-size", "50px")
+              .attr("fill", "khaki");
+
+
+
+          d3.select('body')
+            .append('div')
+            .attr('id','chart-container');
+
+
+          var svg = d3.select("div#chart-container")
+            .append("svg")
+              .attr("width", width + margin)
+              .attr("height", height + margin)
+            .append('g')
+                .attr('class','chart');
+
+
+             svg.append("rect")
+                .attr("x", "8px")
+                .attr("y", "8px")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .style("fill", "#2c3e50");
+
+      /*
+        Dimple.js Chart construction code
+      */
+          var myChart = new dimple.chart(svg, data);
+          var y = myChart.addCategoryAxis('y','Job');
+          var x = myChart.addMeasureAxis('x', 'Salary');
+          x.overrideMin = 130000;
+          x.overrideMax = 250000;
+
+          x.fontSize = 15;
+          y.fontSize = 15;
+          x.colors = ['#0000'];
+          y.colors = ['#0000'];
+          var mySeries = myChart.addSeries('channel', dimple.plot.bar);
+          myChart.setMargins(400,20, 100, 50);
+          myChart.defaultColors = [
+                            new dimple.color("#e74c3c", "#c0392b", .97), // red
+                        ];
+          myChart.draw();
+
+          d3.selectAll('text')
+            .filter( function(d,i){return i != 0;})
+            .style({
+                  fill : "#f1c40f",
+                  'text-transform': 'uppercase'
+                });
+          d3.selectAll("text.dimple-title")
+            .style({
+                  fill : "#1abc9c",
+                  'font-size': '20px'
+            });
+
+          d3.selectAll(".dimple-title")
+            .filter( function(d,i){return i == 0;})
+            .text('');
+
+
+      // 2. After drawing your chart, access the tooltip text
+        mySeries.getTooltipText = function(e) {
+
+            // hovering over the chart fires an event
+            // which creates an object 'e'
+            // with the information that you want
+
+            // 3. Add a console.log statement to access tooltip events
+
+            // when you hover over different parts of your chart
+            // this statement outputs the contents of 'e' to console:
+            //console.log(e);
+
+            // 4. After viewing the tooltip events, add formatting
+
+            var newNames = {
+                "Low" : "Lowest",
+                "Diff" : "Highest"
+                };
+
+            // When you change the tooltip, formatting of floats
+            // is lost, so you have to round floats:
+            // 'xValue' is the salary, 'e.xValue' accesses that value
+            var salary = Math.round(e.cx * 1000) / 1000;
+
+            // 5. Select what you want in your tooltip
+            // commas give new lines in your tooltip
+            // What you include in the tooltip is up to you
+            // but it has to be information from object 'e'
+            // 'yCount' is the count, access that with 'e.yCount':
+            return [newNames[e.aggField[0]] + " Salary:  $" + salary, "Job: " + e.y];
+        };
+    // rest of code ...
+
+        };
+      </script>
+  </head>
+<body>
+  <script type="text/javascript">
+  /*
+    Use D3 (not dimple.js) to load the TSV file
+    and pass the contents of it to the draw function
+    */
+  d3.select("body")
+    .append("h1")
+    .text("Which chart is better?");
+  d3.select("body")
+    .append("h1")
+    .text("Original:");
+  d3.csv("https://dl.dropboxusercontent.com/u/27868566/data/mini1df.csv", draw);
+  </script>
+
+
+
+</body>
+</html>
