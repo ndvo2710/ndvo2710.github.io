@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+  <style type="text/css">
+
+    body {
+      background-color: #373737;
+
+    }
+
+    #container {
+        padding-top: 15px;
+    }
+
+    #main_title {
+        background-color : #9FC9C9;
+    }
+
+    #main_paragraph {
+        padding-top: 20px;
+        font-size: 16px;
+        color: #EA6D59;
+        font-family: Courier New;
+        width:50%;
+        margin:auto;
+        text-align: justify;
+    }
+
+    #group1 {
+        padding-top: 30px;
+        padding-left: 400px;
+    }
+
+    #main_chart1 {
+        padding-top: 10px;
+   }
+
+    svg {
+      text-transform: uppercase;
+    }
+
+
+    div.tooltip{
+        color: white;
+        background: #373737;
+        text-align: center;
+        stroke: orange;
+        border-style: dotted solid;
+        border-color: green;
+        width: 200px;
+        height: 90px;
+    }
+
+  </style>
+
+  <script type="text/javascript">
+    function draw(data) {
+
+        width = 1250;
+        height = 2050;
+
+      // Structure of the page:
+        d3.select('body')
+          .append('div')
+          .attr('id', 'container');
+
+        d3.select('body')
+          .append('div')
+          .attr('id', 'group1');
+
+        d3.select('body')
+          .append('div')
+          .attr('id','group2');
+
+        d3.select('#group1')
+          .append('div')
+          .attr('id','chart_title');
+
+        d3.select('#group1')
+          .append('div')
+          .attr('id','main_chart1');
+
+        d3.select('#group2')
+          .append('div')
+          .attr('id','main_chart2');
+
+        d3.select('#container')
+          .append('div')
+          .attr('id', 'main_title');
+
+        d3.select('#container')
+          .append('div')
+          .attr('id', 'main_paragraph');
+
+  // Main Title
+        svg_main_title = d3.select('#main_title')
+          .append('svg')
+            .attr({
+              'width' : width + 200,
+              'height' : 40
+            });
+
+        svg_main_title.append('text')
+          .attr({
+              'class' : 'text_main_title',
+              'x' : 120 + 900,
+              'y' : 33,
+              'font-size' : '26px',
+              'font-weight' : 'bold',
+              'text-anchor' : 'middle',
+              'fill' : 'Black'
+          })
+          .text('VISUALIZATION OF PISA DATA');
+
+  // Main Paragraph
+
+        main_p = d3.select('#main_paragraph');
+        main_p.html("The Organization for Economic Co-operation and Development (OECD) released the results of its 2012 global rankings on student performance in mathematics, reading, and science, on the Program for International Student Assessment, or PISA." +
+          "</br> </br>" +
+          "The PISA is a worldwide exam administered every three years that measures 15-year-olds in 72 countries. About 485490 students took the exam in 2012." +
+          "</br> </br>" +
+          "The US placed 39th in math, 26th in reading and 30th in science while Asian countries again topped the rankings across all subjects"  +
+          "</br> </br>" +
+          "The results again raise questions about the global competitiveness of the US educational system" +
+          "</br> </br>" +
+          "However, PISA ranking is based on the average score of each country on each subject. I doubt that the ranking cannot intepret how one country's educational system is far superior than the other. So to solve this problem, we need to measure the effect size and the percentage of overlap of student scores between two countries." +
+          "</br> </br> " +
+          "<span style='font-weight:bold'>First chart is the visualization of OECD global ranking on student performance in math, reading and science." +
+          "</br> </br> " +
+          "Second chart is the visualization of effect size(Cohen's d) between any two countries </span>"
+          );
+
+
+
+  // Group1
+
+      // chart_title
+        svg_chart_title = d3.select('body')
+            .select('#chart_title')
+            .append('svg')
+            .attr({
+              'width' : width,
+              'height' : 50
+            });
+
+        svg_chart_title.append('rect')
+            .attr({
+                'class' : 'rect_title',
+                'x' : 10 + 100,
+                'y' : 0,
+                'height': 50,
+                'width' : width - 210,
+                'rx' : 20,
+                'ry' : 20,
+                'fill' : '#6AC967'
+            });
+
+        svg_chart_title.append('text')
+            .attr({
+                'class' : 'text_math_title',
+                'x' : 120 + 100,
+                'y' : 33,
+                'font-size' : '26px',
+                'text-anchor' : 'middle',
+                'fill' : 'black'
+            })
+            .text('MATH');
+
+        svg_chart_title.append('text')
+            .attr({
+                'class' : 'text_read_title',
+                'x' : 120 + 395 +100,
+                'y' : 33,
+                'font-size' : '26px',
+                'text-anchor' : 'middle',
+                'fill' : 'black'
+            })
+            .text('READ');
+
+        svg_chart_title.append('text')
+            .attr({
+                'class' : 'text_sci_title',
+                'x' : 120 + 800 + 100,
+                'y' : 33,
+                'font-size' : '26px',
+                'text-anchor' : 'middle',
+                'fill' : 'black'
+            })
+            .text('SCIENCE');
+
+
+
+      // Push data to main_chart1
+
+
+        var svg = d3.select('body')
+            .select('#main_chart1')
+            .append('svg')
+            .attr({
+              'width' : width,
+              'height' : height
+            });
+
+        var tooltip = d3.select('body')
+            .append('div')
+            .attr('class','tooltip')
+            .style('position','absolute')
+            .style('z-index','9999')
+            .style('visibility','hidden')
+            .text('s simpile tooltip')
+
+        var text_math = svg.selectAll('.text_math')
+             .data(data)
+             .enter()
+             .append('text')
+             .text(function(d){return d['CNT']})
+             .attr({
+               'class' : function(d){ return 'text_' + d['CNT'];},
+               'x' : 120 + 100,
+               'y' : function(d){return 30 * d['math'] -15;},
+               'font-size': '13px',
+               'text-anchor': 'middle',
+               'fill' : '#edcd4a'
+             });
+
+        var rect_math = svg.selectAll('.rect_math')
+             .data(data)
+             .enter()
+             .append('rect')
+             .attr({
+                'class' : function(d){ return 'rect_' + d['CNT'];},
+                'x' : 120 - 90 + 100,
+                'y' : function(d){return 30 * d['math'] -15 - 42/2;},
+                'height' : 20,
+                'width'  : 180,
+                'rx' : 10,
+                'ry' :10,
+                'fill' : 'transparent'
+             })
+          .on('mouseover',function(d){
+              d3.selectAll('.rect_' + d['CNT'])
+                .attr({
+                    'height' : 32,//20
+                    'fill' : 'yellow' //transparent
+                });
+              d3.selectAll('.text_' + d['CNT']).each( function(e){
+              new_x = d3.select(this).attr("x");
+              //console.log(new_x);
+              new_y = d3.select(this).attr("y");
+              //console.log(new_y);
+
+              d3.select('#main_chart1').select('svg').append('text')
+              .text(d['CNT'])
+              .attr({
+                  'class' : 'text_moused_over',
+                  'x' : new_x,
+                  'y' : new_y,
+                  'font-size': '14px',
+                  'font-weight': 'bold',
+                  'text-anchor': 'middle',
+                  'fill' : 'Black'
+                  });
+              });
+
+              d3.selectAll('.line_' + d['CNT'])
+                .attr('stroke','yellow')
+                .attr('stroke-width', 8);
+              return tooltip.style('visibility','visible')
+                            .html('<strong><span style = "color:#edcd4a">country:</span></strong>'
+                              + d['CNT'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Math ranking:</span></strong>'
+                              + d['math'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Read rannking:</span></strong>'
+                              + d['read'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Scie rannking:</span></strong>'
+                              + d['sci'] + '<br/>');
+                })
+          .on('mousemove', function(d){
+              return tooltip.style({
+                'top' : (30 * d['sci'] + 20 + 100 + 50 + 300) + 'px',
+                'left' : (120 + 250*2 + 150*2 + 100 + 100 + 330 + 128 ) + 'px'
+              })
+            })
+           .on('mouseout', function(d){
+              d3.selectAll('.rect_' + d['CNT'])
+                .attr({
+                    'height' : 20,//20
+                    'fill' : 'transparent' //transparent
+                });
+              d3.selectAll('.text_moused_over').remove();
+              d3.selectAll('.line_' + d['CNT'])
+                .attr('stroke-width', 2)
+                .attr('stroke', '#fca27e');
+              return tooltip.style('visibility', 'hidden')
+           });
+
+        var text_read = svg.selectAll('.text_read')
+           .data(data)
+           .enter()
+           .append('text')
+           .text(function(d){return d['CNT']})
+           .attr({
+             'class' : function(d){ return 'text_' + d['CNT'];},
+             'x' : 120 + 250 + 150 + 100,
+             'y' : function(d){return 30 * d['read'] -15;},
+              'font-size': '13px',
+              'text-anchor': 'middle',
+              'fill' : '#edcd4a'
+           });
+
+        var rect_read = svg.selectAll('.rect_read')
+             .data(data)
+             .enter()
+             .append('rect')
+             .attr({
+                'class' : function(d){ return 'rect_' + d['CNT'];},
+                'x' : 120 + 250 + 150 - 90 + 100,
+                'y' : function(d){return 30 * d['read'] -15 - 42/2;},
+                'height' : 20,
+                'width'  : 180,
+                'rx' : 10,
+                'ry' :10,
+                'fill' : 'transparent'
+             })
+          .on('mouseover',function(d){
+              d3.selectAll('.rect_' + d['CNT'])
+                .attr({
+                    'height' : 32,//20
+                    'fill' : 'yellow' //transparent
+                });
+              d3.selectAll('.text_' + d['CNT']).each( function(e){
+              new_x = d3.select(this).attr("x");
+              //console.log(new_x);
+              new_y = d3.select(this).attr("y");
+              //console.log(new_y);
+
+              d3.select('#main_chart1').select('svg').append('text')
+              .text(d['CNT'])
+              .attr({
+                  'class' : 'text_moused_over',
+                  'x' : new_x,
+                  'y' : new_y,
+                  'font-size': '14px',
+                  'font-weight': 'bold',
+                  'text-anchor': 'middle',
+                  'fill' : 'black'
+                  });
+              });
+
+              d3.selectAll('.line_' + d['CNT'])
+                .attr('stroke','yellow')
+                .attr('stroke-width', 8);
+              return tooltip.style('visibility','visible')
+                            .html('<strong><span style = "color:#edcd4a">country:</span></strong>'
+                              + d['CNT'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Math ranking:</span></strong>'
+                              + d['math'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Read rannking:</span></strong>'
+                              + d['read'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Scie rannking:</span></strong>'
+                              + d['sci'] + '<br/>');
+                })
+          .on('mousemove', function(d){
+              return tooltip.style({
+                'top' : (30 * d['sci'] + 20 + 100 + 50 + 300) + 'px',
+                'left' : (120 + 250*2 + 150*2 + 100 + 100 + 330 + 128) + 'px'
+              })
+            })
+           .on('mouseout', function(d){
+              d3.selectAll('.rect_' + d['CNT'])
+                .attr({
+                    'height' : 20,//20
+                    'fill' : 'transparent' //transparent
+                });
+              d3.selectAll('.text_moused_over').remove();
+              d3.selectAll('.line_' + d['CNT'])
+                .attr('stroke-width', 2)
+                .attr('stroke', '#fca27e');
+              return tooltip.style('visibility', 'hidden')
+           });
+
+        var text_sci = svg.selectAll('.text_sci')
+             .data(data)
+             .enter()
+             .append('text')
+             .text(function(d){return d['CNT']})
+             .attr({
+               'class' : function(d){ return 'text_' + d['CNT'];},
+               'x' : 120 + 250*2 + 150*2 + 100,
+               'y' : function(d){return 30 * d['sci'] -15;},
+                'font-size': '13px',
+                'text-anchor': 'middle',
+                'fill' : '#edcd4a'
+             });
+
+        var rect_sci = svg.selectAll('.rect_sci')
+             .data(data)
+             .enter()
+             .append('rect')
+             .attr({
+                'class' : function(d){ return 'rect_' + d['CNT'];},
+                'x' : 120 + 250*2 + 150*2 - 90 + 100,
+                'y' : function(d){return 30 * d['sci'] -15 - 42/2;},
+                'height' : 20,
+                'width'  : 180,
+                'rx' : 10,
+                'ry' :10,
+                'fill' : 'transparent'
+             })
+          .on('mouseover',function(d){
+              d3.selectAll('.rect_' + d['CNT'])
+                .attr({
+                    'height' : 32,//20
+                    'fill' : 'yellow' //transparent
+                });
+              d3.selectAll('.text_' + d['CNT']).each( function(e){
+              new_x = d3.select(this).attr("x");
+              //console.log(new_x);
+              new_y = d3.select(this).attr("y");
+              //console.log(new_y);
+
+              d3.select('#main_chart1').select('svg').append('text')
+              .text(d['CNT'])
+              .attr({
+                  'class' : 'text_moused_over',
+                  'x' : new_x,
+                  'y' : new_y,
+                  'font-size': '14px',
+                  'font-weight': 'bold',
+                  'text-anchor': 'middle',
+                  'fill' : 'black'
+                  });
+              });
+
+              d3.selectAll('.line_' + d['CNT'])
+                .attr('stroke','yellow')
+                .attr('stroke-width', 8);
+              return tooltip.style('visibility','visible')
+                            .html('<strong><span style = "color:#edcd4a">country:</span></strong>'
+                              + d['CNT'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Math ranking:</span></strong>'
+                              + d['math'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Read rannking:</span></strong>'
+                              + d['read'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Scie rannking:</span></strong>'
+                              + d['sci'] + '<br/>');
+                })
+          .on('mousemove', function(d){
+              return tooltip.style({
+                'top' : (30 * d['sci'] + 20 + 100 + 50 + 300) + 'px',
+                'left' : (120 + 250*2 + 150*2 + 100 + 100 + 330 + 128) + 'px'
+              })
+            })
+           .on('mouseout', function(d){
+              d3.selectAll('.rect_' + d['CNT'])
+                .attr({
+                    'height' : 20,//20
+                    'fill' : 'transparent' //transparent
+                });
+              d3.selectAll('.text_moused_over').remove();
+              d3.selectAll('.line_' + d['CNT'])
+                .attr('stroke-width', 2)
+                .attr('stroke', '#fca27e');
+              return tooltip.style('visibility', 'hidden')
+           });
+
+        var line_left = svg.selectAll('.line_left')
+             .data(data)
+             .enter()
+             .append('line')
+             .attr({
+                'class' : function(d){return 'line_' + d['CNT'];},
+                'x1' : 203 + 100,
+                'x2' : 435 + 100,
+                'y1' : function(d){return 30 * d['math'] - 20;},
+                'y2' : function(d){return 30 * d['read'] - 20;},
+                'stroke-width' : 2,
+                'stroke' : '#fca27e'
+             })
+          .on('mouseover',function(d){
+              d3.selectAll('.rect_' + d['CNT'])
+                .attr({
+                    'height' : 32,//20
+                    'fill' : 'yellow' //transparent
+                });
+              d3.selectAll('.text_' + d['CNT']).each( function(e){
+              new_x = d3.select(this).attr("x");
+              //console.log(new_x);
+              new_y = d3.select(this).attr("y");
+              //console.log(new_y);
+
+              d3.select('#main_chart1').select('svg').append('text')
+              .text(d['CNT'])
+              .attr({
+                  'class' : 'text_moused_over',
+                  'x' : new_x,
+                  'y' : new_y,
+                  'font-size': '14px',
+                  'font-weight': 'bold',
+                  'text-anchor': 'middle',
+                  'fill' : 'black'
+                  });
+              });
+
+              d3.selectAll('.line_' + d['CNT'])
+                .attr('stroke','yellow')
+                .attr('stroke-width', 8);
+              return tooltip.style('visibility','visible')
+                            .html('<strong><span style = "color:#edcd4a">country:</span></strong>'
+                              + d['CNT'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Math ranking:</span></strong>'
+                              + d['math'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Read rannking:</span></strong>'
+                              + d['read'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Scie rannking:</span></strong>'
+                              + d['sci'] + '<br/>');
+                })
+          .on('mousemove', function(d){
+              return tooltip.style({
+                'top' : (30 * d['sci'] + 20 + 100 + 50 + 300) + 'px',
+                'left' : (120 + 250*2 + 150*2 + 100 + 100 + 330 + 128) + 'px'
+              })
+            })
+           .on('mouseout', function(d){
+              d3.selectAll('.rect_' + d['CNT'])
+                .attr({
+                    'height' : 20,//20
+                    'fill' : 'transparent' //transparent
+                });
+              d3.selectAll('.text_moused_over').remove();
+              d3.selectAll('.line_' + d['CNT'])
+                .attr('stroke-width', 2)
+                .attr('stroke', '#fca27e');
+              return tooltip.style('visibility', 'hidden')
+           });
+
+
+
+        var line_right = svg.selectAll('.line_right')
+             .data(data)
+             .enter()
+             .append('line')
+             .attr({
+                'class' : function(d){return 'line_' + d['CNT'];},
+                'x1' : 603 + 100,
+                'x2' : 836 + 100,
+                'y1' : function(d){return 30 * d['read'] - 20;},
+                'y2' : function(d){return 30 * d['sci'] - 20;},
+                'stroke-width' : 2,
+                'stroke' : '#fca27e'
+             })
+          .on('mouseover',function(d){
+              d3.selectAll('.rect_' + d['CNT'])
+                .attr({
+                    'height' : 32,//20
+                    'fill' : 'yellow' //transparent
+                });
+              d3.selectAll('.text_' + d['CNT']).each( function(e){
+              new_x = d3.select(this).attr("x");
+              //console.log(new_x);
+              new_y = d3.select(this).attr("y");
+              //console.log(new_y);
+
+              d3.select('#main_chart1').select('svg').append('text')
+              .text(d['CNT'])
+              .attr({
+                  'class' : 'text_moused_over',
+                  'x' : new_x,
+                  'y' : new_y,
+                  'font-size': '14px',
+                  'font-weight': 'bold',
+                  'text-anchor': 'middle',
+                  'fill' : 'black'
+                  });
+              });
+
+              d3.selectAll('.line_' + d['CNT'])
+                .attr('stroke','yellow')
+                .attr('stroke-width', 8);
+              return tooltip.style('visibility','visible')
+                            .html('<strong><span style = "color:#edcd4a">country:</span></strong>'
+                              + d['CNT'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Math ranking:</span></strong>'
+                              + d['math'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Read rannking:</span></strong>'
+                              + d['read'] + '<br/>'
+                              + '<strong><span style = "color:#edcd4a">Scie rannking:</span></strong>'
+                              + d['sci'] + '<br/>');
+                })
+          .on('mousemove', function(d){
+              return tooltip.style({
+                'top' : (30 * d['sci'] + 20 + 100 + 50 + 300) + 'px',
+                'left' : (120 + 250*2 + 150*2 + 100 + 100 + 330 + 128) + 'px'
+              })
+            })
+           .on('mouseout', function(d){
+              d3.selectAll('.rect_' + d['CNT'])
+                .attr({
+                    'height' : 20,//20
+                    'fill' : 'transparent' //transparent
+                });
+              d3.selectAll('.text_moused_over').remove();
+              d3.selectAll('.line_' + d['CNT'])
+                .attr('stroke-width', 2)
+                .attr('stroke', '#fca27e');
+              return tooltip.style('visibility', 'hidden')
+           });
+
+
+
+
+      };
+  </script>
+</head>
+<body>
+  <script type="text/javascript">
+  /*
+    Use D3 (not dimple.js) to load the TSV file
+    and pass the contents of it to the draw function
+    */
+
+  d3.csv("https://dl.dropboxusercontent.com/u/27868566/data/country_rank.csv", draw);
+
+  </script>
+
+</body>
+</html>
