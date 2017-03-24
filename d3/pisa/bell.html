@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Normal Plot</title>
+    <meta name="description" content="">
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <style type="text/css">
+    body {
+        font: 17px Arial;
+    }
+
+
+    select:not([multiple]){
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    background-position:right 50%;
+    background-repeat:no-repeat;
+    background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
+    padding: 1em;
+    padding-right:3.5em;
+    font-size:14px;
+    }
+
+
+
+    .mySelect {
+        border-radius:10;
+    }
+
+    .div_arc, .div_bell {
+        float: left;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    /*.x.axis path {
+        display: none;
+    }*/
+    .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+        mix-blend-mode: multiply;
+    }
+
+    .arc text {
+      font: 10px sans-serif;
+      text-anchor: middle;
+    }
+
+    .arc path {
+      stroke: hsla(350, 34%, 31%, 0.72);
+    }
+
+    </style>
+
+    <script type="text/javascript">
+
+      function draw2(data) {
+        var posA = 1,
+            posB = 1;
+
+        var subject = 'Math',
+            subject_mean = 'math_score',
+            subject_sd = 'sd_math_score';
+
+        var mu_1 = 394.6337,
+            mu_2 = 394.6337,
+            sd1 = 91.26792,
+            sd2 = 91.26792,
+            diff = updateDiff(mu_1, sd1, mu_2, sd2),
+            cnt_A = 'Albania',
+            cnt_B = 'Albania';
+
+        var bell_margin = {top: 50, right: 80, bottom: 30, left: 50},
+            bell_width = 1200 - bell_margin.left - bell_margin.right,
+            bell_height = 400 - bell_margin.top - bell_margin.bottom;
+
+
+        var arc_width = 200,
+            arc_height = 500,
+            radius = 350 / 3.5;
+
+        // THIS LINE WILL BE DELETED
+        // THIS LINE WILL BE DELTEED
+        d3.select('body')
+          .append('div')
+          .attr('id','group2');
+        d3.select('#group2')
+          .append('div')
+          .attr('id','main_chart2')
+          .style("width", arc_width + bell_width + bell_margin.left + bell_margin.right  + 50 + 'px')
+          .style("height", Math.max(arc_height, bell_height) + 50 + 'px');
+        // THIS LINE WILL BE DELETED
+        // THIS LINE WILL BE DELTEED
+
+        dropdown_div = d3.select("#main_chart2").append("div")
+                      .attr("class", "div_dropdown")
+                      .attr("align", "center")
+                      .style("width", arc_width + bell_width + bell_margin.left + bell_margin.right  + 50 + 'px')
+                      .style("height",100 + 'px');
+
+        dropdown_div.append("h3")
+                    .text("Select Any Two Countries:");
+
+        dropdown_select1 = dropdown_div.append("select")
+                    .attr("id", "mySelect1")
+                    .attr("class", "mySelect")
+                    .on('change', function(d){
+                        posA = d3.select(this).property('value');
+                        cnt_A = data[posA]['CNT'];
+                        d3.select('.div_arc').remove();
+                        d3.select('.div_bell').remove();
+                        mu_1 = data[posA][subject_mean];
+                        sd1 = data[posA][subject_sd];
+                        diff = updateDiff(mu_1,sd1,mu_2,sd2);
+                        if (mu_1 > mu_2) {
+                            bell_arc(diff,cnt_A,cnt_B);
+                        } else {
+                            bell_arc(diff,cnt_B,cnt_A);
+                        };
+                        console.log(cnt_A);
+                        console.log(mu_1);
+                        console.log(sd1);
+                        console.log(diff);
+                    });
+
+        dropdown_select2 = dropdown_div.append("select")
+                    .attr("id", "mySelect2")
+                    .attr("class", "mySelect")
+                    .on('change', function(d){
+                        posB = d3.select(this).property('value');
+                        cnt_B = data[posB]['CNT'];
+                        d3.select('.div_arc').remove();
+                        d3.select('.div_bell').remove();
+                        mu_2 = data[posB][subject_mean];
+                        sd2 = data[posB][subject_sd];
+                        diff = updateDiff(mu_1,sd1,mu_2,sd2);
+                        if (mu_1 > mu_2) {
+                            bell_arc(diff,cnt_A,cnt_B);
+                        } else {
+                            bell_arc(diff,cnt_B,cnt_A);
+                        };
+                        console.log(cnt_B);
+                        console.log(mu_2);
+                        console.log(sd2);
+                        console.log(diff);
+                    });
+
+        dropdown_select3 = dropdown_div.append("select")
+                    .attr("id", "mySelect3")
+                    .attr("class", "mySelect")
+                    .on('change', function(d){
+                        subject = d3.select(this).property('value');
+                        if (subject === 'Math') {
+                            subject_mean = 'math_score';
+                            subject_sd = 'sd_math_score';
+                        } else if (subject === 'Reading'){
+                            subject_mean = 'read_score';
+                            subject_sd = 'sd_read_score';
+                        } else {
+                            subject_mean = 'sci_score';
+                            subject_sd = 'sd_sci_score';
+                        };
+                        d3.select('.div_arc').remove();
+                        d3.select('.div_bell').remove();
+                        mu_1 = data[posA][subject_mean];
+                        sd1 = data[posA][subject_sd];
+                        mu_2 = data[posB][subject_mean];
+                        sd2 = data[posB][subject_sd];
+                        diff = updateDiff(mu_1,sd1,mu_2,sd2);
+                        if (mu_1 > mu_2) {
+                            bell_arc(diff,cnt_A,cnt_B);
+                        } else {
+                            bell_arc(diff,cnt_B,cnt_A);
+                        };
+                        console.log(cnt_A);
+                        console.log(mu_1);
+                        console.log(sd1);
+                        console.log(cnt_B);
+                        console.log(mu_2);
+                        console.log(sd2);
+                        console.log(diff);
+                    });
+
+
+        var option1 = dropdown_select1.selectAll('option1')
+            .data(data)
+            .enter()
+            .append('option')
+            .attr("value", function(d,i){ return i; })
+            .text(function(d) { return d.CNT; });
+
+        var option2 = dropdown_select2.selectAll('option2')
+            .data(data)
+            .enter()
+            .append('option')
+            .attr("value", function(d,i){ return i; })
+            .text(function(d) { return d.CNT; });
+
+        var subject_list = ["Math", "Reading", "Science"];
+
+        var subject_option = dropdown_select3.selectAll('option3')
+            .data(subject_list)
+            .enter()
+            .append('option')
+            .attr("value", function(d){ return d; })
+            .text(function(d) { return d; });
+
+
+        bell_arc(diff, cnt_A,cnt_B);
+
+        function updateDiff(mean1, stdv1, mean2, stdv2){
+            return Math.abs(mean1 - mean2)/Math.sqrt(stdv1*stdv1 + stdv2 * stdv2);
+        };
+
+        //debugger;
+
+      function bell_arc(diff,cnt_A,cnt_B){
+        var bell_margin = {top: 50, right: 80, bottom: 30, left: 50},
+            bell_width = 1200 - bell_margin.left - bell_margin.right,
+            bell_height = 400 - bell_margin.top - bell_margin.bottom;
+
+
+        var arc_width = 200,
+            arc_height = 500,
+            radius = 350 / 3.5;
+        // Make two left aligned Arcs
+        data_arc1 = [{
+                    "group" : "NaN1",
+                    "arc_value" : (200*normalcdf(-diff/2)).toPrecision(4)
+                },
+                {
+                    "group": "NaN2",
+                    "arc_value" : 100 - (200*normalcdf(-diff/2)).toPrecision(4)
+                }
+              ];
+
+        data_arc2 = [{
+                    "group" : "NaN1",
+                    "arc_value" : (100*normalcdf(diff/Math.sqrt(2))).toPrecision(4)
+                },
+                {
+                    "group": "NaN2",
+                    "arc_value" : 100 - (100*normalcdf(diff/Math.sqrt(2))).toPrecision(4)
+                }
+              ];
+
+        var arc_color = d3.scale.ordinal()
+            .range(["hsla(350, 34%, 31%, 0.72)", "white"]);
+
+        var arc = d3.svg.arc()
+            .outerRadius(radius - 10)
+            .innerRadius(radius - 30);
+
+        var pie = d3.layout.pie()
+            .sort(null)
+            .value(function(d) { return d.arc_value; });
+
+
+        var arc_div = d3.select("#main_chart2").append("div")
+                      .attr("class", "div_arc")
+                      .attr("align", "left")
+                      .style("width", arc_width + 'px')
+                      .style("height",arc_height+ 'px');
+
+        var svg_arc = arc_div.append("svg")
+            .attr("width", arc_width)
+            .attr("height", arc_height)
+
+        var g1 = svg_arc.append("g")
+            .attr("transform", "translate(" + arc_width/2 + "," + 350 / 3 + ")");
+
+        var arc1_g = g1.selectAll(".arc1")
+              .data(pie(data_arc1))
+            .enter().append("g")
+              .attr("class", "arc");
+
+        arc1_g.append("path")
+              .attr("d", arc)
+              .style("fill", function(d) {return arc_color(d.data.group); });
+
+        arc1_g.append("text")
+            .attr("transform", "translate(0,30)")
+            .attr("text-anchor", "middle")
+            .text("% Overlap")
+            .style({
+                "font": "17px Arial",
+                'font-weight': 'bold',
+                "fill": "#6f8197"
+            });
+
+        arc1_g.append("text")
+            .attr("transform", "translate(0,-8)")
+            .attr("text-anchor", "middle")
+            .text((200*normalcdf(-diff/2)).toPrecision(4) + '%')
+            .style({
+                "font": "25px Arial",
+                'font-weight': 'bold',
+                "fill": "#36f"
+            });
+
+        var g2 = svg_arc.append("g")
+            .attr("transform", "translate(" + arc_width/2 + "," + 320 + ")");
+        var arc2_g = g2.selectAll(".arc2")
+              .data(pie(data_arc2))
+            .enter().append("g")
+              .attr("class", "arc");
+
+        arc2_g.append("path")
+              .attr("d", arc)
+              .style("fill", function(d) {return arc_color(d.data.group); });
+
+        arc2_g.append("text")
+            .attr("transform", "translate(0,20)")
+            .attr("text-anchor", "middle")
+            .text("Probability of")
+            .style({
+                "font": "17px Arial",
+                'font-weight': 'bold',
+                "fill": "#6f8197"
+            });
+
+        arc2_g.append("text")
+            .attr("transform", "translate(0,42)")
+            .attr("text-anchor", "middle")
+            .text("Superiority")
+            .style({
+                "font": "17px Arial",
+                'font-weight': 'bold',
+                "fill": "#6f8197"
+            });
+
+        arc2_g.append("text")
+            .attr("transform", "translate(0,-8)")
+            .attr("text-anchor", "middle")
+            .text((100*normalcdf(diff/Math.sqrt(2))).toPrecision(4) + '%')
+            .style({
+                "font": "25px Arial",
+                'font-weight': 'bold',
+                "fill": "#36f"
+            });
+
+
+        // DRAWING BELL SHAPE
+        //setting up empty data array
+        var guassian_data = [];
+        getData(diff); // popuate guassian_data
+
+        // Create a column name array inside guassian_data array
+        guassian_data["columns"] = ["y", "x1", "x2"]
+
+
+        var bells = guassian_data.columns.slice(1).map(function(id) {
+            return {
+              id: id,
+              values: guassian_data.map(function(d) {
+                return {'y': d.y, 'x': d[id]};
+              })
+            };
+          });
+
+        // need to sort for plotting
+        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+
+        bells[0].values.sort(function(a,b) {
+            return a.y - b.y;
+        });
+
+        bells[1].values.sort(function(a,b) {
+            return a.y - b.y;
+        });
+
+        var x = d3.scale.linear()
+            .range([0, bell_width]);
+
+        var y = d3.scale.linear()
+            .range([bell_height, 0]);
+
+        var color = d3.scale.ordinal();
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left");
+
+        var line = d3.svg.line()
+            .x(function(d) { return x(d.x); })
+            .y(function(d) { return y(d.y); });
+
+        // Draw two bells
+        var bell_div = d3.select("#main_chart2").append("div")
+              .attr("class", "div_bell")
+              .attr("width", bell_width + bell_margin.left + bell_margin.right + 'px')
+            .attr("height", bell_height + bell_margin.top + bell_margin.bottom + 'px');
+
+        var bell_svg = bell_div.append("svg")
+            .attr("width", bell_width + bell_margin.left + bell_margin.right)
+            .attr("height", bell_height + bell_margin.top + bell_margin.bottom);
+
+        var bell_g1 = bell_svg.append("g")
+            .attr("transform", "translate(" + bell_margin.left + "," + bell_margin.top + ")");
+
+        bell_svg.append("g")
+            .attr("class", "g_tittle")
+            .attr("transform", "translate(" + bell_margin.left + ",30)");
+
+        d3.select(".g_tittle").append("text")
+           .attr({
+                "class" : "cohen_float",
+                "transform" : "translate(" + bell_margin.left + ",0)",
+                "text-anchor" : "middle",
+                "x" : bell_width *(0.4+ 0.3*diff/10),
+                "y" : 0
+           })
+           .style({
+                "font": "18px sans-serif",
+                'font-weight': 'bold'
+           })
+           .text("Cohen's d: " + diff);
+
+
+        x.domain([-4,6]);
+        y.domain(d3.extent(guassian_data, function(d) { return d.y; }));
+        color.domain(["x1","x2"])
+             .range(["#FF6666","#6ACEEB"]);
+
+        bell_g1.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + bell_height + ")")
+              .call(xAxis);
+
+        /*
+        bell_g1.append("g")
+              .attr("class", "y axis")
+              .call(yAxis)
+            .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", ".71em")
+              .style("text-anchor", "end")
+              .text("Density");
+        */
+        var bell = bell_g1.selectAll(".bell")
+              .data(bells)
+            .enter().append("g")
+              .attr("class", "bell");
+
+        bell.append("path")
+              .attr("class", "line")
+              .attr("d", function(d) {
+                return line(d.values); })
+              .style("stroke", function(d) { return color(d.id); });
+
+
+        // Add mu1 and mu2 line
+        bell_g1.append("line")
+            .attr("id", "mu1")
+            .style("stroke", "white")
+            .style("stroke-dasharray", ("3, 3"))
+            .attr({
+                x1 : bell_width *0.4,
+                x2 : bell_width *0.4,
+                y1 : 0,
+                y2 : bell_height
+            });
+
+        bell_g1.append("line")
+            .attr("id", "mu2")
+            .style("stroke", "white")
+            .style("stroke-dasharray", ("3, 3"))
+            .attr({
+                x1 : bell_width *(0.4+ diff/10),
+                x2 : bell_width *(0.4+ diff/10),
+                y1 : 0,
+                y2 : bell_height
+            });
+
+
+        // Add legend
+        bell_g1.append("text")
+           .attr("class", "legend_"+cnt_A)
+           .attr({
+                x : bell_width * 0.7,
+                y : bell_height * 0.15
+           })
+           .style({
+                "font": "18px Arial",
+                "text-transform" : "uppercase",
+                'font-weight': 'bold',
+                "fill": "#1f77b4"
+           })
+           .text(cnt_A);
+
+        bell_g1.append("text")
+           .attr("class", "legend_"+cnt_B)
+           .attr({
+                x : bell_width * 0.7,
+                y : bell_height * 0.2
+           })
+           .style({
+                "font": "18px Arial",
+                "text-transform" : "uppercase",
+                'font-weight': 'bold',
+                "fill": "#d62728"
+           })
+           .text(cnt_B);
+
+        function getData(d) {
+        // loop to populate guassian_data array with
+        // probabily - quantile pairs
+        for (var i = 0; i < 100000; i++) {
+            q = normal(); // calc random draw from normal dist
+            p = gaussian(q); // calc prob of rand draw
+            el = {
+                "y" : p,
+                "x1": q,
+                "x2": q + d
+            };
+            guassian_data.push(el);
+        };
+        };
+
+        // from http://bl.ocks.org/mbostock/4349187
+        // Sample from a normal distribution with mean 0, stddev 1.
+        function normal() {
+            var x = 0,
+                y = 0,
+                rds, c;
+            do {
+                x = Math.random() * 2 - 1;
+                y = Math.random() * 2 - 1;
+                rds = x * x + y * y;
+            } while (rds == 0 || rds > 1);
+            c = Math.sqrt(-2 * Math.log(rds) / rds); // Box-Muller transform
+            return x * c; // throw away extra sample y * c
+        };
+
+        //taken from Jason Davies science library
+        // https://github.com/jasondavies/science.js/
+        function gaussian(x) {
+            var gaussianConstant = 1 / Math.sqrt(2 * Math.PI),
+                mean = 0,
+                sigma = 1;
+            x = (x - mean) / sigma;
+            return gaussianConstant * Math.exp(-.5 * x * x) / sigma;
+        };
+
+        function normalcdf(X){   //HASTINGS.  MAX ERROR = .000001
+            var T=1/(1+.2316419*Math.abs(X));
+            var D=.3989423*Math.exp(-X*X/2);
+            var Prob=D*T*(.3193815+T*(-.3565638+T*(1.781478+T*(-1.821256+T*1.330274))));
+            if (X>0) {
+                Prob=1-Prob
+            }
+            return Prob
+        };
+       };
+     };
+    </script>
+</head>
+
+<body>
+
+</body>
+
+<script type="text/javascript">
+    d3.csv('https://dl.dropboxusercontent.com/u/27868566/d3/country_rank.csv',draw2);
+</script>
+
+</html>
