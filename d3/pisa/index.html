@@ -13,7 +13,7 @@
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <style type="text/css">
     body {
-        font: 18px Georgia;
+        font: 12.7px Georgia;
     }
 
     #container {
@@ -33,7 +33,7 @@
         float: left;
         position: absolute;
         z-index: 3;
-        padding-left: 450px;
+        padding-left: 160px;
     }
 
     #main_chart2 {
@@ -45,9 +45,9 @@
     }
 
     .paragraph {
-        padding-top: 60px;
-        padding-left: 80px;
-        padding-bottom: 10px;
+        padding-top: 20px;
+        padding-right: 80px;
+        padding-bottom: 8px;
     }
 
     #button {
@@ -55,10 +55,10 @@
     }
 
     .control_button {
-        border-radius: 25px;
+        border-radius: 20px;
         background-color: #2c3e50;
-        width: 150px;
-        height: 70px;
+        width: 120px;
+        height: 56px;
         color: white;
         border-style: solid;
         float: right;
@@ -74,9 +74,9 @@
     }
 
     .button_text {
-        padding-left: 45px;
+        padding-left: 36px;
         font-weight: bold;
-        font-size: 22px;
+        font-size: 17px;
     }
 
     select:not([multiple]) {
@@ -87,13 +87,13 @@
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
         padding: 1em;
         padding-right: 1.3em;
-        font-size: 13px;
+        font-size: 10px;
         font-weight: bold;
         text-transform: uppercase;
     }
 
     .mySelect {
-        border-radius: 10;
+        border-radius: 8;
     }
 
     .div_dropdown {
@@ -187,6 +187,9 @@
     </style>
     <script type="text/javascript">
     function draw(data) {
+        ////////////////////////////////////////////
+        // All necessary variables and parameters
+        ////////////////////////////////////////////
         var posA = 0,
             posB = 0;
 
@@ -208,7 +211,7 @@
                 bottom: 30,
                 left: 50
             },
-            slope_width = 500 - slope_margin.left - slope_margin.right,
+            slope_width = 500 + 100 - slope_margin.left - slope_margin.right,
             slope_height = 1500 - slope_margin.top - slope_margin.bottom;
 
         var bell_margin = {
@@ -225,45 +228,45 @@
             arc_height = 500,
             radius = 350 / 3.5;
 
-        // THIS LINE WILL BE DELETED
-        // THIS LINE WILL BE DELTEED
-
+        /////////////////////////
+        // Set up Page Layout
+        /////////////////////////
         main_title = d3.select('body').append('div')
             .attr('id', 'title')
-            .attr("width", window.outerWidth)
-            .attr("height", 50)
+            .attr("width", window.outerWidth * 0.8)
+            .attr("height", 50 * 0.6)
             .append('svg')
-            .attr("width", window.outerWidth)
-            .attr("height", 50)
+            .attr("width", window.outerWidth * 0.8)
+            .attr("height", 50 * 0.6)
             .append('g');
 
         main_title.append('rect')
-            .attr("width", window.outerWidth)
-            .attr("height", 50)
+            .attr("width", window.outerWidth * 0.8)
+            .attr("height", 50 * 0.6)
             .attr('fill', '#9FC9C9');
 
         main_title.append('text')
             .attr({
-                'x': window.outerWidth / 2,
-                'y': 30,
-                'font-size': '26px',
+                'x': window.outerWidth * 0.8 / 2,
+                'y': 30 * 0.6,
+                'font-size': '18px',
                 'font-weight': 'bold',
                 'text-anchor': 'middle',
                 'fill': 'Black'
             })
-            .text('VISUALIZATION OF PISA DATA');
+            .text('IS PISA RANKING A GOOD INSTRUMENT TO MEASURE GLOBAL EDUCATION COMPETITIVENESS?');
 
         d3.select('body')
             .append('div')
             .attr('id', 'container')
-            .attr('width', window.outerWidth)
-            .attr('height', 1500);
+            .attr('width', window.outerWidth * 0.8)
+            .attr('height', 1500 * 0.8);
 
         vis = d3.select('#container')
             .append('div')
             .attr('id', 'vis')
-            .style("width", arc_width + bell_width - 250 + 'px')
-            .style("height", 1500 + 'px');
+            .style("width", (arc_width + bell_width - 250) * 0.8 + 'px')
+            .style("height", 1500 * 0.8 + 'px');
 
         vis.append('div')
             .attr('id', 'main_chart1')
@@ -273,16 +276,23 @@
 
         vis.append('div')
             .attr('id', 'main_chart2')
-            .style("width", arc_width + bell_width - 250 + 'px')
-            .style("height", 1500 + 'px')
+            .style("width", (arc_width + bell_width - 250) * 0.8 + 'px')
+            .style("height", 1500 * 0.8 + 'px')
             .style('display', 'none');
 
         d3.select('#container')
             .append('div')
             .attr('id', 'content')
-            .style("width", 1920 - 300 - 1050 + 'px')
-            .style("height", 1500 + 'px');
+            .style("width", (1920 - 300 - 1050) * 0.8 + 'px')
+            .style("height", 1500 * 0.8 + 'px');
 
+
+        ////////////////////////////////////////////
+        // Main content & class paragraph
+        ////////////////////////////////////////////
+
+        // Create Paragraph 1
+        // Set display as block to make paragraph 2 visible
         para1 = d3.select('#content').append('div')
             .attr('class', 'paragraph')
             .style('display', 'block');
@@ -297,8 +307,10 @@
             "</br> </br>" +
             "The results again raise questions about the global competitiveness of the US educational system" +
             "</br> </br>" +
-            "Since Hongkong(China) placed 3rd in math ranking, it is said that Hongkong students scored higher in math than Massachusette(USA) students did. But this statement is still ambiguous because PISA ranking is based on the average score of each country on each subject. In reality, some Hongkong students have higher scores than most of Massachusette students, and vice versa. Many students of these two cities are, perhaps majority of them, sharing the same scores. <span style='text-decoration:underline'> The average number does not reflect that reality.</span>. Therefore, the important question should be asked is <span style='font-weight:bold'> how many percent of students are sharing the same scores among two groups.</span> The average score or t-test does not answer this question. <span style='font-weight:bold'> Effect Size (Cohen's d) is what we need to answer this question</span>");
+            "Since Hongkong(China) placed 3rd in math ranking, it is said that Hongkong students scored higher in math than Massachusette(USA) students did. But this statement is still ambiguous because PISA ranking is based on the average score of each country on each subject. In reality, some Hongkong students have higher scores than most of Massachusette students, and vice versa. Many students of these two cities are, perhaps majority of them, sharing the same scores. <span style='text-decoration:underline'> The average number does not reflect that reality.</span>. </br> </br> Therefore, the important question should be asked is <span style='font-weight:bold'> how many percent of students are sharing the same scores among two groups.</span> The average score or t-test does not answer this question. <span style='font-weight:bold'> Effect Size (Cohen's d) is what we need to answer this question</span>");
 
+        // Create Paragraph 2
+        // Set display as none to make paragraph 2 invisible
         para2 = d3.select('#content').append('div')
             .attr('class', 'paragraph')
             .style('display', 'none');
@@ -307,20 +319,26 @@
             setTimeout(function() {
                 MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
             }, 10);
-            return "<span style='font-weight:bold'>Effect size measures either measure the sizes of associations or the sizes of differences.</span> Therefore, from effect size, we can assess the amount of overlap between two groups. <span style='font-weight:bold'>If the effect size is small, the amount of overlap between groups is large, and vice versa.</span> Let's use the last example:" + "<br/><br/>" +
-              "First, we calculate the effect size of Hongkong(China) and Massachusette(USA):"+ "<br/><br/>" +
-              "$Effect\\ Size\\ (Cohen's\\ d)\\ \\delta\\ = \\frac{|\\mu_1-\\mu_2|}{\\sqrt{\\sigma_1^2 + \\sigma_2^2}} =\\frac{|561.42-513.39|}{\\sqrt{95.87^2 + 97.36^2}} = 0.35$" + "<br/><br/>" +
-              "Second, we can calculate the percentage of Overlap between the math score of Hongkong students and Massachusette:" + "<br/><br/>" +
-              "$OVL\\ = 2\\Phi\(\\frac{-|\\delta|}{2})\\ = 2\\Phi\(\\frac{-|0.35|}{2})\\ = 0.8605\\ =\\ 86.05\\%$" + "<br/><br/>" +
-              "Last, the probability of superiority is:" + "<br/><br/>" +
-              "$CL\\ = \\Phi\(\\frac{\\delta}{\\sqrt{2}})\\ = 0.5981\\ =\\ 59.81\\% $" + "<br/><br/>" +
-              "<span style='font-weight:bold'>With effect size = 0.35, the percentage of overlap between these two groups are up to 86.05% even though HongKong is in the top of the math ranking and Massachusette is at the position of about one-third of the math ranking.</span> Moreover, the probability of superiority is 0.5981 or 59.81%, which means that if we picked randomly one student of each country, the probability of the event that that Hongkong student has the higher math score than Massachusette student does is 0.5981 (Intuitively, 0.5981 is quite close to the probability of head when we toss a coin). <span style='text-decoration:underline'>And we should only concern about the competitiveness in education of Massachusette if this probability is .9 or above, when we compare with Hongkong.</span>"+ "<br/><br/>" +
-              "Or we can take a look at the case of Shanghai and USA. Shanghai is the biggest city and and a global financial hub in China. With OECD ranking, Shanghai students place the top in rankings for math, reading and science. However, on average, about 62.74% of two groups are sharing the same score in math. And they are 76.99% overlap and  74.25% overlap for reading and science respectively.";
+            return "<span style='font-weight:bold'>Effect size measures either the sizes of associations or the sizes of differences.</span> Therefore, from effect size, we can assess the amount of overlap between two groups. <span style='font-weight:bold'>If the effect size is small, the amount of overlap between groups is large, and vice versa.</span> Let's use the last example(see below note for calculation):" + "<br/><br/>" +
+                "<span style='font-weight:bold'>The overlap between Math Scores for HongKong students and Massachusette students is 86.05%, even though HongKong is in the top of the math ranking and Massachusette is at the position of about one-third of the math ranking (effect size is 0.35). <br/><br/> </span> <span style='font-weight:bold'>The probability of superiority is 0.5981 or 59.81%, which means that if we picked randomly one student of each country, the probability that that Hongkong student has the higher math score than Massachusette student is 0.5981 - almost a flip of a coin ! </span> <span style='font-size:9pt'>We should only concern about the competitiveness in education of Massachusette if this probability is .9 or above, when we compare with Hongkong.</span>" + "<br/><br/>" +
+                "Or we can take a look at the case of Shanghai and USA. Shanghai is the biggest city and and a global financial hub in China. With OECD ranking, Shanghai students place the top in rankings for math, reading and science. However, on average, about 62.74% of two groups are sharing the same score in math. And they are 76.99% overlap and  74.25% overlap for reading and science respectively." + "<br/><br/>" +
+                "<span style='text-decoration:underline'>Note:</span> <br/><span style='font-size:8pt'>" +
+                "$Effect\\ Size\\ (Cohen's\\ d)\\ \\delta\\ = \\frac{|\\mu_1-\\mu_2|}{\\sqrt{\\sigma_1^2 + \\sigma_2^2}} =\\frac{|561.42-513.39|}{\\sqrt{95.87^2 + 97.36^2}} = 0.35$" + "<br/>" +
+                "$OVL\\ = 2\\Phi\(\\frac{-|\\delta|}{2})\\ = 2\\Phi\(\\frac{-|0.35|}{2})\\ = 0.8605\\ =\\ 86.05\\%$" + "<br/>" +
+                "$CL\\ = \\Phi\(\\frac{\\delta}{\\sqrt{2}})\\ = 0.5981\\ =\\ 59.81\\% $</span>" ;
         });
 
+
+
+        ////////////////////////////////////////////////////////
+        // Control Buttons to switch Between chart1 and chart2
+        ////////////////////////////////////////////////////////
+
+        // A div contains two control button(div)
         button = d3.select('#content').append('div')
             .attr('id', 'button');
 
+        // Next Button Div
         next_button = button.append('div')
             .attr('class', 'control_button')
             .style('display', 'block');
@@ -329,6 +347,7 @@
             .attr('class', 'button_text')
             .text('Next')
 
+        // Back Button Div
         back_button = button.append('div')
             .attr('class', 'control_button')
             .style('display', 'none');
@@ -337,6 +356,7 @@
             .attr('class', 'button_text')
             .text('Back')
 
+        // Click action for Next Button
         next_button.on('click', function(d) {
             d3.select('#main_chart1').style('display', 'none');
             d3.select('#main_chart2').style('display', 'block');
@@ -346,6 +366,7 @@
             para2.style('display', 'block');
         });
 
+        // Click action for Back Button
         back_button.on('click', function(d) {
             d3.select('#main_chart1').style('display', 'block');
             d3.select('#main_chart2').style('display', 'none');
@@ -353,34 +374,85 @@
             next_button.style('display', 'block');
             para2.style('display', 'none');
             para1.style('display', 'block');
+            // Highlight HongKong-China and Massachusetts-USA in the slope chart
+            // Highlight HongKong-China
+            d3.selectAll('#outer_HongKong-China').style('opacity', '0.7');
+            d3.selectAll('#text_HongKong-China').style('font-weight', 'bold');
+            d3.selectAll('.match').style('opacity', '0.2');
+            d3.selectAll('.ranking_rect_text_HongKong-China').style('opacity', '1');
+            d3.selectAll('.HongKong-China.match').style('opacity', '0.9').attr('r', '5');
+            d3.selectAll('.inner_line').style("opacity", "0.1");
+            // Highlight Massachusetts-USA
+            d3.selectAll('#outer_Massachusetts-USA').style('opacity', '0.7');
+            d3.selectAll('#text_Massachusetts-USA').style('font-weight', 'bold');
+            d3.selectAll('.match').style('opacity', '0.2');
+            d3.selectAll('.ranking_rect_text_Massachusetts-USA').style('opacity', '1');
+            d3.selectAll('.Massachusetts-USA.match').style('opacity', '0.9').attr('r', '5');
+            d3.selectAll('.inner_line').style("opacity", "0.1");
         })
 
+        //////////////////////////
+        // Draw chart1 and chart2
+        //////////////////////////
         draw_vis1(data);
         draw_vis2(data);
-        // THIS LINE WILL BE DELETED
-        // THIS LINE WILL BE DELTEED
 
+        // Normal layout has been set up
+        // All the charts have been drawn
+        // Highlight HongKong-China and Massachusetts-USA in the slope chart
+        // Highlight HongKong-China
+        d3.selectAll('#outer_HongKong-China').style('opacity', '0.7');
+        d3.selectAll('#text_HongKong-China').style('font-weight', 'bold');
+        d3.selectAll('.match').style('opacity', '0.2');
+        d3.selectAll('.ranking_rect_text_HongKong-China').style('opacity', '1');
+        d3.selectAll('.HongKong-China.match').style('opacity', '0.9').attr('r', '5');
+        d3.selectAll('.inner_line').style("opacity", "0.1");
+        // Highlight Massachusetts-USA
+        d3.selectAll('#outer_Massachusetts-USA').style('opacity', '0.7');
+        d3.selectAll('#text_Massachusetts-USA').style('font-weight', 'bold');
+        d3.selectAll('.match').style('opacity', '0.2');
+        d3.selectAll('.ranking_rect_text_Massachusetts-USA').style('opacity', '1');
+        d3.selectAll('.Massachusetts-USA.match').style('opacity', '0.9').attr('r', '5');
+        d3.selectAll('.inner_line').style("opacity", "0.1");
+
+
+        ////////////////////////////////////////////////////////////////////////
+        // Required Functions:
+        //    + updateDiff : get Effect Size Value
+        //    + draw_vis1 : draw slope graph in main_chart1
+        //    + draw_vis2 : draw bell curves, arcs and tooltips in main_chart2
+        ////////////////////////////////////////////////////////////////////////
+
+        // Function to calculate Effect Size (Cohen's d)
         function updateDiff(mean1, stdv1, mean2, stdv2) {
             return Math.abs(mean1 - mean2) / Math.sqrt(stdv1 * stdv1 + stdv2 * stdv2);
         };
-        // Building Vis 1
+
+
+
+        ////////////////////////////
+        // Function to build chart1
+        ////////////////////////////
         function draw_vis1(data) {
+
+            // Scale data to fit to a svg inside #main_chart1
             var x = d3.scale.ordinal()
                 .rangePoints([0, slope_width]);
 
             var y = d3.scale.ordinal()
-                .rangePoints([0, slope_height]);
+                .rangePoints([0, slope_height * 0.8]);
 
             var color = d3.scale.category10();
 
+            // Create x Axis
             var xAxis = d3.svg.axis()
                 .scale(x)
                 .orient("bottom");
-
+            // Create y Axis
             var yAxis = d3.svg.axis()
                 .scale(y)
                 .orient("left");
-
+            // Create lines in slopegraph
             var line = d3.svg.line()
                 .interpolate("linear")
                 .x(function(d) {
@@ -390,13 +462,17 @@
                     return y(d.y);
                 });
 
+            // Create svg to contain the chart
             var svg = d3.select("#main_chart1").append("svg")
                 .attr("width", slope_width + slope_margin.left + slope_margin.right)
                 .attr("height", slope_height + slope_margin.top + slope_margin.bottom)
                 .style('float', 'right')
                 .append("g")
-                .attr("transform", "translate(" + slope_margin.left + "," + slope_margin.top + ")");
+                .attr("transform", "translate(" + slope_margin.left * 0.8 + "," + slope_margin.top * 0.8 + ")");
 
+            // Map original data structure
+            // into slopes object
+            // slopes is more suittable to drive data into slopegraph
             data["rows"] = data.map(function(d) {
                 return d.CNT;
             });
@@ -417,8 +493,10 @@
                 };
             });
 
+            // x domain
             x.domain(['math', 'read', 'science']);
 
+            // y domain
             var y_range = [];
             for (var i = 1; i <= 69; i++) {
                 y_range.push(i);
@@ -426,10 +504,14 @@
 
             y.domain(y_range);
 
+            // Color coding
+            // color domain
             color.domain(data.rows.slice(0));
-            color.range(["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#bcbd22", "#17becf"])
+            // color range
+            color.range(["#fbdb65"])
+            //color.range(["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#bcbd22", "#17becf"])
 
-            //debugger;
+            // Grouping x elements
             svg.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + slope_height + ")")
@@ -437,7 +519,7 @@
                 .selectAll("text")
                 .style("text-anchor", "start")
                 .style("text-transform", 'uppercase');
-
+            // Grouping y elements
             svg.append("g")
                 .attr("class", "y axis")
                 .call(yAxis)
@@ -447,6 +529,7 @@
                 .style("text-anchor", "end")
                 .text("Ranking");
 
+            // Create groups for each country
             var slope = svg.selectAll(".slope")
                 .data(slopes)
                 .enter().append("g")
@@ -455,7 +538,8 @@
                 })
                 .attr("class", "g_slope");
 
-
+            // Draw outer lines connecting values of each country
+            // Outer lines are shown when mouse out
             slope.append("path")
                 .attr("class", "outer_line")
                 .attr('id', function(d) {
@@ -470,7 +554,8 @@
                 .on('mouseover', mouse_over)
                 .on('mouseout', mouse_out);
 
-
+            //  Draw inner lines connecting values of each country
+            //  Inner lines are shown when mouse over
             slope.append("path")
                 .attr("class", "inner_line")
                 .attr('id', function(d) {
@@ -485,6 +570,7 @@
                 .on('mouseover', mouse_over)
                 .on('mouseout', mouse_out);
 
+            // Create legend containing country names
             slope.append("rect")
                 .datum(function(d) {
                     return {
@@ -533,12 +619,16 @@
                 .on('mouseover', mouse_over)
                 .on('mouseout', mouse_out);
 
+            // This country has a very long name
+            // Change its text in the legend to the shorter name
             d3.select('#text_Perm-RussianFederation')
                 .text('Perm-RF');
             d3.select('#text_Perm-RussianFederation')
                 .text('Perm-RF');
 
+
             for (var i = 0; i < 3; i++) {
+                // Create circles as dot values on the chart
                 slope.append("circle")
                     .attr("class", function(d) {
                         return d.id + ' match';
@@ -559,6 +649,9 @@
                     .on('mouseover', mouse_over)
                     .on('mouseout', mouse_out);
 
+                // Create ranking tooltips
+                // Ranking tooltips opacity is 0; invisible
+                // Mouse over -> change opacity to 1; visible
                 g_ranking = slope.append('g');
                 g_ranking.append("rect")
                     .attr("class", function(d) {
@@ -632,19 +725,32 @@
 
             };
 
+            // Avoid reapting codes, create function mouse_over and mouse_out
             function mouse_over(d) {
+                // Remove highlight of Hongkong-China
+                d3.selectAll('#outer_HongKong-China').style('opacity', '0');
+                d3.selectAll('#text_HongKong-China').style('font-weight', 'normal');
+                d3.selectAll('.HongKong-China.match').style('opacity', '0.6').attr('r', '3');
+                d3.selectAll('.ranking_rect_text_HongKong-China').style('opacity', '0');
+                // Remove highlight of Massachusetts-USA
+                d3.selectAll('#outer_Massachusetts-USA').style('opacity', '0');
+                d3.selectAll('#text_Massachusetts-USA').style('font-weight', 'normal');
+                d3.selectAll('.Massachusetts-USA.match').style('opacity', '0.6').attr('r', '3');
+                d3.selectAll('.ranking_rect_text_Massachusetts-USA').style('opacity', '0');
+                // MouseOver Effects
                 d3.selectAll('#outer_' + d.id).style('opacity', '0.7');
                 d3.selectAll('#text_' + d.id).style('font-weight', 'bold');
                 d3.selectAll('.match').style('opacity', '0.2');
                 d3.selectAll('.ranking_rect_text_' + d.id).style('opacity', '1');
                 d3.selectAll('.' + d.id + '.match').style('opacity', '0.9').attr('r', '5')
                     .each(function(e) {
-                        //debugger;
+
                     });
                 d3.selectAll('.inner_line').style("opacity", "0.1");
             }
 
             function mouse_out(d) {
+                // MouseOut Effects
                 d3.selectAll('#outer_' + d.id).style('opacity', '0');
                 d3.selectAll('#text_' + d.id).style('font-weight', 'normal');
                 d3.selectAll('.match').style('opacity', '0.6').attr('r', '3');
@@ -655,21 +761,26 @@
         };
 
 
-        // Building Vis 2
+        ///////////////////////////////
+        // Function to build chart2
+        ///////////////////////////////
         function draw_vis2(data) {
+            // Main div contains chart2
             dropdown_div = d3.select("#main_chart2").append("div")
                 .attr("class", "div_dropdown")
                 .attr("align", "center")
-                .style("width", arc_width + bell_width - 150 + 'px')
-                .style("height", 100 + 'px');
+                .style("width", (arc_width + bell_width - 150) * 0.8 + 'px')
+                .style("height", 100 * 0.8 + 'px');
 
-            dropdown_div.append("h3")
+            dropdown_div.append("h4")
                 .text("Select Any Two Countries:");
 
+            // Create dropdown select for country A
             dropdown_select1 = dropdown_div.append("select")
                 .attr("id", "mySelect1")
                 .attr("class", "mySelect")
                 .on('change', function(d) {
+                    // Update the chart with new select value
                     posA = d3.select(this).property('value');
                     cnt_A = data[posA]['CNT'];
                     d3.select('.div_arc').remove();
@@ -691,10 +802,12 @@
                     console.log(diff);
                 });
 
+            // Create dropdown select for country B
             dropdown_select2 = dropdown_div.append("select")
                 .attr("id", "mySelect2")
                 .attr("class", "mySelect")
                 .on('change', function(d) {
+                    // Update the chart with new select value
                     posB = d3.select(this).property('value');
                     cnt_B = data[posB]['CNT'];
                     d3.select('.div_arc').remove();
@@ -716,10 +829,12 @@
                     console.log(diff);
                 });
 
+            // Create dropdown select for Subject: Math, Reading, Science
             dropdown_select3 = dropdown_div.append("select")
                 .attr("id", "mySelect3")
                 .attr("class", "mySelect")
                 .on('change', function(d) {
+                    // Update the chart with new select value
                     subject = d3.select(this).property('value');
                     if (subject === 'Math') {
                         subject_mean = 'math_score';
@@ -755,7 +870,7 @@
                     console.log(diff);
                 });
 
-
+            // Push country list to dropdown1
             var option1 = dropdown_select1.selectAll('option1')
                 .data(data)
                 .enter()
@@ -766,7 +881,7 @@
                 .text(function(d) {
                     return d.CNT;
                 });
-
+            // Push country list to dropdown2
             var option2 = dropdown_select2.selectAll('option2')
                 .data(data)
                 .enter()
@@ -778,6 +893,7 @@
                     return d.CNT;
                 });
 
+            // Push subject_list to dropdown3
             var subject_list = ["Math", "Reading", "Science"];
 
             var subject_option = dropdown_select3.selectAll('option3')
@@ -791,16 +907,16 @@
                     return d;
                 });
 
-
+            // Draw two bells and two arcs
             bell_arc(diff, cnt_A, cnt_B);
+            // Create tooltips containing countries information
             create_tooltip(data, posA, posB);
 
 
 
-            //debugger;
-
-
+            // Write function to draw two bell curves and two arcs
             function bell_arc(diff, cnt_A, cnt_B) {
+                // Set up dimension for bell curves chart
                 var bell_margin = {
                         top: 50,
                         right: 80,
@@ -810,7 +926,7 @@
                     bell_width = 1200 - bell_margin.left - bell_margin.right,
                     bell_height = 400 - bell_margin.top - bell_margin.bottom;
 
-
+                // Set up dimension for arc chart
                 var arc_width = 500,
                     arc_height = 200,
                     radius = 350 / 3.5;
@@ -836,10 +952,10 @@
                     };
                 });
 
-                //debugger;
+
                 // need to sort for plotting
                 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-
+                // to get shaded under the cuver, sort y value not x value
                 bells[0].values.sort(function(a, b) {
                     return a.y - b.y;
                 });
@@ -848,11 +964,12 @@
                     return a.y - b.y;
                 });
 
+                // Set up domain and range for bell charts
                 var x = d3.scale.linear()
-                    .range([0, bell_width]);
+                    .range([0, bell_width * 0.8]);
 
                 var y = d3.scale.linear()
-                    .range([bell_height, 0]);
+                    .range([bell_height * 0.8, 0]);
 
                 var color = d3.scale.ordinal();
 
@@ -876,30 +993,30 @@
                 var bell_div = d3.select("#main_chart2").append("div")
                     .attr("class", "div_bell")
                     .attr("align", "center")
-                    .style("width", bell_width - 50 + 'px')
-                    .style("height", bell_height + bell_margin.top + bell_margin.bottom + 'px');
+                    .style("width", (bell_width - 50) * 0.8 + 'px')
+                    .style("height", (bell_height + bell_margin.top + bell_margin.bottom) * 0.8 + 'px');
 
                 var bell_svg = bell_div.append("svg")
-                    .attr("width", bell_width - 50)
-                    .attr("height", bell_height + bell_margin.top + bell_margin.bottom);
+                    .attr("width", (bell_width - 50) * 0.8)
+                    .attr("height", (bell_height + bell_margin.top + bell_margin.bottom) * 0.8);
 
                 var bell_g1 = bell_svg.append("g")
-                    .attr("transform", "translate(" + bell_margin.left + "," + bell_margin.top + ")");
+                    .attr("transform", "translate(" + bell_margin.left * 0.8 + "," + bell_margin.top * 0.8 + ")");
 
                 bell_svg.append("g")
                     .attr("class", "g_tittle")
-                    .attr("transform", "translate(" + bell_margin.left + ",30)");
+                    .attr("transform", "translate(" + bell_margin.left * 0.8 + ",24)");
 
                 d3.select(".g_tittle").append("text")
                     .attr({
                         "class": "cohen_float",
-                        "transform": "translate(" + bell_margin.left + ",0)",
+                        "transform": "translate(" + bell_margin.left * 0.8 + ",0)",
                         "text-anchor": "middle",
-                        "x": bell_width * (0.4 + 0.3 * diff / 10),
+                        "x": (bell_width * (0.4 + 0.3 * diff / 10)) * 0.8,
                         "y": 0
                     })
                     .style({
-                        "font": "18px sans-serif",
+                        "font": "14px sans-serif",
                         'font-weight': 'bold'
                     })
                     .text("Cohen's d: " + diff.toPrecision(2));
@@ -917,17 +1034,7 @@
                     .attr("transform", "translate(0," + bell_height + ")")
                     .call(xAxis);
 
-                /*
-                bell_g1.append("g")
-                      .attr("class", "y axis")
-                      .call(yAxis)
-                    .append("text")
-                      .attr("transform", "rotate(-90)")
-                      .attr("y", 6)
-                      .attr("dy", ".71em")
-                      .style("text-anchor", "end")
-                      .text("Density");
-                */
+
                 var bell = bell_g1.selectAll(".bell")
                     .data(bells)
                     .enter().append("g")
@@ -942,17 +1049,17 @@
                         return color(d.id);
                     });
 
-
+                // Adding average (dotted) line for the each bell curve
                 // Add mu1 and mu2 line
                 bell_g1.append("line")
                     .attr("id", "mu1")
                     .style("stroke", "white")
                     .style("stroke-dasharray", ("3, 3"))
                     .attr({
-                        x1: bell_width * 0.4,
-                        x2: bell_width * 0.4,
+                        x1: bell_width * 0.4 * 0.8,
+                        x2: bell_width * 0.4 * 0.8,
                         y1: 0,
-                        y2: bell_height
+                        y2: bell_height * 0.8
                     });
 
                 bell_g1.append("line")
@@ -960,10 +1067,10 @@
                     .style("stroke", "white")
                     .style("stroke-dasharray", ("3, 3"))
                     .attr({
-                        x1: bell_width * (0.4 + diff / 10),
-                        x2: bell_width * (0.4 + diff / 10),
+                        x1: bell_width * (0.4 + diff / 10) * 0.8,
+                        x2: bell_width * (0.4 + diff / 10) * 0.8,
                         y1: 0,
-                        y2: bell_height
+                        y2: bell_height * 0.8
                     });
 
 
@@ -971,11 +1078,11 @@
                 bell_g1.append("text")
                     .attr("class", "legend_" + cnt_A)
                     .attr({
-                        x: bell_width * 0.7,
-                        y: bell_height * 0.15
+                        x: bell_width * 0.7 * 0.7,
+                        y: bell_height * 0.15 * 0.8
                     })
                     .style({
-                        "font": "18px Arial",
+                        "font": "14px Arial",
                         "text-transform": "uppercase",
                         'font-weight': 'bold',
                         "fill": "#1f77b4"
@@ -985,11 +1092,11 @@
                 bell_g1.append("text")
                     .attr("class", "legend_" + cnt_B)
                     .attr({
-                        x: bell_width * 0.7,
-                        y: bell_height * 0.2
+                        x: bell_width * 0.7 * 0.7,
+                        y: bell_height * 0.2 * 0.8
                     })
                     .style({
-                        "font": "18px Arial",
+                        "font": "14px Arial",
                         "text-transform": "uppercase",
                         'font-weight': 'bold',
                         "fill": "#d62728"
@@ -999,7 +1106,7 @@
                 //////////////////////////////
                 // Make two left aligned Arcs
                 /////////////////////////////
-
+                // Data for Arc 1 : Percentage of Overlap
                 data_arc1 = [{
                     "group": "NaN1",
                     "arc_value": (200 * normalcdf(-diff / 2)).toPrecision(4)
@@ -1007,7 +1114,7 @@
                     "group": "NaN2",
                     "arc_value": 100 - (200 * normalcdf(-diff / 2)).toPrecision(4)
                 }];
-
+                // Data for Arc 2: Probability of Superiority
                 data_arc2 = [{
                     "group": "NaN1",
                     "arc_value": (100 * normalcdf(diff / Math.sqrt(2))).toPrecision(4)
@@ -1015,13 +1122,13 @@
                     "group": "NaN2",
                     "arc_value": 100 - (100 * normalcdf(diff / Math.sqrt(2))).toPrecision(4)
                 }];
-
+                // Color Range for Arcs
                 var arc_color = d3.scale.ordinal()
                     .range(["hsla(350, 34%, 31%, 0.72)", "white"]);
-
+                // Define inner Radius and Outer Radius for Arc
                 var arc = d3.svg.arc()
-                    .outerRadius(radius - 10)
-                    .innerRadius(radius - 30);
+                    .outerRadius((radius - 10) * 0.8)
+                    .innerRadius((radius - 30) * 0.8);
 
                 var pie = d3.layout.pie()
                     .sort(null)
@@ -1033,16 +1140,16 @@
                 var arc_div = d3.select("#main_chart2").append("div")
                     .attr("class", "div_arc")
                     .attr("align", "left")
-                    .style("width", 1070 - 50 + 'px')
-                    .style("height", arc_height + 'px');
+                    .style("width", (1070 - 50) * 0.8 + 'px')
+                    .style("height", arc_height * 0.8 + 'px');
 
                 var svg_arc = arc_div.append("svg")
                     .attr("class", "svg_arc")
-                    .attr("width", arc_width)
-                    .attr("height", arc_height)
+                    .attr("width", arc_width * 0.8)
+                    .attr("height", arc_height * 0.8)
 
                 var g1 = svg_arc.append("g")
-                    .attr("transform", "translate(" + 350 / 3 + "," + arc_height / 2 + ")");
+                    .attr("transform", "translate(" + 0.8 * 350 / 3 + "," + 0.8 * arc_height / 2 + ")");
 
                 var arc1_g = g1.selectAll(".arc1")
                     .data(pie(data_arc1))
@@ -1056,27 +1163,27 @@
                     });
 
                 arc1_g.append("text")
-                    .attr("transform", "translate(0,30)")
+                    .attr("transform", "translate(0,24)")
                     .attr("text-anchor", "middle")
                     .text("% Overlap")
                     .style({
-                        "font": "17px Arial",
+                        "font": "13px Arial",
                         'font-weight': 'bold',
                         "fill": "#6f8197"
                     });
 
                 arc1_g.append("text")
-                    .attr("transform", "translate(0,-8)")
+                    .attr("transform", "translate(0,-6.4)")
                     .attr("text-anchor", "middle")
                     .text((200 * normalcdf(-diff / 2)).toPrecision(4) + '%')
                     .style({
-                        "font": "25px Arial",
+                        "font": "20px Arial",
                         'font-weight': 'bold',
                         "fill": "#36f"
                     });
 
                 var g2 = svg_arc.append("g")
-                    .attr("transform", "translate(" + 320 + "," + arc_height / 2 + ")");
+                    .attr("transform", "translate(" + 320 * 0.8 + "," + 0.8 * arc_height / 2 + ")");
                 var arc2_g = g2.selectAll(".arc2")
                     .data(pie(data_arc2))
                     .enter().append("g")
@@ -1089,11 +1196,11 @@
                     });
 
                 arc2_g.append("text")
-                    .attr("transform", "translate(0,20)")
+                    .attr("transform", "translate(0,16)")
                     .attr("text-anchor", "middle")
                     .text("Probability of")
                     .style({
-                        "font": "17px Arial",
+                        "font": "13px Arial",
                         'font-weight': 'bold',
                         "fill": "#6f8197"
                     });
@@ -1103,17 +1210,17 @@
                     .attr("text-anchor", "middle")
                     .text("Superiority")
                     .style({
-                        "font": "17px Arial",
+                        "font": "13px Arial",
                         'font-weight': 'bold',
                         "fill": "#6f8197"
                     });
 
                 arc2_g.append("text")
-                    .attr("transform", "translate(0,-8)")
+                    .attr("transform", "translate(0,-6.4)")
                     .attr("text-anchor", "middle")
                     .text((100 * normalcdf(diff / Math.sqrt(2))).toPrecision(4) + '%')
                     .style({
-                        "font": "25px Arial",
+                        "font": "20px Arial",
                         'font-weight': 'bold',
                         "fill": "#36f"
                     });
@@ -1158,7 +1265,8 @@
                     return gaussianConstant * Math.exp(-.5 * x * x) / sigma;
                 };
 
-                function normalcdf(X) { //HASTINGS.  MAX ERROR = .000001
+                // function to calculate normalcdf values
+                function normalcdf(X) {
                     var T = 1 / (1 + .2316419 * Math.abs(X));
                     var D = .3989423 * Math.exp(-X * X / 2);
                     var Prob = D * T * (.3193815 + T * (-.3565638 + T * (1.781478 + T * (-1.821256 + T * 1.330274))));
@@ -1169,21 +1277,24 @@
                 };
             };
 
+            // Tooltips for Country A and Country B
             function create_tooltip(d, posA, posB) {
                 d3.select("#main_chart2").append("div")
                     .attr('class', 'div_tooltip')
-                    .style("width", 1050 + 'px')
-                    .style("height", 250 + 'px');
+                    .style("width", 1050 * 0.8 + 'px')
+                    .style("height", 250 * 0.8 + 'px');
 
                 d3.select(".div_tooltip").append('div')
                     .attr('class', 'tip1')
-                    .attr("width", 400)
-                    .attr("height", 230);
+                    .attr("width", 400 * 0.8)
+                    .attr("height", 230 * 0.8);
 
+                // Tooltip for country A
+                // contains Ranking for each subject, Mean Scores and Standard Deviation
                 tip1 = d3.select(".tip1").append('svg')
                     .attr('class', 'tooltip')
-                    .attr("width", 400)
-                    .attr("height", 230)
+                    .attr("width", 400 * 0.8)
+                    .attr("height", 230 * 0.8)
                     .append('g');
 
                 tip1.append('rect')
@@ -1191,72 +1302,74 @@
                     .attr({
                         'x': 0,
                         'y': 0,
-                        'width': 400,
-                        'height': 230,
-                        'rx': 20,
-                        'ry': 20,
+                        'width': 400 * 0.8,
+                        'height': 230 * 0.8,
+                        'rx': 20 * 0.8,
+                        'ry': 20 * 0.8,
                         'fill': '#6ACEEB'
                     });
 
                 tip1.append('text')
-                    .attr('transform', 'translate(10,30)')
+                    .attr('transform', 'translate(8,24)')
                     .text('-     Country: ')
                     .style({
                         'fill': 'black',
                         'font-weight': 'bold',
-                        'font-size': 30 + 'px'
+                        'font-size': 24 + 'px'
                     });
 
                 tip1.append('text')
-                    .attr('transform', 'translate(380,58)')
+                    .attr('transform', 'translate(304,46.4)')
                     .text(d[posA]['CNT'])
                     .style({
                         'fill': 'black',
                         'font-weight': 'bold',
-                        'font-size': 26 + 'px',
+                        'font-size': 20 + 'px',
                         'text-anchor': 'end'
                     });
 
                 tip1.append('text')
-                    .attr('transform', 'translate(10,95)')
+                    .attr('transform', 'translate(8,76)')
                     .text('.     Math Ranking: ' + d[posA]['math'] + ', Score: ' + d[posA]['math_score'] +
                         ', Sd:' + d[posA]['sd_math_score'])
                     .style({
                         'fill': 'black',
                         'font-weight': 'bold',
-                        'font-size': 17 + 'px'
+                        'font-size': 13 + 'px'
                     });
 
                 tip1.append('text')
-                    .attr('transform', 'translate(10,140)')
+                    .attr('transform', 'translate(8,112)')
                     .text('.     Read Ranking: ' + d[posA]['read'] + ', Score: ' + d[posA]['read_score'] +
                         ', Sd:' + d[posA]['sd_read_score'])
                     .style({
                         'fill': 'black',
                         'font-weight': 'bold',
-                        'font-size': 17 + 'px'
+                        'font-size': 13 + 'px'
                     });
 
                 tip1.append('text')
-                    .attr('transform', 'translate(10,185)')
+                    .attr('transform', 'translate(8,148)')
                     .text('.     Sci Ranking: ' + d[posA]['sci'] + ', Score: ' + d[posA]['sci_score'] +
                         ', Sd:' + d[posA]['sd_sci_score'])
                     .style({
                         'fill': 'black',
                         'font-weight': 'bold',
-                        'font-size': 17 + 'px'
+                        'font-size': 13 + 'px'
                     });
 
 
                 d3.select(".div_tooltip").append('div')
                     .attr('class', 'tip2')
-                    .attr("width", 400)
-                    .attr("height", 230);
+                    .attr("width", 400 * 0.8)
+                    .attr("height", 230 * 0.8);
 
+                // Tooltip for country B
+                // contains Ranking for each subject, Mean Scores and Standard Deviation
                 tip2 = d3.select(".tip2").append('svg')
                     .attr('class', 'tooltip')
-                    .attr("width", 400)
-                    .attr("height", 230)
+                    .attr("width", 400 * 0.8)
+                    .attr("height", 230 * 0.8)
                     .append('g');
 
                 tip2.append('rect')
@@ -1264,63 +1377,80 @@
                     .attr({
                         'x': 0,
                         'y': 0,
-                        'width': 400,
-                        'height': 230,
-                        'rx': 20,
-                        'ry': 20,
+                        'width': 400 * 0.8,
+                        'height': 230 * 0.8,
+                        'rx': 20 * 0.8,
+                        'ry': 20 * 0.8,
                         'fill': '#FF6666'
                     });
 
                 tip2.append('text')
-                    .attr('transform', 'translate(10,30)')
+                    .attr('transform', 'translate(8,24)')
                     .text('-     Country: ')
                     .style({
                         'fill': 'black',
                         'font-weight': 'bold',
-                        'font-size': 30 + 'px'
+                        'font-size': 24 + 'px'
                     });
 
                 tip2.append('text')
-                    .attr('transform', 'translate(380,58)')
+                    .attr('transform', 'translate(304,46.4)')
                     .text(d[posB]['CNT'])
                     .style({
                         'fill': 'black',
                         'font-weight': 'bold',
-                        'font-size': 26 + 'px',
+                        'font-size': 20 + 'px',
                         'text-anchor': 'end'
                     });
 
                 tip2.append('text')
-                    .attr('transform', 'translate(10,95)')
+                    .attr('transform', 'translate(8,76)')
                     .text('.     Math Ranking: ' + d[posB]['math'] + ', Score: ' + d[posB]['math_score'] +
                         ', Sd:' + d[posB]['sd_math_score'])
                     .style({
                         'fill': 'black',
                         'font-weight': 'bold',
-                        'font-size': 17 + 'px'
+                        'font-size': 13 + 'px'
                     });
 
                 tip2.append('text')
-                    .attr('transform', 'translate(10,140)')
+                    .attr('transform', 'translate(8,112)')
                     .text('.     Read Ranking: ' + d[posB]['read'] + ', Score: ' + d[posB]['read_score'] +
                         ', Sd:' + d[posB]['sd_read_score'])
                     .style({
                         'fill': 'black',
                         'font-weight': 'bold',
-                        'font-size': 17 + 'px'
+                        'font-size': 13 + 'px'
                     });
 
                 tip2.append('text')
-                    .attr('transform', 'translate(10,185)')
+                    .attr('transform', 'translate(8,148)')
                     .text('.     Sci Ranking: ' + d[posB]['sci'] + ', Score: ' + d[posB]['sci_score'] +
                         ', Sd:' + d[posA]['sd_sci_score'])
                     .style({
                         'fill': 'black',
                         'font-weight': 'bold',
-                        'font-size': 17 + 'px'
+                        'font-size': 13 + 'px'
                     });
             };
 
+            // By Default: Hongkong-China & Massachusset-USA
+            d3.select('#mySelect1').property('value', '40');
+            d3.select('#mySelect2').property('value', '23');
+            d3.select('.div_arc').remove();
+            d3.select('.div_bell').remove();
+            d3.select('.div_tooltip').remove();
+            posA = 40;
+            cnt_A = data[posA]['CNT'];
+            mu_1 = data[posA]['math_score'];
+            sd1 = data[posA]['sd_math_score'];
+            posB = 23;
+            cnt_B = data[posB]['CNT'];
+            mu_2 = data[posB]['math_score'];
+            sd2 = data[posB]['sd_math_score'];
+            diff = updateDiff(mu_1, sd1, mu_2, sd2);
+            bell_arc(diff, cnt_B, cnt_A);
+            create_tooltip(data, posB, posA);
         };
     };
     </script>
